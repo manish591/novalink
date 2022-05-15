@@ -1,10 +1,10 @@
 import React from 'react';
-import { LandingPage } from 'pages';
+import { HomePage } from 'pages';
 
 const App = () => {
   return (
     <div className="App">
-      <LandingPage />
+      <HomePage />
     </div>
   );
 };
