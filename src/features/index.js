@@ -8,3 +8,4 @@ export { Archive } from './archive/Archive';
 export { Settings } from './profile/components/settings/Settings';
 export { Login } from './authentication/components/login/Login';
 export { Signup } from './authentication/components/signup/Signup';
+export * from './authentication/authenticationSlice';

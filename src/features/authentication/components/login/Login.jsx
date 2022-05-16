@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from 'features/authentication/authenticationSlice';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleLoginUser = (e) => {
+    e.preventDefault();
+    dispatch(
+      loginUser({ username: loginData.username, password: loginData.password }),
+    );
+  };
 
   return (
     <div className="fixed left-2/4 top-4 sm:top-2/4 z-[10] sm:-translate-y-2/4 -translate-x-2/4 bg-white w-11/12 p-4 sm:w-96 m-auto shadow-[0_0_10px_rgba(0,0,0,0.08),0_0_80px_rgba(0,0,0,0.16)]">
-      <form>
+      <form onSubmit={handleLoginUser}>
         <div className="grid grid-cols-1 gap-2 lg:gap-4">
           <section>
-            <label htmlFor="email" className="sr-only">
-              Email
+            <label htmlFor="username" className="sr-only">
+              username
             </label>
             <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email address"
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
               className="border w-full py-2 lg:py-3 px-1 rounded"
-              autoComplete="email"
-              value={loginData.email}
+              autoComplete="username"
+              value={loginData.username}
               onChange={(e) => {
-                setLoginData({ ...loginData, email: e.target.value });
+                setLoginData({ ...loginData, username: e.target.value });
               }}
               required
             />
