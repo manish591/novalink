@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BottomBar } from 'components';
-import { posts } from 'data';
+import { posts } from 'common/data';
 import { ProfileOptions } from './sub/ProfileOptions';
 
 const MyProfile = () => {

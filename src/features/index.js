@@ -1,4 +1,4 @@
-export { LandingPage } from './landing-page/LandingPage';
+export { LandingPage } from '../components/landing-page/LandingPage';
 export { MyFeed } from './myfeed/MyFeed';
 export { MyProfile } from './profile/MyProfile';
 export { ProfileOptions } from './profile/sub/ProfileOptions';

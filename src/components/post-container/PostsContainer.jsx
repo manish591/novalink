@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserPost } from 'components';
-import { posts } from 'data';
+import { posts } from 'common/data';
 
 const PostContainer = () => {
   return (

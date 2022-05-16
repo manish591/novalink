@@ -1,5 +1,5 @@
 import React from 'react';
-import { posts } from 'data';
+import { posts } from 'common/data';
 import { Sidebar } from 'components';
 
 const DeletedPost = () => {
