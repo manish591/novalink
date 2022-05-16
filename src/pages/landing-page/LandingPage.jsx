@@ -1,5 +1,5 @@
 import React from 'react';
-import { Signup } from 'components';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
@@ -15,7 +15,8 @@ const LandingPage = () => {
           </h3>
         </div>
         <div>
-          <Signup />
+          <Link to="/signup">Signup</Link>
+          <Link to="/login">Login</Link>
         </div>
       </section>
     </div>

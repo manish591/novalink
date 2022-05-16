@@ -4,7 +4,9 @@ import propTypes from 'prop-types';
 const ProfileOptions = ({ openModal, setOpenModal }) => {
   return (
     <div
-      className="fixed w-full bottom-0 z-[20] lg:hidden"
+      className={`fixed w-full bottom-0 z-[20] lg:hidden transition-transform duration-300 ${
+        !openModal && 'translate-y-full'
+      }`}
       style={{ WebkitTapHighlightColor: 'transparent' }}>
       {openModal && (
         <button
@@ -16,10 +18,7 @@ const ProfileOptions = ({ openModal, setOpenModal }) => {
           &nbsp;
         </button>
       )}
-      <ul
-        className={`grid gap-3 z-[12] relative pb-6 pt-6 px-3 bg-[white] rounded-t-2xl transition-transform duration-300 ${
-          !openModal && 'translate-y-full'
-        }`}>
+      <ul className="grid gap-3 z-[12] relative pb-6 pt-6 px-3 bg-[white] rounded-t-2xl">
         <li className="flex items-center gap-3">
           <span className="material-icons-outlined text-2xl">settings</span>
           <p className="text-base">Settings</p>
