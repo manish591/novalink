@@ -10,7 +10,7 @@ import {
   Settings,
   Login,
   Signup,
-} from 'pages';
+} from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
 
 const App = () => {
