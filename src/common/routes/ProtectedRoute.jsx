@@ -1,15 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
-  const isLogedIn = true;
   const location = useLocation();
-  return isLogedIn ? (
+  const isUserLoggedIn = useSelector(
+    (state) => state.authentication.isUserLoggedIn,
+  );
+
+  return isUserLoggedIn ? (
     children
   ) : (
     <Navigate to="/login" replace state={location.pathname} />
   );
+};
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export { ProtectedRoute };

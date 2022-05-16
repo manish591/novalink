@@ -1,10 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-// eslint-disable-next-line react/prop-types
 const RedirectedRoute = ({ children }) => {
-  const isLogedIn = true;
-  return isLogedIn ? <Navigate to="/feed" /> : children;
+  const isUserLoggedIn = useSelector(
+    (state) => state.authentication.isUserLoggedIn,
+  );
+  return isUserLoggedIn ? <Navigate to="/feed" /> : children;
+};
+
+RedirectedRoute.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export { RedirectedRoute };
