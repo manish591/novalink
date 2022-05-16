@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="fixed left-2/4 top-4 sm:top-2/4 z-[10] sm:-translate-y-2/4 -translate-x-2/4 bg-white w-11/12 p-4 sm:w-96 m-auto shadow-[0_0_10px_rgba(0,0,0,0.08),0_0_80px_rgba(0,0,0,0.16)]">
       <form>
@@ -16,19 +22,48 @@ const Login = () => {
               id="email"
               placeholder="Email address"
               className="border w-full py-2 lg:py-3 px-1 rounded"
+              autoComplete="email"
+              value={loginData.email}
+              onChange={(e) => {
+                setLoginData({ ...loginData, email: e.target.value });
+              }}
+              required
             />
           </section>
           <section>
             <label htmlFor="password" className="sr-only">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              className="border w-full py-2 lg:py-3 px-1 rounded"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id="password"
+                placeholder="Password"
+                className="border w-full py-2 lg:py-3 px-1 rounded"
+                value={loginData.password}
+                onChange={(e) => {
+                  setLoginData({ ...loginData, password: e.target.value });
+                }}
+                required
+              />
+              <button
+                type="button"
+                className="absolute right-2 top-2/4 -translate-y-2/4 bg-white z-[2] select-none"
+                onClick={() => {
+                  setShowPassword((sp) => !sp);
+                }}>
+                {showPassword ? (
+                  <span className="material-icons-outlined text-xl opacity-70 hover:opacity-100">
+                    visibility_off
+                  </span>
+                ) : (
+                  <span className="material-icons-outlined text-xl opacity-70 hover:opacity-100">
+                    visibility
+                  </span>
+                )}
+              </button>
+            </div>
           </section>
           <section>
             <button
