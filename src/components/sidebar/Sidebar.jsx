@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
@@ -6,17 +7,23 @@ const Sidebar = () => {
       <div className="flex lg:block h-full items-center justify-center">
         <div className="grid gap-10 lg:gap-4 w-full">
           <div className="lg:px-6 lg:py-4 hidden lg:block">
-            <h1 className="text-2xl sm:text-3xl font-['Pacifico']">novalink</h1>
+            <Link
+              to="/feed"
+              className="text-2xl sm:text-3xl font-['Pacifico'] cursor-pointer">
+              novalink
+            </Link>
           </div>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          <Link
+            to="/feed"
+            className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-[1.6rem]">
               home
             </span>
             <p className="hidden lg:block font-medium text-gray-800 text-base">
               Home
             </p>
-          </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          </Link>
+          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               search
             </span>
@@ -24,15 +31,15 @@ const Sidebar = () => {
               Search
             </p>
           </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               favorite_border
             </span>
             <p className="hidden lg:block font-medium text-gray-800 text-base">
-              Liked
+              Activity
             </p>
           </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               chat
             </span>
@@ -40,30 +47,36 @@ const Sidebar = () => {
               Messages
             </p>
           </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          <Link
+            to="/profile"
+            className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               person
             </span>
             <p className="hidden lg:block font-medium text-gray-800 text-base">
               Profile
             </p>
-          </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          </Link>
+          <Link
+            to="/bookmark"
+            className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               bookmark_border
             </span>
             <p className="hidden lg:block font-medium text-gray-800 text-base">
               Saved
             </p>
-          </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start">
+          </Link>
+          <Link
+            to="/settings"
+            className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               settings
             </span>
             <p className="hidden lg:block font-medium text-gray-800 text-base">
               Settings
             </p>
-          </section>
+          </Link>
         </div>
       </div>
     </div>
