@@ -7,4 +7,8 @@ const loginService = (username, password) => {
   });
 };
 
-export { loginService };
+const signupService = (signupData) => {
+  return axios.post('/api/auth/signup', signupData);
+};
+
+export { loginService, signupService };

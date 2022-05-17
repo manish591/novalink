@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginService } from 'services';
+import { loginService, signupService } from 'services';
 
 const initialState = {
   token: '',
@@ -14,6 +14,19 @@ const loginUser = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const res = await loginService(username, password);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+const signupUser = createAsyncThunk(
+  'authentication/singup',
+  async (signupData, { rejectWithValue }) => {
+    try {
+      const res = await signupService(signupData);
       return res.data;
     } catch (error) {
       console.error(error);
@@ -42,8 +55,23 @@ const authenticationSlice = createSlice({
       state.currentUser = {};
       state.authError = action.error.message;
     });
+    builder.addCase(signupUser.pending, (state) => {
+      state.authStatus = 'LOADING';
+    });
+    builder.addCase(signupUser.fulfilled, (state, action) => {
+      state.authStatus = 'SUCCESS';
+      state.isUserLoggedIn = true;
+      state.token = action.payload.encodedToken;
+      state.currentUser = action.payload.createdUser;
+      state.authError = '';
+    });
+    builder.addCase(signupUser.rejected, (state, action) => {
+      state.authStatus = 'FAILED';
+      state.currentUser = {};
+      state.authError = action.error.message;
+    });
   },
 });
 
-export { loginUser };
+export { loginUser, signupUser };
 export const authenticationReducer = authenticationSlice.reducer;
