@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginService, signupService } from 'services';
+import { useGetLocalStorage } from 'common';
 
 const initialState = {
-  token: '',
   authError: '',
-  currentUser: {},
   authStatus: 'IDLE',
-  isUserLoggedIn: false,
+  token: useGetLocalStorage('token', ''),
+  currentUser: useGetLocalStorage('user', {}),
+  isUserLoggedIn: useGetLocalStorage('login-status', false),
 };
 
 const loginUser = createAsyncThunk(
