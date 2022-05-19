@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BottomBar } from 'components';
 import { posts } from 'common/data';
 import { ProfileOptions } from './components/profile-options/ProfileOptions';
 
 const MyProfile = () => {
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
   return (
     <div className="grid gap-4">
       <section className="relative">
@@ -24,7 +26,16 @@ const MyProfile = () => {
         </div>
         <div className="absolute left-0 w-full top-2 text-[white] flex items-center justify-between px-2 lg:hidden">
           <div className="flex items-center gap-4">
-            <span className="material-icons-outlined text-gray-300">west</span>
+            <button
+              type="button"
+              className="flex items-center justify-center"
+              onClick={() => {
+                navigate(-1);
+              }}>
+              <span className="material-icons-outlined text-gray-300">
+                west
+              </span>
+            </button>
             <h1 className="font-semibold text-xl text-gray-300">
               @albert_flores
             </h1>
