@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BottomBar = () => {
   return (
@@ -6,10 +7,10 @@ const BottomBar = () => {
       <div className="w-11/12 m-auto py-1 px-2">
         <ul className="flex items-center justify-between">
           <li className="p-1">
-            <div className="flex flex-col text-center">
+            <Link to="/feed" className="flex flex-col text-center">
               <span className="material-icons-outlined">home</span>
               <p className="text-[0.625rem]">Home</p>
-            </div>
+            </Link>
           </li>
           <li className="p-1">
             <div className="flex flex-col text-center">
@@ -29,10 +30,10 @@ const BottomBar = () => {
             </div>
           </li>
           <li className="p-1">
-            <div className="flex flex-col text-center">
+            <Link to="/profile" className="flex flex-col text-center">
               <span className="material-icons-outlined">person</span>
               <p className="text-[0.625rem]">Profile</p>
-            </div>
+            </Link>
           </li>
         </ul>
       </div>

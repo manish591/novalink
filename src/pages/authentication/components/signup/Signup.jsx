@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   return (
-    <div className="bg-white w-11/12 p-4 sm:w-96 m-auto lg:shadow-[0_0_10px_rgba(0,0,0,0.08),0_0_80px_rgba(0,0,0,0.16)]">
+    <div className="fixed left-2/4 top-4 sm:top-2/4 z-[10] sm:-translate-y-2/4  -translate-x-2/4 bg-white w-11/12 p-4 sm:w-96 m-auto shadow-[0_0_10px_rgba(0,0,0,0.08),0_0_80px_rgba(0,0,0,0.16)]">
       <form>
         <div className="grid grid-cols-1 gap-2 lg:gap-4">
           <section>
@@ -64,11 +65,11 @@ const Signup = () => {
             <p>Already have a account?</p>
           </section>
           <section className="text-center">
-            <button
-              type="button"
+            <Link
+              to="/login"
               className="bg-[#2F394D] py-1 lg:py-1.5 px-3 text-sm rounded text-white">
               Login
-            </button>
+            </Link>
           </section>
         </div>
       </form>
