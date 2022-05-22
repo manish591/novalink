@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginService, signupService } from 'services';
 import { useGetLocalStorage } from 'common';
+import { editMyProfile } from 'features/profile/ProfileSlice';
 
 const initialState = {
   authError: '',
@@ -76,6 +77,9 @@ const authenticationSlice = createSlice({
       state.authStatus = 'FAILED';
       state.currentUser = {};
       state.authError = action.error.message;
+    });
+    builder.addCase(editMyProfile.fulfilled, (state, action) => {
+      state.currentUser = action.payload.user;
     });
   },
 });
