@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { API_STATE } from 'common';
 
-const initialState = {};
+const initialState = {
+  usersStatus: API_STATE.IDLE,
+  usersData: [],
+  usersError: '',
+};
 
 const usersSlice = createSlice({
   name: 'users',
