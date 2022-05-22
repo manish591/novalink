@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
+  const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
     <div className="hidden sm:block fixed h-[100vh] w-[80px] bg-gray-50 lg:w-[250px]">
       <div className="flex lg:block h-full items-center justify-center">
@@ -48,7 +50,7 @@ const Sidebar = () => {
             </p>
           </section>
           <Link
-            to="/profile"
+            to={`/profile/${currentUser?.username}`}
             className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               person
