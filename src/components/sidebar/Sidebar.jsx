@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Sidebar = () => {
+const Sidebar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
     <div className="hidden sm:block fixed h-[100vh] w-[80px] bg-gray-50 lg:w-[250px]">
@@ -79,10 +80,27 @@ const Sidebar = () => {
               Settings
             </p>
           </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setIsOpenPostModal((prev) => !prev);
+            }}
+            className="flex items-center gap-3 lg:hidden lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
+            <span className="material-icons-outlined text-3xl lg:text-2xl">
+              add_box
+            </span>
+            <p className="hidden lg:block font-medium text-gray-800 text-base">
+              Create Post
+            </p>
+          </button>
         </div>
       </div>
     </div>
   );
+};
+
+Sidebar.propTypes = {
+  setIsOpenPostModal: PropTypes.func.isRequired,
 };
 
 export { Sidebar };

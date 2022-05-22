@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const ActivityBar = () => {
+const ActivityBar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const allUsers = useSelector((state) => state.users.usersData).filter(
     (item) => item.username !== currentUser.username,
@@ -104,6 +105,9 @@ const ActivityBar = () => {
           <section className="mt-4">
             <button
               type="button"
+              onClick={() => {
+                setIsOpenPostModal((prev) => !prev);
+              }}
               className="border w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-[white] items-end rounded-md shadow-md">
               Create Post
             </button>
@@ -112,6 +116,10 @@ const ActivityBar = () => {
       </div>
     </div>
   );
+};
+
+ActivityBar.propTypes = {
+  setIsOpenPostModal: PropTypes.func.isRequired,
 };
 
 export { ActivityBar };
