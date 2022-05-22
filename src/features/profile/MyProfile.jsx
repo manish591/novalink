@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BottomBar } from 'components';
-import { posts } from 'data';
-import { ProfileOptions } from './sub/ProfileOptions';
+import { posts } from 'common/data';
+import { ProfileOptions } from './components/profile-options/ProfileOptions';
 
 const MyProfile = () => {
   const [openModal, setOpenModal] = useState(true);

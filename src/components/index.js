@@ -6,5 +6,5 @@ export { PostContainer } from './post-container/PostsContainer';
 export { Sidebar } from './sidebar/Sidebar';
 export { SearchBar } from './search-bar/SearchBar';
 export { ActivityBar } from './activity-bar/ActivityBar';
-export { RedirectedRoute } from './routes/RedirectedRoute';
-export { ProtectedRoute } from './routes/ProtectedRoute';
+export { RedirectedRoute } from '../common/routes/RedirectedRoute';
+export { ProtectedRoute } from '../common/routes/ProtectedRoute';

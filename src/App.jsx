@@ -10,10 +10,12 @@ import {
   Settings,
   Login,
   Signup,
-} from 'pages';
+} from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
+import { usePersistAuth } from 'common';
 
 const App = () => {
+  usePersistAuth();
   return (
     <div className="App">
       <Routes>

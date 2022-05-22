@@ -1,8 +1,8 @@
 import React from 'react';
-import { posts } from 'data';
+import { posts } from 'common/data';
 import { Sidebar } from 'components';
 
-const Archive = () => {
+const DeletedPost = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[250px_1fr_300px] gap-4">
       <Sidebar />
@@ -10,7 +10,7 @@ const Archive = () => {
         <div className="w-full flex items-center justify-between px-2 py-2 sm:py-4 bg-[white] sticky top-0">
           <div className="flex items-center gap-4">
             <span className="material-icons-outlined">west</span>
-            <h1 className="font-semibold text-xl">Archive</h1>
+            <h1 className="font-semibold text-xl">Recently Deleted</h1>
           </div>
         </div>
         <section>
@@ -33,4 +33,4 @@ const Archive = () => {
   );
 };
 
-export { Archive };
+export { DeletedPost };

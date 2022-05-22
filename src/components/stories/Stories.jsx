@@ -1,5 +1,5 @@
 import React from 'react';
-import { users } from 'data';
+import { users } from 'common/data';
 import { Story } from './sub/Story';
 
 const Stories = () => {
