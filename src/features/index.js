@@ -10,3 +10,4 @@ export { Login } from './authentication/components/login/Login';
 export { Signup } from './authentication/components/signup/Signup';
 export * from './authentication/authenticationSlice';
 export * from './profile/ProfileSlice';
+export * from './posts/postsSlice';
