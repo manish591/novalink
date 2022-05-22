@@ -12,22 +12,6 @@ export const posts = [
     content:
       'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
     mediaURL:
-      'https://images.unsplash.com/photo-1652267389101-553eced76024?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
-    likes: {
-      likeCount: 0,
-      likedBy: [],
-      dislikedBy: [],
-    },
-    comments: [],
-    username: 'adarshbalika',
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-  },
-  {
-    _id: uuid(),
-    content:
-      'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
-    mediaURL:
       'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
     likes: {
       likeCount: 0,
@@ -40,10 +24,53 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
+    _id: uuid(),
+    content:
+      'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
+    mediaURL:
+      'https://images.unsplash.com/photo-1652267389101-553eced76024?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+    likes: {
+      likeCount: 0,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    comments: [],
+    username: 'adarshbalika',
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+
+  {
     _id: 'xhzTkUi2Nt',
     content: 'Nice Weather Today!!',
     mediaURL:
       'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    likes: {
+      likeCount: 5,
+      likedBy: [],
+      dislikedBy: [],
+    },
+    comments: [
+      {
+        _id: 'okzxcf',
+        username: 'janedoe',
+        text: 'I agree!! Feels like we should go for outing. What say?',
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
+    username: 'manishdevrani',
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: uuid(),
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac lorem est. Proin ac nulla eget nisl ullamcorper ultricies ut sed dolor. In semper, quam vel auctor blandit, sem felis tincidunt erat, et ultrices tortor orci ut quam.',
+    mediaURL:
+      'https://images.unsplash.com/photo-1652196821083-ca61080415fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzN3x8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
     likes: {
       likeCount: 5,
       likedBy: [],
@@ -90,32 +117,7 @@ export const posts = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
-  {
-    _id: uuid(),
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac lorem est. Proin ac nulla eget nisl ullamcorper ultricies ut sed dolor. In semper, quam vel auctor blandit, sem felis tincidunt erat, et ultrices tortor orci ut quam.',
-    mediaURL:
-      'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-    likes: {
-      likeCount: 5,
-      likedBy: [],
-      dislikedBy: [],
-    },
-    comments: [
-      {
-        _id: 'okzxcf',
-        username: 'janedoe',
-        text: 'I agree!! Feels like we should go for outing. What say?',
-        votes: {
-          upvotedBy: [],
-          downvotedBy: [],
-        },
-      },
-    ],
-    username: 'manishdevrani',
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
-  },
+
   {
     _id: uuid(),
     content:
@@ -199,7 +201,7 @@ export const posts = [
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac lorem est. Proin ac nulla eget nisl ullamcorper ultricies ut sed dolor. In semper, quam vel auctor blandit, sem felis tincidunt erat, et ultrices tortor orci ut quam.',
     mediaURL:
-      'https://images.unsplash.com/photo-1652267389101-553eced76024?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
+      'https://images.unsplash.com/photo-1648737966274-79aa6f89c440?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
     likes: {
       likeCount: 5,
       likedBy: [],
