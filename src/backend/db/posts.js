@@ -19,7 +19,7 @@ export const posts = [
       dislikedBy: [],
     },
     comments: [],
-    username: 'shubhamsoni',
+    username: 'manish18',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -53,7 +53,7 @@ export const posts = [
     comments: [
       {
         _id: 'okzxcf',
-        username: 'janedoe',
+        username: 'aku2356',
         text: 'I agree!! Feels like we should go for outing. What say?',
         votes: {
           upvotedBy: [],
@@ -61,7 +61,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'aku2356',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -87,7 +87,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'sharmaAnu123',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -113,7 +113,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'sharmaAnu123',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -132,7 +132,7 @@ export const posts = [
     comments: [
       {
         _id: 'okzxcf',
-        username: 'janedoe',
+        username: 'sharmaAnu123',
         text: 'I agree!! Feels like we should go for outing. What say?',
         votes: {
           upvotedBy: [],
@@ -140,7 +140,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'sharmaAnu123',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -158,7 +158,7 @@ export const posts = [
     comments: [
       {
         _id: 'okzxcf',
-        username: 'janedoe',
+        username: 'prachiraulela04',
         text: 'I agree!! Feels like we should go for outing. What say?',
         votes: {
           upvotedBy: [],
@@ -166,7 +166,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'prachiraulela04',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -184,7 +184,7 @@ export const posts = [
     comments: [
       {
         _id: 'okzxcf',
-        username: 'janedoe',
+        username: 'prachiraulela04',
         text: 'I agree!! Feels like we should go for outing. What say?',
         votes: {
           upvotedBy: [],
@@ -192,7 +192,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'prachiraulela04',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },
@@ -210,7 +210,7 @@ export const posts = [
     comments: [
       {
         _id: 'okzxcf',
-        username: 'janedoe',
+        username: 'prachiraulela04',
         text: 'I agree!! Feels like we should go for outing. What say?',
         votes: {
           upvotedBy: [],
@@ -218,7 +218,7 @@ export const posts = [
         },
       },
     ],
-    username: 'manishdevrani',
+    username: 'prachiraulela04',
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },

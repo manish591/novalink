@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const UserPost = ({ mediaURL, username, content, likes, comments }) => {
   const [showMoreContent, setShowMoreContent] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+  const allUsersData = useSelector((state) => state.users.usersData);
+
+  useEffect(() => {
+    if (username) {
+      const findItem = allUsersData.filter(
+        (item) => item.username === username,
+      );
+      setUserDetails(findItem[0]);
+    }
+  }, [allUsersData]);
+
   return (
     <div className="grid gap-2 break-inside-avoid mb-10">
       <section className="flex justify-between items-center">
         <div className="flex items-center justify-center gap-2 sm:gap-3">
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full">
             <img
-              src="https://i.pravatar.cc/150?img=27"
+              src={userDetails?.avatarUrl}
               alt="avatar"
               className="min-w-full rounded-full"
             />
