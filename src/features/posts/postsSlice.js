@@ -8,15 +8,18 @@ const initialState = {
   postData: [],
 };
 
-const getPosts = createAsyncThunk('posts/get', async ({ rejectWithValue }) => {
-  try {
-    const res = await getAllPosts();
-    return res.data;
-  } catch (err) {
-    console.error(err);
-    return rejectWithValue(err.response.data);
-  }
-});
+const getPosts = createAsyncThunk(
+  'posts/get',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await getAllPosts();
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
 
 const postSlice = createSlice({
   name: 'posts',
