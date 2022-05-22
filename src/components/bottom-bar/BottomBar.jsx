@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const BottomBar = () => {
+  const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
     <div className="fixed w-full bg-gray-100 bottom-0 right-0 border-t z-[10] sm:hidden">
       <div className="w-11/12 m-auto py-1 px-2">
@@ -30,7 +32,9 @@ const BottomBar = () => {
             </div>
           </li>
           <li className="p-1">
-            <Link to="/profile" className="flex flex-col text-center">
+            <Link
+              to={`/profile/${currentUser.username}`}
+              className="flex flex-col text-center">
               <span className="material-icons-outlined">person</span>
               <p className="text-[0.625rem]">Profile</p>
             </Link>
