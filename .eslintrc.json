@@ -35,6 +35,12 @@
     "no-param-reassign": "off",
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
+    "react/forbid-prop-types": ["error",
+      {
+        "forbid": ["any"
+        ]
+      }
+    ],
     "jsx-a11y/label-has-associated-control": [
       "error",
       {

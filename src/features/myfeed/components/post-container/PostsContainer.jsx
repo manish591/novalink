@@ -21,6 +21,8 @@ const PostContainer = () => {
               mediaURL={item.mediaURL}
               username={item.username}
               content={item.content}
+              likes={item.likes}
+              comments={item.comments}
             />
           );
         })}

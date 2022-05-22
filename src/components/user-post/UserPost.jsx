@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const UserPost = ({ mediaURL, username, content }) => {
+const UserPost = ({ mediaURL, username, content, likes, comments }) => {
   const [showMoreContent, setShowMoreContent] = useState(false);
   return (
     <div className="grid gap-2 break-inside-avoid mb-10">
@@ -58,11 +58,11 @@ const UserPost = ({ mediaURL, username, content }) => {
                 <span className="material-icons-outlined text-lg">
                   favorite_border
                 </span>
-                <p className="text-[0.625rem] sm:text-sm">10K</p>
+                <p className="text-[0.625rem] sm:text-sm">{likes?.likeCount}</p>
               </div>
               <div className="flex items-center gap-1">
                 <span className="material-icons-outlined text-lg">chat</span>
-                <p className="text-[0.625rem] sm:text-sm">4K</p>
+                <p className="text-[0.625rem] sm:text-sm">{comments.length}</p>
               </div>
               <div className="flex items-center gap-1">
                 <span className="material-icons-outlined text-lg">
@@ -87,6 +87,8 @@ UserPost.propTypes = {
   mediaURL: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
+  likes: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
 };
 
 export { UserPost };
