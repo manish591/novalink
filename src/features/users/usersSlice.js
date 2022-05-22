@@ -25,7 +25,20 @@ const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {},
-  extraReducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getUsers.pending, (state) => {
+      state.usersStatus = API_STATE.LOADING;
+    });
+    builder.addCase(getUsers.fulfilled, (state, action) => {
+      state.usersStatus = API_STATE.SUCCESS;
+      state.usersData = action.payload.users;
+    });
+    builder.addCase(getUsers.rejected, (state, action) => {
+      state.usersStatus = API_STATE.FAILED;
+      state.usersData = [];
+      state.usersError = action.error.message;
+    });
+  },
 });
 
 export { getUsers };
