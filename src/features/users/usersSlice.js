@@ -8,7 +8,7 @@ const initialState = {
   usersError: '',
 };
 
-const getUsers = createAsyncThunk(
+const getAllUsersData = createAsyncThunk(
   'users/get',
   async (_, { rejectWithValue }) => {
     try {
@@ -26,14 +26,14 @@ const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUsers.pending, (state) => {
+    builder.addCase(getAllUsersData.pending, (state) => {
       state.usersStatus = API_STATE.LOADING;
     });
-    builder.addCase(getUsers.fulfilled, (state, action) => {
+    builder.addCase(getAllUsersData.fulfilled, (state, action) => {
       state.usersStatus = API_STATE.SUCCESS;
       state.usersData = action.payload.users;
     });
-    builder.addCase(getUsers.rejected, (state, action) => {
+    builder.addCase(getAllUsersData.rejected, (state, action) => {
       state.usersStatus = API_STATE.FAILED;
       state.usersData = [];
       state.usersError = action.error.message;
@@ -41,5 +41,5 @@ const usersSlice = createSlice({
   },
 });
 
-export { getUsers };
+export { getAllUsersData };
 export const usersReducer = usersSlice.reducer;

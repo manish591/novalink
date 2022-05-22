@@ -5,7 +5,7 @@ export { UserPost } from './user-post/UserPost';
 export { PostContainer } from '../features/myfeed/components/post-container/PostsContainer';
 export { Sidebar } from './sidebar/Sidebar';
 export { SearchBar } from './search-bar/SearchBar';
-export { ActivityBar } from './activity-bar/ActivityBar';
+export { ActivityBar } from '../features/myfeed/components/activity-bar/ActivityBar';
 export { RedirectedRoute } from '../common/routes/RedirectedRoute';
 export { ProtectedRoute } from '../common/routes/ProtectedRoute';
 export { Loader } from './loader/Loader';
