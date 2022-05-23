@@ -1,10 +1,13 @@
 import React from 'react';
-// import { posts } from 'common/data';
+import { useSelector } from 'react-redux';
 import { Sidebar } from 'components';
-// import { BookmarkCard } from './components/card/BookmarkCard';
+import { BookmarkCard } from './components/card/BookmarkCard';
 import { EmptyBookmark } from './components/bookmark-empty/EmptyBookmark';
 
 const Bookmark = () => {
+  const userBookmarks = useSelector(
+    (state) => state.authentication.currentUser.bookmarks,
+  );
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[250px_1fr_300px] gap-4">
       <Sidebar />
@@ -16,12 +19,15 @@ const Bookmark = () => {
           </div>
         </div>
         <section className="relative">
-          {/* <div className="grid grid-cols-3 lg:grid-cols-4 m-auto gap-1 mt-4 sm:gap-8">
-            {posts.map((item) => {
-              return <BookmarkCard key={item.id} post={item} />;
-            })}
-          </div> */}
-          <EmptyBookmark />
+          {userBookmarks.length > 0 ? (
+            <div className="grid grid-cols-3 lg:grid-cols-4 m-auto gap-1 mt-4 sm:gap-8">
+              {userBookmarks.map((item) => {
+                return <BookmarkCard key={item._id} post={item} />;
+              })}
+            </div>
+          ) : (
+            <EmptyBookmark />
+          )}
         </section>
       </section>
     </div>

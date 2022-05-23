@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const BookmarkCard = ({ post }) => {
   return (
-    <article key={post.id}>
+    <article>
       <img
-        src={post.img}
+        src={post.mediaURL}
         alt="profile"
         className="min-w-full object-cover aspect-square"
       />
