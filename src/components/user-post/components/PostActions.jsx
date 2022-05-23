@@ -1,20 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const PostActions = ({ setOpenPostActions }) => {
+const PostActions = ({ setOpenPostActions, username }) => {
+  const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
       <div className="grid grid-cols-1 absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 w-max bg-[white] rounded-xl">
-        <button
-          type="button"
-          className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b text-red-600 hover:bg-gray-100 first:rounded-t-xl">
-          Delete
-        </button>
-        <button
-          type="button"
-          className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100">
-          Edit
-        </button>
+        {currentUser.username === username ? (
+          <>
+            <button
+              type="button"
+              className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b text-red-600 hover:bg-gray-100 first:rounded-t-xl">
+              Delete
+            </button>
+            <button
+              type="button"
+              className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100">
+              Edit
+            </button>
+          </>
+        ) : null}
         <button
           type="button"
           className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100">
@@ -40,6 +46,7 @@ const PostActions = ({ setOpenPostActions }) => {
 
 PostActions.propTypes = {
   setOpenPostActions: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
 };
 
 export { PostActions };

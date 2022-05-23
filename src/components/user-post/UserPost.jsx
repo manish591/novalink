@@ -102,7 +102,10 @@ const UserPost = ({ mediaURL, username, likes, comments, content }) => {
         </div>
       </section>
       {openPostActions ? (
-        <PostActions setOpenPostActions={setOpenPostActions} />
+        <PostActions
+          setOpenPostActions={setOpenPostActions}
+          username={username}
+        />
       ) : null}
     </div>
   );
