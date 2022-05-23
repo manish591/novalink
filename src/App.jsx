@@ -12,6 +12,7 @@ import {
   Signup,
   getAllUsersData,
   getPosts,
+  Explore,
 } from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
 import Mockman from 'mockman-js';
@@ -83,6 +84,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <ProtectedRoute>
+              <Explore />
             </ProtectedRoute>
           }
         />

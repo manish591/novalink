@@ -13,3 +13,4 @@ export * from './profile/ProfileSlice';
 export * from './posts/postsSlice';
 export * from './users/usersSlice';
 export { CreatePostModal } from './posts/create-post/CreatPostModal';
+export { Explore } from './explore/Explore';
