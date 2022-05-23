@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { API_STATE } from 'common';
-import { getAllPosts } from 'services';
+import { getAllPosts, createPost } from 'services';
 
 const initialState = {
   postStatus: API_STATE.IDLE,
@@ -13,6 +13,19 @@ const getPosts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await getAllPosts();
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const createMyPost = createAsyncThunk(
+  'posts/create',
+  async ({ postData, token }, { rejectWithValue }) => {
+    try {
+      const res = createPost(postData, token);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -41,5 +54,5 @@ const postSlice = createSlice({
   },
 });
 
-export { getPosts };
+export { getPosts, createMyPost };
 export const postReducer = postSlice.reducer;
