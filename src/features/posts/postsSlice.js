@@ -51,6 +51,18 @@ const postSlice = createSlice({
       state.postData = [];
       state.postError = action.error.message;
     });
+    builder.addCase(createMyPost.pending, (state) => {
+      state.postStatus = API_STATE.LOADING;
+    });
+    builder.addCase(createMyPost.fullfilled, (state, action) => {
+      state.postStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(createMyPost.rejected, (state, action) => {
+      state.postStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.postError = action.error.message;
+    });
   },
 });
 
