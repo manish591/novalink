@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { PostActions } from './components/PostActions';
 
-const UserPost = ({ mediaURL, username, likes, comments, content }) => {
+const UserPost = ({ id, mediaURL, username, likes, comments, content }) => {
   const [showMoreContent, setShowMoreContent] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [openPostActions, setOpenPostActions] = useState(false);
@@ -105,6 +105,7 @@ const UserPost = ({ mediaURL, username, likes, comments, content }) => {
         <PostActions
           setOpenPostActions={setOpenPostActions}
           username={username}
+          id={id}
         />
       ) : null}
     </div>
@@ -117,6 +118,7 @@ UserPost.propTypes = {
   content: PropTypes.string.isRequired,
   likes: PropTypes.object.isRequired,
   comments: PropTypes.array,
+  id: PropTypes.string.isRequired,
 };
 
 UserPost.defaultProps = {

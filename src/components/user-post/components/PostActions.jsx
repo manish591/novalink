@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteMyPost } from 'features';
 
-const PostActions = ({ setOpenPostActions, username }) => {
+const PostActions = ({ id, setOpenPostActions, username }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
+
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
       <div className="grid grid-cols-1 absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 w-max bg-[white] rounded-xl">
@@ -11,7 +15,10 @@ const PostActions = ({ setOpenPostActions, username }) => {
           <>
             <button
               type="button"
-              className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b text-red-600 hover:bg-gray-100 first:rounded-t-xl">
+              className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b text-red-600 hover:bg-gray-100 first:rounded-t-xl"
+              onClick={() => {
+                dispatch(deleteMyPost({ postId: id, token }));
+              }}>
               Delete
             </button>
             <button
@@ -47,6 +54,7 @@ const PostActions = ({ setOpenPostActions, username }) => {
 PostActions.propTypes = {
   setOpenPostActions: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export { PostActions };

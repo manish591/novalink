@@ -16,6 +16,7 @@ const PostContainer = () => {
             return (
               <UserPost
                 key={item._id}
+                id={item._id}
                 mediaURL={item.mediaURL}
                 username={item.username}
                 content={item.content}
