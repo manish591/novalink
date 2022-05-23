@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { API_STATE } from 'common';
 import { Loader } from 'components';
 import { useUploadMedia } from '../hooks/useUploadMedia';
-import { createMyPost } from '../postsSlice';
+import { createMyPost, editMyPost } from '../postsSlice';
 
 const CreatePostModal = ({
   setIsOpenPostModal,
@@ -37,6 +37,13 @@ const CreatePostModal = ({
   const handleCreateMyPost = () => {
     dispatch(createMyPost({ postData: myPostData, token }));
     setIsOpenPostModal((prev) => !prev);
+  };
+
+  const handleEditMyPost = () => {
+    dispatch(
+      editMyPost({ postData: myPostData, postId: editPostContent?._id, token }),
+    );
+    setIsEditPost((ep) => !ep);
   };
 
   return (
@@ -97,9 +104,7 @@ const CreatePostModal = ({
               <button
                 type="button"
                 className="font-bold"
-                onClick={() => {
-                  setIsEditPost((ep) => !ep);
-                }}
+                onClick={handleEditMyPost}
                 disabled={
                   myPostData.mediaURL === '' || myPostData.content === ''
                 }>

@@ -5,7 +5,7 @@ import { CreatePostModal } from 'features';
 import { PostActions } from './components/PostActions';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
-  const { id, mediaURL, username, likes, comments, content } = post;
+  const { _id, mediaURL, username, likes, comments, content } = post;
   const [showMoreContent, setShowMoreContent] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [openPostActions, setOpenPostActions] = useState(false);
@@ -113,7 +113,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
           <PostActions
             setOpenPostActions={setOpenPostActions}
             username={username}
-            id={id}
+            id={_id}
             isEditPost={isEditPost}
             setIsEditPost={setIsEditPost}
           />

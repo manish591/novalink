@@ -49,9 +49,9 @@ const deleteMyPost = createAsyncThunk(
 
 const editMyPost = createAsyncThunk(
   'posts/edit',
-  async ({ postData, token }, { rejectWithValue }) => {
+  async ({ postData, postId, token }, { rejectWithValue }) => {
     try {
-      const res = await editPost(postData, postData.postId, token);
+      const res = await editPost(postData, postId, token);
       return res.data;
     } catch (err) {
       console.error(err);
