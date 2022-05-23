@@ -6,5 +6,6 @@ export {
   deletePost,
   editPost,
   bookmarkPost,
+  removeBookmark,
 } from './postService';
 export { getAllUsers } from './usersService';

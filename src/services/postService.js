@@ -52,4 +52,23 @@ const bookmarkPost = (postId, token) => {
   );
 };
 
-export { getAllPosts, createPost, deletePost, editPost, bookmarkPost };
+const removeBookmark = (postId, token) => {
+  return axios.post(
+    `/api/users/remove-bookmark/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
+    },
+  );
+};
+
+export {
+  getAllPosts,
+  createPost,
+  deletePost,
+  editPost,
+  bookmarkPost,
+  removeBookmark,
+};
