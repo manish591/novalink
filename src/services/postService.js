@@ -18,4 +18,12 @@ const createPost = (postData, token) => {
   );
 };
 
-export { getAllPosts, createPost };
+const deletePost = (postId, token) => {
+  return axios.delete(`/api/posts/${postId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+};
+
+export { getAllPosts, createPost, deletePost };
