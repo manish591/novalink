@@ -37,6 +37,28 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
       <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto]">
+        {!imageFileName && (
+          <div className="hidden sm:block absolute inset-0 bg-[white]">
+            <div className="flex flex-col items-center justify-center h-[100%] gap-4">
+              <h1 className="text-2xl">Upload Image Here</h1>
+              <form>
+                <label
+                  htmlFor="upload"
+                  className="border py-2 px-4 rounded-md flex gap-2 items-center inline-block">
+                  <span className="material-icons-outlined">image</span>
+                  <span className="text-sm">Upload Image</span>
+                </label>
+                <input
+                  type="file"
+                  name="upload"
+                  id="upload"
+                  className="invisible sr-only"
+                  onChange={handleUploadFile}
+                />
+              </form>
+            </div>
+          </div>
+        )}
         <div className="shadow py-3 sm:py-4">
           <section className="w-11/12 m-auto flex items-center justify-between">
             <button
