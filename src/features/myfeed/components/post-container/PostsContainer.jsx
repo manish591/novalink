@@ -2,8 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Loader, UserPost } from 'components';
 import { API_STATE } from 'common';
+import PropTypes from 'prop-types';
 
-const PostContainer = () => {
+const PostContainer = ({ setIsOpenPostModal }) => {
   const userFeedPosts = useSelector((state) => state.post.postData);
   const userPostsStatus = useSelector((state) => state.post.postStatus);
 
@@ -16,12 +17,8 @@ const PostContainer = () => {
             return (
               <UserPost
                 key={item._id}
-                id={item._id}
-                mediaURL={item.mediaURL}
-                username={item.username}
-                content={item.content}
-                likes={item.likes}
-                comments={item.comments}
+                post={item}
+                setIsOpenPostModal={setIsOpenPostModal}
               />
             );
           })}
@@ -29,6 +26,10 @@ const PostContainer = () => {
       )}
     </div>
   );
+};
+
+PostContainer.propTypes = {
+  setIsOpenPostModal: PropTypes.func.isRequired,
 };
 
 export { PostContainer };

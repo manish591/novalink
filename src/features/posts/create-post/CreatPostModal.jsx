@@ -6,13 +6,18 @@ import { Loader } from 'components';
 import { useUploadMedia } from '../hooks/useUploadMedia';
 import { createMyPost } from '../postsSlice';
 
-const CreatePostModal = ({ setIsOpenPostModal }) => {
+const CreatePostModal = ({
+  setIsOpenPostModal,
+  editPostContent,
+  isEditPost,
+  setIsEditPost,
+}) => {
   const [imageFileName, setImageFileName] = useState('');
   const [isImageUploading, setIsImageUploading] = useState(API_STATE.IDLE);
   const [myPostData, setMyPostData] = useState({
-    mediaURL: '',
-    content: '',
-    deleteToken: '',
+    mediaURL: isEditPost ? editPostContent?.mediaURL : '',
+    content: isEditPost ? editPostContent?.content : '',
+    deleteToken: isEditPost ? editPostContent?.deleteToken : '',
   });
 
   const { uploadImage, deleteImage } = useUploadMedia();
@@ -36,8 +41,11 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
 
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
-      <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto]">
-        {!imageFileName && (
+      <div
+        className={`fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto] ${
+          isEditPost && 'sm:h-[550px]'
+        }`}>
+        {!imageFileName && !isEditPost ? (
           <div className="hidden sm:block absolute inset-0 bg-[white]">
             <div className="flex flex-col items-center justify-center h-[100%] gap-4">
               <h1 className="text-2xl">Upload Image Here</h1>
@@ -58,27 +66,56 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
               </form>
             </div>
           </div>
-        )}
+        ) : null}
         <div className="shadow py-3 sm:py-4">
-          <section className="w-11/12 m-auto flex items-center justify-between">
-            <button
-              type="button"
-              className="flex items-center justify-center"
-              onClick={() => {
-                setIsOpenPostModal((prev) => !prev);
-              }}>
-              <span className="material-icons-outlined">west</span>
-            </button>
-            <h1 className="text-xl font-bold">Create Post</h1>
-            <button
-              type="button"
-              className="font-bold"
-              onClick={handleCreateMyPost}
-              disabled={
-                myPostData.mediaURL === '' || myPostData.content === ''
-              }>
-              Done
-            </button>
+          <section className="w-11/12 sm:w-[95%] m-auto flex items-center justify-between">
+            {isEditPost ? (
+              <button
+                type="button"
+                className="flex items-center justify-center"
+                onClick={() => {
+                  setIsEditPost((prev) => !prev);
+                }}>
+                <p className="text-sm">Cancel</p>
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="flex items-center justify-center"
+                onClick={() => {
+                  setIsOpenPostModal((prev) => !prev);
+                }}>
+                <span className="material-icons-outlined">west</span>
+              </button>
+            )}
+            {isEditPost ? (
+              <h1 className="text-xl font-bold">Edit Post</h1>
+            ) : (
+              <h1 className="text-xl font-bold">Create Post</h1>
+            )}
+            {isEditPost ? (
+              <button
+                type="button"
+                className="font-bold"
+                onClick={() => {
+                  setIsEditPost((ep) => !ep);
+                }}
+                disabled={
+                  myPostData.mediaURL === '' || myPostData.content === ''
+                }>
+                Update
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="font-bold"
+                onClick={handleCreateMyPost}
+                disabled={
+                  myPostData.mediaURL === '' || myPostData.content === ''
+                }>
+                Done
+              </button>
+            )}
           </section>
         </div>
         <section className="mt-4 sm:mt-0 overflow-y-auto">
@@ -138,43 +175,45 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
             </section>
           </div>
         </section>
-        <section className="mt-4 pb-4 sm:hidden">
-          <div className="w-11/12 m-auto grid grid-cols-2 gap-4">
-            <form>
-              <label
-                htmlFor="upload"
-                className="border py-2 px-4 rounded-md flex gap-2 items-center inline-block">
-                <span className="material-icons-outlined">image</span>
-                <span className="text-sm">Media</span>
-              </label>
-              <input
-                type="file"
-                name="upload"
-                id="upload"
-                className="invisible sr-only"
-                onChange={handleUploadFile}
-              />
-            </form>
-            <button
-              type="button"
-              className="border py-2 px-4 rounded-md flex gap-2 items-center">
-              <span className="material-icons-outlined">insert_link</span>
-              <span className="text-sm">Attachment</span>
-            </button>
-            <button
-              type="button"
-              className="border py-2 px-4 rounded-md flex gap-2 items-center">
-              <span className="material-icons-outlined">place</span>
-              <span className="text-sm">Location</span>
-            </button>
-            <button
-              type="button"
-              className="border py-2 px-4 rounded-md flex gap-2 items-center">
-              <span className="material-icons-outlined">person_add</span>
-              <span className="text-sm">Add Someone</span>
-            </button>
-          </div>
-        </section>
+        {isEditPost ? null : (
+          <section className="mt-4 pb-4 sm:hidden">
+            <div className="w-11/12 m-auto grid grid-cols-2 gap-4">
+              <form>
+                <label
+                  htmlFor="upload"
+                  className="border py-2 px-4 rounded-md flex gap-2 items-center inline-block">
+                  <span className="material-icons-outlined">image</span>
+                  <span className="text-sm">Media</span>
+                </label>
+                <input
+                  type="file"
+                  name="upload"
+                  id="upload"
+                  className="invisible sr-only"
+                  onChange={handleUploadFile}
+                />
+              </form>
+              <button
+                type="button"
+                className="border py-2 px-4 rounded-md flex gap-2 items-center">
+                <span className="material-icons-outlined">insert_link</span>
+                <span className="text-sm">Attachment</span>
+              </button>
+              <button
+                type="button"
+                className="border py-2 px-4 rounded-md flex gap-2 items-center">
+                <span className="material-icons-outlined">place</span>
+                <span className="text-sm">Location</span>
+              </button>
+              <button
+                type="button"
+                className="border py-2 px-4 rounded-md flex gap-2 items-center">
+                <span className="material-icons-outlined">person_add</span>
+                <span className="text-sm">Add Someone</span>
+              </button>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
@@ -182,6 +221,15 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
 
 CreatePostModal.propTypes = {
   setIsOpenPostModal: PropTypes.func.isRequired,
+  isEditPost: PropTypes.bool,
+  setIsEditPost: PropTypes.func,
+  editPostContent: PropTypes.object,
+};
+
+CreatePostModal.defaultProps = {
+  isEditPost: false,
+  setIsEditPost: null,
+  editPostContent: null,
 };
 
 export { CreatePostModal };

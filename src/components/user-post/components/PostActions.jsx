@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteMyPost } from 'features';
 
-const PostActions = ({ id, setOpenPostActions, username }) => {
+const PostActions = ({ id, setOpenPostActions, username, setIsEditPost }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
@@ -23,14 +23,18 @@ const PostActions = ({ id, setOpenPostActions, username }) => {
             </button>
             <button
               type="button"
-              className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100">
+              className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100"
+              onClick={() => {
+                setIsEditPost((ep) => !ep);
+                setOpenPostActions((opa) => !opa);
+              }}>
               Edit
             </button>
           </>
         ) : null}
         <button
           type="button"
-          className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100">
+          className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100 first:rounded-t-xl">
           Go To Post
         </button>
         <button
@@ -55,6 +59,7 @@ PostActions.propTypes = {
   setOpenPostActions: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  setIsEditPost: PropTypes.func.isRequired,
 };
 
 export { PostActions };
