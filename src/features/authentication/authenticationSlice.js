@@ -7,6 +7,7 @@ import {
 } from 'services';
 import { useGetLocalStorage } from 'common';
 import { editMyProfile } from 'features/profile/ProfileSlice';
+import { followThisUser } from 'features/users/usersSlice';
 
 const initialState = {
   authError: '',
@@ -89,6 +90,12 @@ const authenticationSlice = createSlice({
       state.token = action.payload.encodedToken;
       state.currentUser = action.payload.foundUser;
       state.authError = '';
+      localStorage.setItem('token', JSON.stringify(state.token));
+      localStorage.setItem('user', JSON.stringify(state.currentUser));
+      localStorage.setItem(
+        'login-status',
+        JSON.stringify(state.isUserLoggedIn),
+      );
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.authStatus = 'FAILED';
@@ -104,6 +111,12 @@ const authenticationSlice = createSlice({
       state.token = action.payload.encodedToken;
       state.currentUser = action.payload.createdUser;
       state.authError = '';
+      localStorage.setItem('token', JSON.stringify(state.token));
+      localStorage.setItem('user', JSON.stringify(state.currentUser));
+      localStorage.setItem(
+        'login-status',
+        JSON.stringify(state.isUserLoggedIn),
+      );
     });
     builder.addCase(signupUser.rejected, (state, action) => {
       state.authStatus = 'FAILED';
@@ -134,6 +147,9 @@ const authenticationSlice = createSlice({
     builder.addCase(removeFromBookmark.rejected, (state, action) => {
       state.authStatus = 'FAILED';
       state.authError = action.error.message;
+    });
+    builder.addCase(followThisUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload.user;
     });
   },
 });

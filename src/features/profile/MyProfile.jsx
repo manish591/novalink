@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BottomBar, Loader } from 'components';
 import { posts } from 'common/data';
 import { API_STATE } from 'common';
+import { followThisUser } from 'features/users/usersSlice';
 import { ProfileOptions } from './components/profile-options/ProfileOptions';
 import { getUserData } from './ProfileSlice';
 import { UserNotFound } from './components/user-not-found/UsetNotFound';
@@ -18,12 +19,13 @@ const MyProfile = () => {
   const profileStatus = useSelector((state) => state.profile.profileStatus);
   const profileData = useSelector((state) => state.profile.profileData);
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const token = useSelector((state) => state.authentication.token);
 
   useEffect(() => {
     if (username) {
       dispatch(getUserData(username));
     }
-  }, [username]);
+  }, [username, currentUser]);
 
   return (
     <div>
@@ -31,7 +33,7 @@ const MyProfile = () => {
       {profileStatus === API_STATE.FAILED && <UserNotFound />}
       {profileStatus === API_STATE.SUCCESS && (
         <div>
-          <div className="grid gap-4">
+          <div className="grid gap-4 grid-cols-1">
             <section className="relative">
               <div>
                 <img
@@ -77,13 +79,13 @@ const MyProfile = () => {
                 )}
               </div>
             </section>
-            <div className="m-auto mt-6 sm:mt-14 mb-20 w-11/12 max-w-[1000px] grid gap-6">
-              <section className="grid gap-1 text-center">
+            <div className="m-auto mt-6 sm:mt-14 mb-20 w-11/12 max-w-[1000px] grid gap-6 grid-cols-1">
+              <section className="grid gap-1 grid-cols-1 text-center overflow-hidden">
                 <h1 className="font-semibold text-xl">
                   {profileData.firstName} {profileData.lastName}
                 </h1>
                 <p className="text-gray-400 text-sm">@{profileData.username}</p>
-                <p className="bg-gray-100 text-sm m-auto px-1 mt-2 w-max">
+                <p className="bg-gray-100 text-sm m-auto px-1 mt-2 w-max truncate">
                   {profileData.bio}
                 </p>
               </section>
@@ -122,11 +124,37 @@ const MyProfile = () => {
                       className="flex-1 border py-1 sm:py-2 rounded-md">
                       Message
                     </button>
-                    <button
-                      type="button"
-                      className="flex-1 border py-1 sm:py-2 rounded-md">
-                      Follow
-                    </button>
+                    {currentUser.following.some(
+                      (item) => item._id === profileData._id,
+                    ) ? (
+                      <button
+                        type="button"
+                        className="flex-1 border py-1.5 sm:py-2 rounded-md bg-[black] text-[white]"
+                        onClick={() => {
+                          dispatch(
+                            followThisUser({
+                              followUserId: profileData._id,
+                              token,
+                            }),
+                          );
+                        }}>
+                        Following
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="flex-1 border py-1.5 sm:py-2 rounded-md"
+                        onClick={() => {
+                          dispatch(
+                            followThisUser({
+                              followUserId: profileData._id,
+                              token,
+                            }),
+                          );
+                        }}>
+                        Follow
+                      </button>
+                    )}
                   </>
                 )}
                 {currentUser?.username === profileData.username && (

@@ -14,13 +14,11 @@ import {
   getPosts,
 } from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
-import { usePersistAuth } from 'common';
 import Mockman from 'mockman-js';
 import { useDispatch } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
-  usePersistAuth();
 
   useEffect(() => {
     dispatch(getAllUsersData());

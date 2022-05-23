@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { CreatePostModal, addToBookmark, removeFromBookmark } from 'features';
+import { Link } from 'react-router-dom';
 import { PostActions } from './components/PostActions';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
@@ -29,15 +30,21 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
       <div className="grid gap-2 break-inside-avoid mb-10">
         <section className="flex justify-between items-center">
           <div className="flex items-center justify-center gap-2 sm:gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full">
+            <Link
+              to={`/profile/${username}`}
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full inline-block">
               <img
                 src={userDetails?.avatarUrl}
                 alt="avatar"
                 className="min-w-full rounded-full"
               />
-            </div>
+            </Link>
             <div>
-              <h3 className="font-semibold text-sm sm:text-base">{username}</h3>
+              <Link to={`/profile/${username}`}>
+                <h3 className="font-semibold text-sm sm:text-base">
+                  {username}
+                </h3>
+              </Link>
               <p className="text-xs sm:text-sm">Allenton, New Mexico</p>
             </div>
           </div>
