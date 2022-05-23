@@ -1,6 +1,8 @@
 import React from 'react';
-import { posts } from 'common/data';
+// import { posts } from 'common/data';
 import { Sidebar } from 'components';
+// import { BookmarkCard } from './components/card/BookmarkCard';
+import { EmptyBookmark } from './components/bookmark-empty/EmptyBookmark';
 
 const Bookmark = () => {
   return (
@@ -13,20 +15,13 @@ const Bookmark = () => {
             <h1 className="font-semibold text-xl">Saved</h1>
           </div>
         </div>
-        <section>
-          <div className="grid grid-cols-3 lg:grid-cols-4 m-auto gap-1 mt-4 sm:gap-8">
+        <section className="relative">
+          {/* <div className="grid grid-cols-3 lg:grid-cols-4 m-auto gap-1 mt-4 sm:gap-8">
             {posts.map((item) => {
-              return (
-                <article key={item.id}>
-                  <img
-                    src={item.img}
-                    alt="profile"
-                    className="min-w-full object-cover aspect-square"
-                  />
-                </article>
-              );
+              return <BookmarkCard key={item.id} post={item} />;
             })}
-          </div>
+          </div> */}
+          <EmptyBookmark />
         </section>
       </section>
     </div>
