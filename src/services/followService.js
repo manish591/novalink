@@ -12,4 +12,16 @@ const followUser = (followUserId, token) => {
   );
 };
 
-export { followUser };
+const unfollowUser = (followUserId, token) => {
+  return axios.post(
+    `/api/users/unfollow/${followUserId}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
+    },
+  );
+};
+
+export { followUser, unfollowUser };
