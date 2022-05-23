@@ -26,4 +26,18 @@ const deletePost = (postId, token) => {
   });
 };
 
-export { getAllPosts, createPost, deletePost };
+const editPost = (postData, postId, token) => {
+  return axios.post(
+    `/api/posts/edit/${postId}`,
+    {
+      postData,
+    },
+    {
+      headers: {
+        authorization: token,
+      },
+    },
+  );
+};
+
+export { getAllPosts, createPost, deletePost, editPost };
