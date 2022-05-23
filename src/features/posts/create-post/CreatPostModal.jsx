@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { API_STATE } from 'common';
+import { Loader } from 'components';
+import { useUploadMedia } from '../hooks/useUploadMedia';
 
 const CreatePostModal = () => {
+  const [imageFileName, setImageFileName] = useState('');
+  const [isImageUploading, setIsImageUploading] = useState(API_STATE.IDLE);
+  const [myPostData, setMyPostData] = useState({
+    mediaURL: '',
+    content: '',
+    deleteToken: '',
+  });
+
+  const { uploadImage, deleteImage } = useUploadMedia();
+
+  const handleUploadFile = async (e) => {
+    setIsImageUploading(API_STATE.LOADING);
+    if (imageFileName) {
+      await deleteImage(myPostData, setMyPostData);
+    }
+    setImageFileName(e.target.files[0].name);
+    await uploadImage(e.target.files[0], setMyPostData);
+    setIsImageUploading(API_STATE.SUCCESS);
+  };
+
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
       <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto]">
@@ -10,7 +33,12 @@ const CreatePostModal = () => {
               <span className="material-icons-outlined">west</span>
             </div>
             <h1 className="text-xl font-bold">Create Post</h1>
-            <button type="button" className="font-bold">
+            <button
+              type="button"
+              className="font-bold"
+              disabled={
+                myPostData.mediaURL === '' || myPostData.content === ''
+              }>
               Done
             </button>
           </section>
@@ -41,6 +69,13 @@ const CreatePostModal = () => {
                       id="caption"
                       className="resize-y py-2 px-2 border-gray-200 outline-none text-base"
                       placeholder="What is in your mind manish?"
+                      value={myPostData.content}
+                      onChange={(e) =>
+                        setMyPostData({
+                          ...myPostData,
+                          content: e.target.value,
+                        })
+                      }
                     />
                     <label htmlFor="caption" className="sr-only">
                       caption
@@ -50,42 +85,55 @@ const CreatePostModal = () => {
               </section>
               <section className="py-2 sm:py-0 sm:col-start-1 sm:col-end-2 sm:row-start-1">
                 <h1 className="sm:hidden">Add or Remove photos</h1>
-                <div className="w-[150px] sm:w-[100%] mt-2 sm:mt-0">
-                  <img
-                    src="https://images.unsplash.com/photo-1653175112410-1b66f3847950?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&auto=format&fit=crop&w=500"
-                    alt=""
-                    className="max-w-full aspect-square sm:aspect-none object-cover"
-                  />
-                </div>
+                {isImageUploading === API_STATE.LOADING ? (
+                  <Loader />
+                ) : (
+                  <div className="w-[150px] sm:w-[100%] mt-2 sm:mt-0">
+                    <img
+                      src={myPostData.mediaURL}
+                      alt=""
+                      className="max-w-full aspect-square sm:aspect-none object-cover"
+                    />
+                  </div>
+                )}
               </section>
             </section>
           </div>
         </section>
         <section className="mt-4 pb-4 sm:hidden">
           <div className="w-11/12 m-auto grid grid-cols-2 gap-4">
-            <button
-              type="button"
-              className="border py-2 px-4 rounded-md flex gap-2 items-center">
-              <span className="material-icons-outlined">image</span>
-              <span>Media</span>
-            </button>
+            <form>
+              <label
+                htmlFor="upload"
+                className="border py-2 px-4 rounded-md flex gap-2 items-center inline-block">
+                <span className="material-icons-outlined">image</span>
+                <span className="text-sm">Media</span>
+              </label>
+              <input
+                type="file"
+                name="upload"
+                id="upload"
+                className="invisible sr-only"
+                onChange={handleUploadFile}
+              />
+            </form>
             <button
               type="button"
               className="border py-2 px-4 rounded-md flex gap-2 items-center">
               <span className="material-icons-outlined">insert_link</span>
-              <span>Attachment</span>
+              <span className="text-sm">Attachment</span>
             </button>
             <button
               type="button"
               className="border py-2 px-4 rounded-md flex gap-2 items-center">
               <span className="material-icons-outlined">place</span>
-              <span>Location</span>
+              <span className="text-sm">Location</span>
             </button>
             <button
               type="button"
               className="border py-2 px-4 rounded-md flex gap-2 items-center">
               <span className="material-icons-outlined">person_add</span>
-              <span>Add Someone</span>
+              <span className="text-sm">Add Someone</span>
             </button>
           </div>
         </section>
