@@ -5,8 +5,10 @@ import { BookmarkCard } from './components/card/BookmarkCard';
 import { EmptyBookmark } from './components/bookmark-empty/EmptyBookmark';
 
 const Bookmark = () => {
-  const userBookmarks = useSelector(
-    (state) => state.authentication.currentUser.bookmarks,
+  const userBookmarks = useSelector((state) => state.authentication.bookmarks);
+  const allPosts = useSelector((state) => state.post.postData);
+  const myBookmarks = allPosts.filter((item) =>
+    userBookmarks.includes(item._id),
   );
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[250px_1fr_300px] gap-4">
@@ -19,9 +21,9 @@ const Bookmark = () => {
           </div>
         </div>
         <section className="relative">
-          {userBookmarks.length > 0 ? (
+          {myBookmarks.length > 0 ? (
             <div className="grid grid-cols-3 lg:grid-cols-4 m-auto gap-1 mt-4 sm:gap-8">
-              {userBookmarks.map((item) => {
+              {myBookmarks.map((item) => {
                 return <BookmarkCard key={item._id} post={item} />;
               })}
             </div>

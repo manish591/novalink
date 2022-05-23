@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { loginService, signupService } from 'services';
 import { useGetLocalStorage } from 'common';
 import { editMyProfile } from 'features/profile/ProfileSlice';
+import { bookmarkPost } from 'services';
 
 const initialState = {
   authError: '',
@@ -9,6 +10,7 @@ const initialState = {
   token: useGetLocalStorage('token', ''),
   currentUser: useGetLocalStorage('user', {}),
   isUserLoggedIn: useGetLocalStorage('login-status', false),
+  bookmarks: [],
 };
 
 const loginUser = createAsyncThunk(
@@ -33,6 +35,19 @@ const signupUser = createAsyncThunk(
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+const addToBookmark = createAsyncThunk(
+  'authentication/bookmark',
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const res = await bookmarkPost(postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
     }
   },
 );
@@ -81,9 +96,20 @@ const authenticationSlice = createSlice({
     builder.addCase(editMyProfile.fulfilled, (state, action) => {
       state.currentUser = action.payload.user;
     });
+    builder.addCase(addToBookmark.pending, (state) => {
+      state.authStatus = 'LOADING';
+    });
+    builder.addCase(addToBookmark.fulfilled, (state, action) => {
+      state.authStatus = 'SUCCESS';
+      state.bookmarks = action.payload.bookmarks;
+    });
+    builder.addCase(addToBookmark.rejected, (state, action) => {
+      state.authStatus = 'FAILED';
+      state.authError = action.error.message;
+    });
   },
 });
 
-export { loginUser, signupUser };
+export { loginUser, signupUser, addToBookmark };
 export const authenticationReducer = authenticationSlice.reducer;
 export const { logoutUser } = authenticationSlice.actions;

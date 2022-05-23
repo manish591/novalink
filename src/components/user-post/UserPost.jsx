@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { CreatePostModal } from 'features';
+import { useSelector, useDispatch } from 'react-redux';
+import { CreatePostModal, addToBookmark } from 'features';
 import { PostActions } from './components/PostActions';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
@@ -11,6 +11,8 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
   const [openPostActions, setOpenPostActions] = useState(false);
   const [isEditPost, setIsEditPost] = useState(false);
   const allUsersData = useSelector((state) => state.users.usersData);
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (username) {
@@ -102,9 +104,15 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
                 </div>
               </section>
               <section>
-                <span className="material-icons-outlined text-lg">
-                  bookmark_border
-                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(addToBookmark({ postId: _id, token }));
+                  }}>
+                  <span className="material-icons-outlined text-lg">
+                    bookmark_border
+                  </span>
+                </button>
               </section>
             </div>
           </div>

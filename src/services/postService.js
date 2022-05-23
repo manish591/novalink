@@ -41,11 +41,15 @@ const editPost = (postData, postId, token) => {
 };
 
 const bookmarkPost = (postId, token) => {
-  return axios.post(`/api/users/bookmark/${postId}`, {
-    headers: {
-      authorization: token,
+  return axios.post(
+    `/api/users/bookmark/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
     },
-  });
+  );
 };
 
 export { getAllPosts, createPost, deletePost, editPost, bookmarkPost };
