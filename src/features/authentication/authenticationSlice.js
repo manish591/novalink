@@ -7,7 +7,7 @@ import {
 } from 'services';
 import { useGetLocalStorage } from 'common';
 import { editMyProfile } from 'features/profile/ProfileSlice';
-import { followThisUser } from 'features/users/usersSlice';
+import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
 
 const initialState = {
   authError: '',
@@ -149,6 +149,9 @@ const authenticationSlice = createSlice({
       state.authError = action.error.message;
     });
     builder.addCase(followThisUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload.user;
+    });
+    builder.addCase(unFollowThisUser.fulfilled, (state, action) => {
       state.currentUser = action.payload.user;
     });
   },

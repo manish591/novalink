@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { API_STATE } from 'common';
-import { followUser, getAllUsers } from 'services';
+import { followUser, getAllUsers, unfollowUser } from 'services';
 
 const initialState = {
   usersStatus: API_STATE.IDLE,
@@ -28,6 +28,19 @@ const followThisUser = createAsyncThunk(
   async ({ followUserId, token }, { rejectWithValue }) => {
     try {
       const res = await followUser(followUserId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const unFollowThisUser = createAsyncThunk(
+  'users/unfollow',
+  async ({ followUserId, token }, { rejectWithValue }) => {
+    try {
+      const res = await unfollowUser(followUserId, token);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -69,8 +82,24 @@ const usersSlice = createSlice({
       state.usersData = [];
       state.followError = action.error.message;
     });
+    builder.addCase(unFollowThisUser.pending, (state) => {
+      state.followStatus = API_STATE.LOADING;
+    });
+    builder.addCase(unFollowThisUser.fulfilled, (state, action) => {
+      state.followStatus = API_STATE.SUCCESS;
+      state.usersData = [...state.usersData].map((item) => {
+        return item._id === action.payload.followUser._id
+          ? action.payload.followUser
+          : item;
+      });
+    });
+    builder.addCase(unFollowThisUser.rejected, (state, action) => {
+      state.followStatus = API_STATE.FAILED;
+      state.usersData = [];
+      state.followError = action.error.message;
+    });
   },
 });
 
-export { getAllUsersData, followThisUser };
+export { getAllUsersData, followThisUser, unFollowThisUser };
 export const usersReducer = usersSlice.reducer;

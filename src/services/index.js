@@ -9,4 +9,4 @@ export {
 export { loginService, signupService } from './authService';
 export { getUser, editUserProfile } from './profileService';
 export { getAllUsers } from './usersService';
-export { followUser } from './followService';
+export { followUser, unfollowUser } from './followService';
