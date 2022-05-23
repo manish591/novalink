@@ -30,11 +30,13 @@ const ProfileOptions = ({ openModal, setOpenModal }) => {
           <span className="material-icons-outlined text-2xl">archive</span>
           <p className="text-base">Archive</p>
         </li>
-        <li className="flex items-center gap-3">
-          <span className="material-icons-outlined text-2xl">
-            bookmark_border
-          </span>
-          <p className="text-base">Saved</p>
+        <li>
+          <Link to="/bookmark" className="inline-block flex items-center gap-3">
+            <span className="material-icons-outlined text-2xl">
+              bookmark_border
+            </span>
+            <p className="text-base">Saved</p>
+          </Link>
         </li>
         <li className="flex items-center gap-3">
           <span className="material-icons-outlined text-2xl">delete</span>
