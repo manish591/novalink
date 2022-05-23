@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { API_STATE } from 'common';
 import { Loader } from 'components';
 import { useUploadMedia } from '../hooks/useUploadMedia';
 
-const CreatePostModal = () => {
+const CreatePostModal = ({ setIsOpenPostModal }) => {
   const [imageFileName, setImageFileName] = useState('');
   const [isImageUploading, setIsImageUploading] = useState(API_STATE.IDLE);
   const [myPostData, setMyPostData] = useState({
@@ -29,9 +30,14 @@ const CreatePostModal = () => {
       <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto]">
         <div className="shadow py-3 sm:py-4">
           <section className="w-11/12 m-auto flex items-center justify-between">
-            <div className="flex items-center justify-center">
+            <button
+              type="button"
+              className="flex items-center justify-center"
+              onClick={() => {
+                setIsOpenPostModal((prev) => !prev);
+              }}>
               <span className="material-icons-outlined">west</span>
-            </div>
+            </button>
             <h1 className="text-xl font-bold">Create Post</h1>
             <button
               type="button"
@@ -140,6 +146,10 @@ const CreatePostModal = () => {
       </div>
     </div>
   );
+};
+
+CreatePostModal.propTypes = {
+  setIsOpenPostModal: PropTypes.func.isRequired,
 };
 
 export { CreatePostModal };

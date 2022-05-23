@@ -21,7 +21,9 @@ const MyFeed = () => {
         <PostContainer />
       </div>
       <ActivityBar setIsOpenPostModal={setIsOpenPostModal} />
-      {isOpenPostModal ? <CreatePostModal /> : null}
+      {isOpenPostModal ? (
+        <CreatePostModal setIsOpenPostModal={setIsOpenPostModal} />
+      ) : null}
     </div>
   );
 };
