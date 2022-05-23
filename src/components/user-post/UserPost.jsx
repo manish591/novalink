@@ -12,6 +12,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
   const [isEditPost, setIsEditPost] = useState(false);
   const allUsersData = useSelector((state) => state.users.usersData);
   const token = useSelector((state) => state.authentication.token);
+  const myBookmarks = useSelector((state) => state.authentication.bookmarks);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -104,15 +105,23 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
                 </div>
               </section>
               <section>
-                <button
-                  type="button"
-                  onClick={() => {
-                    dispatch(addToBookmark({ postId: _id, token }));
-                  }}>
-                  <span className="material-icons-outlined text-lg">
-                    bookmark_border
-                  </span>
-                </button>
+                {myBookmarks.some((item) => item === _id) ? (
+                  <button type="button" onClick={() => {}}>
+                    <span className="material-icons-outlined text-lg">
+                      bookmark
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(addToBookmark({ postId: _id, token }));
+                    }}>
+                    <span className="material-icons-outlined text-lg">
+                      bookmark_border
+                    </span>
+                  </button>
+                )}
               </section>
             </div>
           </div>

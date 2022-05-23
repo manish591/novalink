@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginService, signupService } from 'services';
+import { loginService, signupService, bookmarkPost } from 'services';
 import { useGetLocalStorage } from 'common';
 import { editMyProfile } from 'features/profile/ProfileSlice';
-import { bookmarkPost } from 'services';
 
 const initialState = {
   authError: '',
