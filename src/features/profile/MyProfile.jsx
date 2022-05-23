@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BottomBar, Loader } from 'components';
 import { posts } from 'common/data';
 import { API_STATE } from 'common';
-import { followThisUser } from 'features/users/usersSlice';
+import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
 import { ProfileOptions } from './components/profile-options/ProfileOptions';
 import { getUserData } from './ProfileSlice';
 import { UserNotFound } from './components/user-not-found/UsetNotFound';
@@ -132,7 +132,7 @@ const MyProfile = () => {
                         className="flex-1 border py-1.5 sm:py-2 rounded-md bg-[black] text-[white]"
                         onClick={() => {
                           dispatch(
-                            followThisUser({
+                            unFollowThisUser({
                               followUserId: profileData._id,
                               token,
                             }),
