@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { PostActions } from './components/PostActions';
 
 const UserPost = ({ mediaURL, username, likes, comments, content }) => {
   const [showMoreContent, setShowMoreContent] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [openPostActions, setOpenPostActions] = useState(false);
   const allUsersData = useSelector((state) => state.users.usersData);
 
   useEffect(() => {
@@ -32,9 +34,13 @@ const UserPost = ({ mediaURL, username, likes, comments, content }) => {
             <p className="text-xs sm:text-sm">Allenton, New Mexico</p>
           </div>
         </div>
-        <div>
+        <button
+          type="button"
+          onClick={() => {
+            setOpenPostActions((opa) => !opa);
+          }}>
           <span className="material-icons-outlined">more_horiz</span>
-        </div>
+        </button>
       </section>
       <section className="text-sm sm:text-base">
         <p>
@@ -95,6 +101,9 @@ const UserPost = ({ mediaURL, username, likes, comments, content }) => {
           </div>
         </div>
       </section>
+      {openPostActions ? (
+        <PostActions setOpenPostActions={setOpenPostActions} />
+      ) : null}
     </div>
   );
 };
