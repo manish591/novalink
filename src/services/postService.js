@@ -4,10 +4,12 @@ const getAllPosts = () => {
   return axios.get('/api/posts');
 };
 
-const createPost = (post, token) => {
+const createPost = (postData, token) => {
   return axios.post(
     '/api/posts',
-    { post },
+    {
+      postData,
+    },
     {
       headers: {
         authorization: token,

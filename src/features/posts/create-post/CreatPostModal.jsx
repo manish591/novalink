@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { API_STATE } from 'common';
 import { Loader } from 'components';
 import { useUploadMedia } from '../hooks/useUploadMedia';
+import { createMyPost } from '../postsSlice';
 
 const CreatePostModal = ({ setIsOpenPostModal }) => {
   const [imageFileName, setImageFileName] = useState('');
@@ -14,6 +16,8 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
   });
 
   const { uploadImage, deleteImage } = useUploadMedia();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.authentication.token);
 
   const handleUploadFile = async (e) => {
     setIsImageUploading(API_STATE.LOADING);
@@ -23,6 +27,11 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
     setImageFileName(e.target.files[0].name);
     await uploadImage(e.target.files[0], setMyPostData);
     setIsImageUploading(API_STATE.SUCCESS);
+  };
+
+  const handleCreateMyPost = () => {
+    dispatch(createMyPost({ postData: myPostData, token }));
+    setIsOpenPostModal((prev) => !prev);
   };
 
   return (
@@ -42,6 +51,7 @@ const CreatePostModal = ({ setIsOpenPostModal }) => {
             <button
               type="button"
               className="font-bold"
+              onClick={handleCreateMyPost}
               disabled={
                 myPostData.mediaURL === '' || myPostData.content === ''
               }>

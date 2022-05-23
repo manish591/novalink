@@ -25,7 +25,7 @@ const createMyPost = createAsyncThunk(
   'posts/create',
   async ({ postData, token }, { rejectWithValue }) => {
     try {
-      const res = createPost(postData, token);
+      const res = await createPost(postData, token);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -54,7 +54,7 @@ const postSlice = createSlice({
     builder.addCase(createMyPost.pending, (state) => {
       state.postStatus = API_STATE.LOADING;
     });
-    builder.addCase(createMyPost.fullfilled, (state, action) => {
+    builder.addCase(createMyPost.fulfilled, (state, action) => {
       state.postStatus = API_STATE.SUCCESS;
       state.postData = action.payload.posts;
     });

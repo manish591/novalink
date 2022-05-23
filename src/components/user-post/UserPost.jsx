@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const UserPost = ({ mediaURL, username, content, likes, comments }) => {
+const UserPost = ({ mediaURL, username, likes, comments, content }) => {
   const [showMoreContent, setShowMoreContent] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const allUsersData = useSelector((state) => state.users.usersData);
@@ -38,7 +38,10 @@ const UserPost = ({ mediaURL, username, content, likes, comments }) => {
       </section>
       <section className="text-sm sm:text-base">
         <p>
-          {showMoreContent ? content.slice(0) : content.slice(0, 100)}&nbsp;
+          {content && showMoreContent
+            ? content.slice(0)
+            : content.slice(0, 100)}
+          &nbsp;
           {!showMoreContent ? (
             <button
               type="button"
@@ -59,7 +62,7 @@ const UserPost = ({ mediaURL, username, content, likes, comments }) => {
       <section className="relative rounded-xl shadow-[2.1px_3.1px_7px_rgba(0,0,0,0.055),5px_10px_30px_rgba(0,0,0,0.012)]">
         <div className="rounded-xl">
           <img
-            src={mediaURL}
+            src={mediaURL ?? ''}
             alt="post"
             className="min-w-full rounded-xl object-cover lg:aspect-video"
           />
@@ -101,7 +104,11 @@ UserPost.propTypes = {
   username: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   likes: PropTypes.object.isRequired,
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.array,
+};
+
+UserPost.defaultProps = {
+  comments: [],
 };
 
 export { UserPost };
