@@ -59,7 +59,7 @@ const UserPost = ({ mediaURL, username, likes, comments, content }) => {
           )}
         </p>
       </section>
-      <section className="relative rounded-xl shadow-[2.1px_3.1px_7px_rgba(0,0,0,0.055),5px_10px_30px_rgba(0,0,0,0.012)]">
+      <section className="relative rounded-xl drop-shadow-xl">
         <div className="rounded-xl">
           <img
             src={mediaURL ?? ''}
