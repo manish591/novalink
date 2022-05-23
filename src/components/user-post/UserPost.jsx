@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { CreatePostModal, addToBookmark } from 'features';
+import { CreatePostModal, addToBookmark, removeFromBookmark } from 'features';
 import { PostActions } from './components/PostActions';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
@@ -106,7 +106,11 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
               </section>
               <section>
                 {myBookmarks.some((item) => item === _id) ? (
-                  <button type="button" onClick={() => {}}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(removeFromBookmark({ postId: _id, token }));
+                    }}>
                     <span className="material-icons-outlined text-lg">
                       bookmark
                     </span>

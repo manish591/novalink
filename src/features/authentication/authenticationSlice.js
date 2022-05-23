@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginService, signupService, bookmarkPost } from 'services';
+import {
+  loginService,
+  signupService,
+  bookmarkPost,
+  removeBookmark,
+} from 'services';
 import { useGetLocalStorage } from 'common';
 import { editMyProfile } from 'features/profile/ProfileSlice';
 
@@ -43,6 +48,19 @@ const addToBookmark = createAsyncThunk(
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const res = await bookmarkPost(postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const removeFromBookmark = createAsyncThunk(
+  'authtication/remove-bookmark',
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const res = await removeBookmark(postId, token);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -106,9 +124,20 @@ const authenticationSlice = createSlice({
       state.authStatus = 'FAILED';
       state.authError = action.error.message;
     });
+    builder.addCase(removeFromBookmark.pending, (state) => {
+      state.authStatus = 'LOADING';
+    });
+    builder.addCase(removeFromBookmark.fulfilled, (state, action) => {
+      state.authStatus = 'SUCCESS';
+      state.bookmarks = action.payload.bookmarks;
+    });
+    builder.addCase(removeFromBookmark.rejected, (state, action) => {
+      state.authStatus = 'FAILED';
+      state.authError = action.error.message;
+    });
   },
 });
 
-export { loginUser, signupUser, addToBookmark };
+export { loginUser, signupUser, addToBookmark, removeFromBookmark };
 export const authenticationReducer = authenticationSlice.reducer;
 export const { logoutUser } = authenticationSlice.actions;
