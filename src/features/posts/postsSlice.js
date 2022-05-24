@@ -7,14 +7,18 @@ import {
   editPost,
   likePostService,
   dislikePostService,
+  getPostCommentsService,
 } from 'services';
 
 const initialState = {
   postStatus: API_STATE.IDLE,
   likeStatus: API_STATE.IDLE,
+  commentStatus: API_STATE.IDLE,
+  commentError: '',
   postError: '',
   likeError: '',
   postData: [],
+  commentData: [],
 };
 
 const getPosts = createAsyncThunk(
@@ -87,6 +91,19 @@ const dislikePost = createAsyncThunk(
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const res = await dislikePostService(postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const getPostComments = createAsyncThunk(
+  'posts/getComment',
+  async ({ postId }, { rejectWithValue }) => {
+    try {
+      const res = await getPostCommentsService(postId);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -172,6 +189,18 @@ const postSlice = createSlice({
       state.postData = [];
       state.likeError = action.error.message;
     });
+    builder.addCase(getPostComments.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(getPostComments.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.commentData = action.payload.comments;
+    });
+    builder.addCase(getPostComments.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.commentData = [];
+      state.commentError = action.error.message;
+    });
   },
 });
 
@@ -182,5 +211,6 @@ export {
   editMyPost,
   likePost,
   dislikePost,
+  getPostComments,
 };
 export const postReducer = postSlice.reducer;

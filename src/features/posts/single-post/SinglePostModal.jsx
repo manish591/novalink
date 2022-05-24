@@ -1,9 +1,11 @@
 import { ActivityBar, Navbar, Sidebar } from 'components';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Comments } from './sub/Comments';
 import { PostOptions } from './sub/PostOption';
 
 const SinglePostModal = () => {
+  const { postId } = useParams();
   return (
     <div className="lg:grid lg:grid-cols-[250px_minmax(0,1fr)_300px]">
       <div className="hidden lg:block">
@@ -22,7 +24,6 @@ const SinglePostModal = () => {
           <Navbar />
         </section>
         <section className="w-11/12 lg:w-[98%] m-auto mt-4 mb-8 sm:mb-0 grid grid-cols-1 sm:grid-cols-[60%_minmax(0,1fr)] sm:border lg:mb-8">
-          {/* image area */}
           <div className="sm:grid sm:grid-rows-[auto_minmax(0,1fr)_auto] sm:gap-4">
             <section className="flex justify-between items-center sm:py-3 sm:px-2 lg:px-4 sm:border-b">
               <div className="flex items-center justify-center gap-2 sm:gap-3">
@@ -46,16 +47,14 @@ const SinglePostModal = () => {
                 <span className="material-icons-outlined">more_horiz</span>
               </button>
             </section>
-            {/* margin top */}
             <section className="sm:hidden text-sm sm:text-base mt-2">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Deserunt aperiam provident dolor.
               </p>
             </section>
-            <section className="hidden sm:block sm:px-2 lg:px-4 max-h-[520px] overflow-hidden overflow-y-auto">
-              {/* Comments area this area will be hidden in mobile screens */}
-              <Comments />
+            <section className="hidden sm:block sm:px-2 lg:px-4 max-h-[520px] overflow-hidden overflow-y-auto mb-10">
+              <Comments postId={postId} />
             </section>
             <section className="hidden sm:block relative">
               <PostOptions />
@@ -83,7 +82,6 @@ const SinglePostModal = () => {
               </form>
             </section>
           </div>
-          {/* image */}
           <section className="relative rounded-xl shadow-md mt-2 sm:mt-0 sm:col-start-1 sm:col-end-2 sm:row-start-1">
             <div className="rounded-xl sm:rounded-none h-full">
               <img
