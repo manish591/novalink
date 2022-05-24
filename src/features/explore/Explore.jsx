@@ -1,8 +1,13 @@
 import React from 'react';
-import { posts } from 'common/data';
 import { ActivityBar, BottomBar, Navbar, Sidebar } from 'components';
+import { useSelector } from 'react-redux';
 
 const Explore = () => {
+  const allPosts = useSelector((state) => state.post.postData);
+  const currentUser = useSelector((state) => state.authentication.currentUser);
+  const filterOutMyPosts = allPosts.filter(
+    (item) => item.username !== currentUser.username,
+  );
   return (
     <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[250px_1fr_300px] lg:m-auto">
       <Sidebar />
@@ -29,11 +34,11 @@ const Explore = () => {
         </section>
         <section className="mt-4 mb-16 w-11/12 m-auto">
           <div className="columns-2 gap-2 lg:columns-3">
-            {posts.map((item) => {
+            {filterOutMyPosts.map((item) => {
               return (
-                <article key={item.id} className="pb-2">
+                <article key={item._id} className="mb-2 break-inside-avoid">
                   <img
-                    src={item.img}
+                    src={item.mediaURL}
                     alt="profile"
                     className="min-w-full object-cover aspect-square rounded-md"
                   />
