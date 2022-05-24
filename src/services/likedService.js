@@ -12,4 +12,16 @@ const likePostService = (postId, token) => {
   );
 };
 
-export { likePostService };
+const dislikePostService = (postId, token) => {
+  return axios.post(
+    `/api/posts/dislike/${postId}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
+    },
+  );
+};
+
+export { likePostService, dislikePostService };

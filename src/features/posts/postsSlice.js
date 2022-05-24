@@ -6,6 +6,7 @@ import {
   deletePost,
   editPost,
   likePostService,
+  dislikePostService,
 } from 'services';
 
 const initialState = {
@@ -81,6 +82,19 @@ const likePost = createAsyncThunk(
   },
 );
 
+const dislikePost = createAsyncThunk(
+  'posts/dislike',
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const res = await dislikePostService(postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const postSlice = createSlice({
   name: 'posts',
   initialState,
@@ -146,8 +160,27 @@ const postSlice = createSlice({
       state.postData = [];
       state.likeError = action.error.message;
     });
+    builder.addCase(dislikePost.pending, (state) => {
+      state.likeStatus = API_STATE.LOADING;
+    });
+    builder.addCase(dislikePost.fulfilled, (state, action) => {
+      state.likeStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(dislikePost.rejected, (state, action) => {
+      state.likeStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.likeError = action.error.message;
+    });
   },
 });
 
-export { getPosts, createMyPost, deleteMyPost, editMyPost, likePost };
+export {
+  getPosts,
+  createMyPost,
+  deleteMyPost,
+  editMyPost,
+  likePost,
+  dislikePost,
+};
 export const postReducer = postSlice.reducer;

@@ -6,6 +6,7 @@ import {
   addToBookmark,
   removeFromBookmark,
   likePost,
+  dislikePost,
 } from 'features';
 import { Link } from 'react-router-dom';
 import { PostActions } from './components/PostActions';
@@ -100,7 +101,11 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
                   {likes.likedBy.some(
                     (item) => item.username === currentUser.username,
                   ) ? (
-                    <button type="button" onClick={() => {}}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        dispatch(dislikePost({ postId: _id, token }));
+                      }}>
                       <span className="material-icons-outlined text-xl">
                         favorite
                       </span>
