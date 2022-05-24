@@ -89,26 +89,24 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
           </div>
           <div className="absolute w-full bg-white bottom-0 left-0 rounded-tl-[2rem] rounded-b-xl">
             <div className="flex items-center justify-between w-11/12 m-auto py-2.5 sm:p-3 text-gray-600">
-              <section className="flex items-center justify-between gap-3 sm:gap-4">
+              <section className="flex items-center justify-between gap-4 sm:gap-4">
                 <div className="flex items-center gap-1">
-                  <span className="material-icons-outlined text-lg">
+                  <span className="material-icons-outlined text-xl">
                     favorite_border
                   </span>
-                  <p className="text-[0.625rem] sm:text-sm">
-                    {likes?.likeCount}
-                  </p>
+                  <p className="text-sm sm:text-sm">{likes?.likeCount}</p>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="material-icons-outlined text-lg">chat</span>
-                  <p className="text-[0.625rem] sm:text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="material-icons-outlined text-xl">chat</span>
+                  <p className="text-sm sm:text-sm">
                     {comments ? comments.length : 0}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="material-icons-outlined text-lg">
+                  <span className="material-icons-outlined text-xl">
                     ios_share
                   </span>
-                  <p className="text-[0.625rem] sm:text-sm">7K</p>
+                  <p className="text-sm sm:text-sm">7K</p>
                 </div>
               </section>
               <section>
@@ -118,7 +116,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
                     onClick={() => {
                       dispatch(removeFromBookmark({ postId: _id, token }));
                     }}>
-                    <span className="material-icons-outlined text-lg">
+                    <span className="material-icons-outlined text-xl">
                       bookmark
                     </span>
                   </button>
@@ -128,7 +126,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
                     onClick={() => {
                       dispatch(addToBookmark({ postId: _id, token }));
                     }}>
-                    <span className="material-icons-outlined text-lg">
+                    <span className="material-icons-outlined text-xl">
                       bookmark_border
                     </span>
                   </button>
