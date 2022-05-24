@@ -14,3 +14,5 @@ export * from './posts/postsSlice';
 export * from './users/usersSlice';
 export { CreatePostModal } from './posts/create-post/CreatPostModal';
 export { Explore } from './explore/Explore';
+export { Comments } from './posts/single-post/sub/Comments';
+export { SinglePostModal } from './posts/single-post/SinglePostModal';

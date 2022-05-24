@@ -13,6 +13,7 @@ import {
   getAllUsersData,
   getPosts,
   Explore,
+  SinglePostModal,
 } from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
 import Mockman from 'mockman-js';
@@ -92,6 +93,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Explore />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/post/:postId"
+          element={
+            <ProtectedRoute>
+              <SinglePostModal />
             </ProtectedRoute>
           }
         />

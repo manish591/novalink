@@ -1,0 +1,106 @@
+import { ActivityBar, Navbar, Sidebar } from 'components';
+import React from 'react';
+import { Comments } from './sub/Comments';
+import { PostOptions } from './sub/PostOption';
+
+const SinglePostModal = () => {
+  return (
+    <div className="lg:grid lg:grid-cols-[250px_minmax(0,1fr)_300px]">
+      <div className="hidden lg:block">
+        <Sidebar />
+      </div>
+      <div className="bg-[white] lg:col-start-2">
+        <section className="sm:hidden shadow py-3 sm:py-4 sticky top-0 bg-[white]">
+          <div className="w-11/12 sm:w-[95%] m-auto flex items-center">
+            <button type="button" className="flex items-center justify-center">
+              <span className="material-icons-outlined">west</span>
+            </button>
+            <h1 className="text-xl font-bold m-auto">Post</h1>
+          </div>
+        </section>
+        <section className="hidden sm:block sticky top-0 z-[20]">
+          <Navbar />
+        </section>
+        <section className="w-11/12 lg:w-[98%] m-auto mt-4 mb-8 sm:mb-0 grid grid-cols-1 sm:grid-cols-[60%_minmax(0,1fr)] sm:border lg:mb-8">
+          {/* image area */}
+          <div className="sm:grid sm:grid-rows-[auto_minmax(0,1fr)_auto] sm:gap-4">
+            <section className="flex justify-between items-center sm:py-3 sm:px-2 lg:px-4 sm:border-b">
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full inline-block">
+                  <img
+                    src="https://i.pravatar.cc/150?img=36"
+                    alt="avatar"
+                    className="min-w-full rounded-full"
+                  />
+                </div>
+                <div>
+                  <div>
+                    <h3 className="font-semibold text-sm sm:text-base">
+                      manishdevrani44
+                    </h3>
+                  </div>
+                  <p className="text-xs sm:text-sm">Allenton, New Mexico</p>
+                </div>
+              </div>
+              <button type="button">
+                <span className="material-icons-outlined">more_horiz</span>
+              </button>
+            </section>
+            {/* margin top */}
+            <section className="sm:hidden text-sm sm:text-base mt-2">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Deserunt aperiam provident dolor.
+              </p>
+            </section>
+            <section className="hidden sm:block sm:px-2 lg:px-4 max-h-[520px] overflow-hidden overflow-y-auto">
+              {/* Comments area this area will be hidden in mobile screens */}
+              <Comments />
+            </section>
+            <section className="hidden sm:block relative">
+              <PostOptions />
+            </section>
+            <section className="hidden sm:block">
+              <form className="m-auto py-2 px-3 lg:px-4">
+                <section className="border-2 border-[#999999] rounded-full bg-[white] flex items-center gap-2 py-2 px-2">
+                  <section className="flex-1">
+                    <label htmlFor="comment" className="sr-only">
+                      Comment
+                    </label>
+                    <input
+                      type="text"
+                      id="comment"
+                      className="w-full outline-none"
+                      placeholder="Write a comment..."
+                    />
+                  </section>
+                  <section>
+                    <button type="button" className="text-xs text-[hotpink]">
+                      Post
+                    </button>
+                  </section>
+                </section>
+              </form>
+            </section>
+          </div>
+          {/* image */}
+          <section className="relative rounded-xl shadow-md mt-2 sm:mt-0 sm:col-start-1 sm:col-end-2 sm:row-start-1">
+            <div className="rounded-xl sm:rounded-none h-full">
+              <img
+                src="https://images.unsplash.com/photo-1648737966274-79aa6f89c440?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+                alt="post"
+                className="min-w-full rounded-xl h-full sm:rounded-none object-cover lg:aspect-video"
+              />
+            </div>
+            <div className="sm:hidden">
+              <PostOptions />
+            </div>
+          </section>
+        </section>
+      </div>
+      <ActivityBar />
+    </div>
+  );
+};
+
+export { SinglePostModal };
