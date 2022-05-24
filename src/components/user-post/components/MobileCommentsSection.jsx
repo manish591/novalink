@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { Comments, addPostComment } from 'features';
+import { Comments, addPostComment, editPostComment } from 'features';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 const MobileCommentsSection = ({ setShowComments, postId }) => {
   const [commentText, setCommentText] = useState('');
+  const [isEditComment, setIsEditComment] = useState(false);
+  const [commentId, setCommentId] = useState('');
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
 
   const handleAddMyComment = (e) => {
     e.preventDefault();
     dispatch(addPostComment({ postId, commentData: commentText, token }));
+    setCommentText('');
   };
 
   return (
@@ -30,7 +33,12 @@ const MobileCommentsSection = ({ setShowComments, postId }) => {
           </section>
         </div>
         <section className="w-11/12 m-auto mt-4 overflow-y-auto h-[90vh]">
-          <Comments postId={postId} />
+          <Comments
+            postId={postId}
+            setIsEditComment={setIsEditComment}
+            setCommentText={setCommentText}
+            setCommentId={setCommentId}
+          />
         </section>
         <section>
           <form
@@ -59,9 +67,30 @@ const MobileCommentsSection = ({ setShowComments, postId }) => {
                 />
               </section>
               <section>
-                <button type="submit" className="text-xs text-[hotpink]">
-                  Post
-                </button>
+                {isEditComment ? (
+                  <button
+                    type="button"
+                    className="text-xs text-[hotpink]"
+                    onClick={() => {
+                      dispatch(
+                        editPostComment({
+                          postId,
+                          commentId,
+                          token,
+                          commentData: commentText,
+                        }),
+                      );
+                      setCommentId('');
+                      setCommentText('');
+                      setIsEditComment(false);
+                    }}>
+                    Update
+                  </button>
+                ) : (
+                  <button type="submit" className="text-xs text-[hotpink]">
+                    Post
+                  </button>
+                )}
               </section>
             </section>
           </form>

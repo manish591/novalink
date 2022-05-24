@@ -10,6 +10,7 @@ import {
   getPostCommentsService,
   addCommentService,
   deleteCommentService,
+  editCommentService,
 } from 'services';
 
 const initialState = {
@@ -140,6 +141,24 @@ const deletePostComment = createAsyncThunk(
   },
 );
 
+const editPostComment = createAsyncThunk(
+  'posts/editComment',
+  async ({ postId, commentId, token, commentData }, { rejectWithValue }) => {
+    try {
+      const res = await editCommentService(
+        postId,
+        commentId,
+        token,
+        commentData,
+      );
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const postSlice = createSlice({
   name: 'posts',
   initialState,
@@ -253,6 +272,18 @@ const postSlice = createSlice({
       state.postData = [];
       state.commentError = action.error.message;
     });
+    builder.addCase(editPostComment.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(editPostComment.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(editPostComment.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.commentError = action.error.message;
+    });
   },
 });
 
@@ -266,5 +297,6 @@ export {
   getPostComments,
   addPostComment,
   deletePostComment,
+  editPostComment,
 };
 export const postReducer = postSlice.reducer;

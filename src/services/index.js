@@ -7,6 +7,7 @@ export {
   getPostCommentsService,
   addCommentService,
   deleteCommentService,
+  editCommentService,
 } from './commentService';
 export {
   getAllPosts,

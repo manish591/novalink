@@ -5,7 +5,12 @@ import { getPostComments, deletePostComment } from 'features/posts/postsSlice';
 import { API_STATE } from 'common';
 import { Loader } from 'components';
 
-const Comments = ({ postId }) => {
+const Comments = ({
+  postId,
+  setIsEditComment,
+  setCommentText,
+  setCommentId,
+}) => {
   const commentsData = useSelector((state) => state.post.commentData);
   const commentsStatus = useSelector((state) => state.post.commentStatus);
   const allPosts = useSelector((state) => state.post.postData);
@@ -62,7 +67,14 @@ const Comments = ({ postId }) => {
                       </p>
                       {currentUser.username === item.username ? (
                         <div className="justify-start flex gap-3 mt-2">
-                          <button type="button" className="text-[0.625rem] ">
+                          <button
+                            type="button"
+                            className="text-[0.625rem]"
+                            onClick={() => {
+                              setCommentText(item.text);
+                              setIsEditComment((ec) => !ec);
+                              setCommentId(item._id);
+                            }}>
                             Edit
                           </button>
                           <button
@@ -97,6 +109,9 @@ const Comments = ({ postId }) => {
 
 Comments.propTypes = {
   postId: PropTypes.string.isRequired,
+  setIsEditComment: PropTypes.func.isRequired,
+  setCommentText: PropTypes.func.isRequired,
+  setCommentId: PropTypes.func.isRequired,
 };
 
 export { Comments };
