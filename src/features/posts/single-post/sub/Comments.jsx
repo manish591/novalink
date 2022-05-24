@@ -10,6 +10,7 @@ const Comments = ({ postId }) => {
   const commentsStatus = useSelector((state) => state.post.commentStatus);
   const allPosts = useSelector((state) => state.post.postData);
   const currentUserPost = allPosts.find((item) => item._id === postId);
+  const currentUser = useSelector((state) => state.authentication.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,21 +43,33 @@ const Comments = ({ postId }) => {
           <>
             {commentsData.map((item) => {
               return (
-                <section
-                  key={item._id}
-                  className="grid grid-cols-[auto_minmax(0,_1fr)] gap-3">
-                  <div className="w-8 h-8 sm:w-8 sm:h-8 rounded-full inline-block z-[-1]">
-                    <img
-                      src="https://i.pravatar.cc/150?img=2"
-                      alt="avatar"
-                      className="max-w-full rounded-full"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm">
-                      <span className="text-sm font-bold">{item.username}</span>
-                      &nbsp; {item.text}
-                    </p>
+                <section key={item._id}>
+                  <div className="grid grid-cols-[auto_minmax(0,_1fr)] gap-3">
+                    <div className="w-8 h-8 sm:w-8 sm:h-8 rounded-full inline-block z-[-1]">
+                      <img
+                        src="https://i.pravatar.cc/150?img=2"
+                        alt="avatar"
+                        className="max-w-full rounded-full"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-sm">
+                        <span className="text-sm font-bold">
+                          {item.username}
+                        </span>
+                        &nbsp; {item.text}
+                      </p>
+                      {currentUser.username === item.username ? (
+                        <div className="justify-start flex gap-3 mt-2">
+                          <button type="button" className="text-[0.625rem] ">
+                            Edit
+                          </button>
+                          <button type="button" className="text-[0.625rem] ">
+                            Delete
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 </section>
               );
