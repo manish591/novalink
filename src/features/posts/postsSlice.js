@@ -10,7 +10,9 @@ import {
 
 const initialState = {
   postStatus: API_STATE.IDLE,
+  likeStatus: API_STATE.IDLE,
   postError: '',
+  likeError: '',
   postData: [],
 };
 
@@ -133,16 +135,16 @@ const postSlice = createSlice({
       state.postError = action.error.message;
     });
     builder.addCase(likePost.pending, (state) => {
-      state.postStatus = API_STATE.LOADING;
+      state.likeStatus = API_STATE.LOADING;
     });
     builder.addCase(likePost.fulfilled, (state, action) => {
-      state.postStatus = API_STATE.SUCCESS;
+      state.likeStatus = API_STATE.SUCCESS;
       state.postData = action.payload.posts;
     });
     builder.addCase(likePost.rejected, (state, action) => {
-      state.postStatus = API_STATE.FAILED;
+      state.likeStatus = API_STATE.FAILED;
       state.postData = [];
-      state.postError = action.error.message;
+      state.likeError = action.error.message;
     });
   },
 });

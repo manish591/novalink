@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { CreatePostModal, addToBookmark, removeFromBookmark } from 'features';
+import {
+  CreatePostModal,
+  addToBookmark,
+  removeFromBookmark,
+  likePost,
+} from 'features';
 import { Link } from 'react-router-dom';
 import { PostActions } from './components/PostActions';
 
@@ -14,6 +19,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
   const allUsersData = useSelector((state) => state.users.usersData);
   const token = useSelector((state) => state.authentication.token);
   const myBookmarks = useSelector((state) => state.authentication.bookmarks);
+  const currentUser = useSelector((state) => state.authentication.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -91,9 +97,25 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
             <div className="flex items-center justify-between w-11/12 m-auto py-2.5 sm:p-3 text-gray-600">
               <section className="flex items-center justify-between gap-4 sm:gap-4">
                 <div className="flex items-center gap-1">
-                  <span className="material-icons-outlined text-xl">
-                    favorite_border
-                  </span>
+                  {likes.likedBy.some(
+                    (item) => item.username === currentUser.username,
+                  ) ? (
+                    <button type="button" onClick={() => {}}>
+                      <span className="material-icons-outlined text-xl">
+                        favorite
+                      </span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        dispatch(likePost({ postId: _id, token }));
+                      }}>
+                      <span className="material-icons-outlined text-xl">
+                        favorite_border
+                      </span>
+                    </button>
+                  )}
                   <p className="text-sm sm:text-sm">{likes?.likeCount}</p>
                 </div>
                 <div className="flex items-center gap-2">
