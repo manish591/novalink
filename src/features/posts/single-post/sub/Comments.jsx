@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPostComments } from 'features/posts/postsSlice';
+import { getPostComments, deletePostComment } from 'features/posts/postsSlice';
 import { API_STATE } from 'common';
 import { Loader } from 'components';
 
@@ -11,6 +11,7 @@ const Comments = ({ postId }) => {
   const allPosts = useSelector((state) => state.post.postData);
   const currentUserPost = allPosts.find((item) => item._id === postId);
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -64,7 +65,18 @@ const Comments = ({ postId }) => {
                           <button type="button" className="text-[0.625rem] ">
                             Edit
                           </button>
-                          <button type="button" className="text-[0.625rem] ">
+                          <button
+                            type="button"
+                            className="text-[0.625rem]"
+                            onClick={() => {
+                              dispatch(
+                                deletePostComment({
+                                  postId,
+                                  commentId: item._id,
+                                  token,
+                                }),
+                              );
+                            }}>
                             Delete
                           </button>
                         </div>

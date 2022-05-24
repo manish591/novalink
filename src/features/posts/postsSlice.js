@@ -9,6 +9,7 @@ import {
   dislikePostService,
   getPostCommentsService,
   addCommentService,
+  deleteCommentService,
 } from 'services';
 
 const initialState = {
@@ -126,6 +127,19 @@ const addPostComment = createAsyncThunk(
   },
 );
 
+const deletePostComment = createAsyncThunk(
+  'posts/deleteComment',
+  async ({ postId, commentId, token }, { rejectWithValue }) => {
+    try {
+      const res = await deleteCommentService(postId, commentId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
 const postSlice = createSlice({
   name: 'posts',
   initialState,
@@ -227,6 +241,18 @@ const postSlice = createSlice({
       state.postData = [];
       state.commentError = action.error.message;
     });
+    builder.addCase(deletePostComment.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(deletePostComment.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(deletePostComment.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.commentError = action.error.message;
+    });
   },
 });
 
@@ -239,5 +265,6 @@ export {
   dislikePost,
   getPostComments,
   addPostComment,
+  deletePostComment,
 };
 export const postReducer = postSlice.reducer;
