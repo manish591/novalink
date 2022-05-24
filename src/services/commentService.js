@@ -18,4 +18,12 @@ const addCommentService = (postId, commentData, token) => {
   );
 };
 
-export { getPostCommentsService, addCommentService };
+const deleteCommentService = (postId, commentId, token) => {
+  return axios.delete(`/api/comments/delete/${postId}/${commentId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+};
+
+export { getPostCommentsService, addCommentService, deleteCommentService };
