@@ -13,12 +13,15 @@ import {
 } from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
 import { usePersistAuth } from 'common';
+import Mockman from 'mockman-js';
 
 const App = () => {
   usePersistAuth();
   return (
     <div className="App">
       <Routes>
+        {/* Mockman route */}
+        <Route path="/mockman" element={<Mockman />} />
         <Route
           path="/"
           element={
@@ -60,7 +63,7 @@ const App = () => {
           }
         />
         <Route
-          path="/profile"
+          path="/profile/:username"
           element={
             <ProtectedRoute>
               <MyProfile />

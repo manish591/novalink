@@ -8,3 +8,4 @@ export { SearchBar } from './search-bar/SearchBar';
 export { ActivityBar } from './activity-bar/ActivityBar';
 export { RedirectedRoute } from '../common/routes/RedirectedRoute';
 export { ProtectedRoute } from '../common/routes/ProtectedRoute';
+export { Loader } from './loader/Loader';

@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const ProfileOptions = ({ openModal, setOpenModal }) => {
   return (
@@ -19,9 +20,11 @@ const ProfileOptions = ({ openModal, setOpenModal }) => {
         </button>
       )}
       <ul className="grid gap-3 z-[12] relative pb-6 pt-6 px-3 bg-[white] rounded-t-2xl">
-        <li className="flex items-center gap-3">
-          <span className="material-icons-outlined text-2xl">settings</span>
-          <p className="text-base">Settings</p>
+        <li>
+          <Link to="/settings" className="flex items-center gap-3">
+            <span className="material-icons-outlined text-2xl">settings</span>
+            <p className="text-base">Settings</p>
+          </Link>
         </li>
         <li className="flex items-center gap-3">
           <span className="material-icons-outlined text-2xl">archive</span>
