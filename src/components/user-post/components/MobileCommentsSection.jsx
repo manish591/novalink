@@ -1,8 +1,18 @@
-import React from 'react';
-import { Comments } from 'features';
+import React, { useState } from 'react';
+import { Comments, addPostComment } from 'features';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
 const MobileCommentsSection = ({ setShowComments, postId }) => {
+  const [commentText, setCommentText] = useState('');
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
+
+  const handleAddMyComment = (e) => {
+    e.preventDefault();
+    dispatch(addPostComment({ postId, commentData: commentText, token }));
+  };
+
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
       <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto]">
@@ -19,11 +29,13 @@ const MobileCommentsSection = ({ setShowComments, postId }) => {
             <h1 className="text-xl font-bold m-auto">Comments</h1>
           </section>
         </div>
-        <section className="w-11/12 m-auto mt-4">
+        <section className="w-11/12 m-auto mt-4 overflow-y-auto h-[90vh]">
           <Comments postId={postId} />
         </section>
         <section>
-          <form className="w-11/12 m-auto py-2">
+          <form
+            className="w-11/12 m-auto py-2 z-[20]"
+            onSubmit={handleAddMyComment}>
             <section className="border-2 border-[#999999] rounded-full bg-[white] flex items-center gap-2 py-2 px-2">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full inline-block">
                 <img
@@ -41,10 +53,13 @@ const MobileCommentsSection = ({ setShowComments, postId }) => {
                   id="comment"
                   className="w-full outline-none"
                   placeholder="Write a comment..."
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                  required
                 />
               </section>
               <section>
-                <button type="button" className="text-xs text-[hotpink]">
+                <button type="submit" className="text-xs text-[hotpink]">
                   Post
                 </button>
               </section>

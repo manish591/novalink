@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostComments } from 'features/posts/postsSlice';
-import PropTypes from 'prop-types';
 import { API_STATE } from 'common';
 import { Loader } from 'components';
 
@@ -14,7 +14,7 @@ const Comments = ({ postId }) => {
 
   useEffect(() => {
     dispatch(getPostComments({ postId }));
-  }, []);
+  }, [allPosts]);
 
   return (
     <div>
@@ -36,7 +36,7 @@ const Comments = ({ postId }) => {
           </p>
         </div>
       </section>
-      <div className="grid grid-cols-1 gap-8 mt-8">
+      <div className="grid grid-cols-1 gap-8 my-8 pb-16">
         {commentsStatus === API_STATE.LOADING && <Loader />}
         {commentsStatus === API_STATE.SUCCESS && commentsData.length > 0 ? (
           <>
@@ -45,7 +45,7 @@ const Comments = ({ postId }) => {
                 <section
                   key={item._id}
                   className="grid grid-cols-[auto_minmax(0,_1fr)] gap-3">
-                  <div className="w-8 h-8 sm:w-8 sm:h-8 rounded-full inline-block translate-y-1">
+                  <div className="w-8 h-8 sm:w-8 sm:h-8 rounded-full inline-block z-[-1]">
                     <img
                       src="https://i.pravatar.cc/150?img=2"
                       alt="avatar"
