@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
   MyFeed,
@@ -10,13 +10,23 @@ import {
   Settings,
   Login,
   Signup,
+  getAllUsersData,
+  getPosts,
 } from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
 import { usePersistAuth } from 'common';
 import Mockman from 'mockman-js';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
+  const dispatch = useDispatch();
   usePersistAuth();
+
+  useEffect(() => {
+    dispatch(getAllUsersData());
+    dispatch(getPosts());
+  }, []);
+
   return (
     <div className="App">
       <Routes>
