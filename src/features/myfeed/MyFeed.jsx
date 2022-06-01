@@ -18,7 +18,7 @@ const MyFeed = () => {
         <Navbar />
         <Stories />
         <BottomBar setIsOpenPostModal={setIsOpenPostModal} />
-        <PostContainer />
+        <PostContainer setIsOpenPostModal={setIsOpenPostModal} />
       </div>
       <ActivityBar setIsOpenPostModal={setIsOpenPostModal} />
       {isOpenPostModal ? (

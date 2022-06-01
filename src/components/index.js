@@ -9,3 +9,4 @@ export { ActivityBar } from '../features/myfeed/components/activity-bar/Activity
 export { RedirectedRoute } from '../common/routes/RedirectedRoute';
 export { ProtectedRoute } from '../common/routes/ProtectedRoute';
 export { Loader } from './loader/Loader';
+export { PostActions } from './user-post/components/PostActions';
