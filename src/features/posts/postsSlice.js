@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { API_STATE } from 'common';
-import { getAllPosts } from 'services';
+import { getAllPosts, createPost } from 'services';
 
 const initialState = {
   postStatus: API_STATE.IDLE,
@@ -13,6 +13,19 @@ const getPosts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await getAllPosts();
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const createMyPost = createAsyncThunk(
+  'posts/create',
+  async ({ postData, token }, { rejectWithValue }) => {
+    try {
+      const res = await createPost(postData, token);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -38,8 +51,20 @@ const postSlice = createSlice({
       state.postData = [];
       state.postError = action.error.message;
     });
+    builder.addCase(createMyPost.pending, (state) => {
+      state.postStatus = API_STATE.LOADING;
+    });
+    builder.addCase(createMyPost.fulfilled, (state, action) => {
+      state.postStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(createMyPost.rejected, (state, action) => {
+      state.postStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.postError = action.error.message;
+    });
   },
 });
 
-export { getPosts };
+export { getPosts, createMyPost };
 export const postReducer = postSlice.reducer;

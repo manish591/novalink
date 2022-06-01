@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const BottomBar = () => {
+const BottomBar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
     <div className="fixed w-full bg-gray-100 bottom-0 right-0 border-t z-[10] sm:hidden">
@@ -21,9 +22,14 @@ const BottomBar = () => {
             </div>
           </li>
           <li className="w-12 h-12 rounded-full bg-cyan-500 border relative">
-            <div className="flex w-full h-full items-center justify-center">
+            <button
+              type="button"
+              className="flex w-full h-full items-center justify-center"
+              onClick={() => {
+                setIsOpenPostModal((prev) => !prev);
+              }}>
               <span className="material-icons-outlined text-white">add</span>
-            </div>
+            </button>
           </li>
           <li className="p-1">
             <div className="flex flex-col text-center">
@@ -43,6 +49,10 @@ const BottomBar = () => {
       </div>
     </div>
   );
+};
+
+BottomBar.propTypes = {
+  setIsOpenPostModal: PropTypes.func.isRequired,
 };
 
 export { BottomBar };

@@ -4,4 +4,18 @@ const getAllPosts = () => {
   return axios.get('/api/posts');
 };
 
-export { getAllPosts };
+const createPost = (postData, token) => {
+  return axios.post(
+    '/api/posts',
+    {
+      postData,
+    },
+    {
+      headers: {
+        authorization: token,
+      },
+    },
+  );
+};
+
+export { getAllPosts, createPost };
