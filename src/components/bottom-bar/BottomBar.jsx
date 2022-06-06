@@ -16,10 +16,12 @@ const BottomBar = ({ setIsOpenPostModal }) => {
             </Link>
           </li>
           <li className="p-1">
-            <div className="flex flex-col text-center">
+            <Link
+              to="/explore"
+              className="flex flex-col text-center inline-block">
               <span className="material-icons-outlined">search</span>
               <p className="text-[0.625rem]">Search</p>
-            </div>
+            </Link>
           </li>
           <li className="w-12 h-12 rounded-full bg-cyan-500 border relative">
             <button

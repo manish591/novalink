@@ -26,14 +26,16 @@ const Sidebar = ({ setIsOpenPostModal }) => {
               Home
             </p>
           </Link>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
+          <Link
+            to="/explore"
+            className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               search
             </span>
             <p className="hidden lg:block font-medium text-gray-800 text-base">
               Search
             </p>
-          </section>
+          </Link>
           <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
             <span className="material-icons-outlined text-3xl lg:text-2xl">
               favorite_border
@@ -100,7 +102,11 @@ const Sidebar = ({ setIsOpenPostModal }) => {
 };
 
 Sidebar.propTypes = {
-  setIsOpenPostModal: PropTypes.func.isRequired,
+  setIsOpenPostModal: PropTypes.func,
+};
+
+Sidebar.defaultProps = {
+  setIsOpenPostModal: null,
 };
 
 export { Sidebar };
