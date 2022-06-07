@@ -17,7 +17,7 @@ const MobileCommentsSection = ({ setShowComments, postId }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
+    <div className="fixed sm:hidden inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
       <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto]">
         <div className="shadow py-3 sm:py-4">
           <section className="w-11/12 sm:w-[95%] m-auto flex items-center">
