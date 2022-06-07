@@ -1,3 +1,8 @@
+export { loginService, signupService } from './authService';
+export { getUser, editUserProfile } from './profileService';
+export { getAllUsers } from './usersService';
+export { followUser, unfollowUser } from './followService';
+export { likePostService, dislikePostService } from './likedService';
 export {
   getAllPosts,
   createPost,
@@ -6,7 +11,3 @@ export {
   bookmarkPost,
   removeBookmark,
 } from './postService';
-export { loginService, signupService } from './authService';
-export { getUser, editUserProfile } from './profileService';
-export { getAllUsers } from './usersService';
-export { followUser, unfollowUser } from './followService';

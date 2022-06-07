@@ -1,10 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { API_STATE } from 'common';
-import { getAllPosts, createPost, deletePost, editPost } from 'services';
+import {
+  getAllPosts,
+  createPost,
+  deletePost,
+  editPost,
+  likePostService,
+  dislikePostService,
+} from 'services';
 
 const initialState = {
   postStatus: API_STATE.IDLE,
+  likeStatus: API_STATE.IDLE,
   postError: '',
+  likeError: '',
   postData: [],
 };
 
@@ -52,6 +61,32 @@ const editMyPost = createAsyncThunk(
   async ({ postData, postId, token }, { rejectWithValue }) => {
     try {
       const res = await editPost(postData, postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const likePost = createAsyncThunk(
+  'posts/like',
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const res = await likePostService(postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const dislikePost = createAsyncThunk(
+  'posts/dislike',
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const res = await dislikePostService(postId, token);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -113,8 +148,39 @@ const postSlice = createSlice({
       state.postData = [];
       state.postError = action.error.message;
     });
+    builder.addCase(likePost.pending, (state) => {
+      state.likeStatus = API_STATE.LOADING;
+    });
+    builder.addCase(likePost.fulfilled, (state, action) => {
+      state.likeStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(likePost.rejected, (state, action) => {
+      state.likeStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.likeError = action.error.message;
+    });
+    builder.addCase(dislikePost.pending, (state) => {
+      state.likeStatus = API_STATE.LOADING;
+    });
+    builder.addCase(dislikePost.fulfilled, (state, action) => {
+      state.likeStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(dislikePost.rejected, (state, action) => {
+      state.likeStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.likeError = action.error.message;
+    });
   },
 });
 
-export { getPosts, createMyPost, deleteMyPost, editMyPost };
+export {
+  getPosts,
+  createMyPost,
+  deleteMyPost,
+  editMyPost,
+  likePost,
+  dislikePost,
+};
 export const postReducer = postSlice.reducer;
