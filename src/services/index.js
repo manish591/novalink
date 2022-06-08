@@ -4,6 +4,12 @@ export { getAllUsers } from './usersService';
 export { followUser, unfollowUser } from './followService';
 export { likePostService, dislikePostService } from './likedService';
 export {
+  getPostCommentsService,
+  addCommentService,
+  deleteCommentService,
+  editCommentService,
+} from './commentService';
+export {
   getAllPosts,
   createPost,
   deletePost,

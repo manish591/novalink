@@ -10,6 +10,7 @@ import {
 } from 'features';
 import { Link } from 'react-router-dom';
 import { PostActions } from './components/PostActions';
+import { MobileCommentsSection } from './components/MobileCommentsSection';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
   const { _id, mediaURL, username, likes, comments, content } = post;
@@ -17,6 +18,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [openPostActions, setOpenPostActions] = useState(false);
   const [isEditPost, setIsEditPost] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const allUsersData = useSelector((state) => state.users.usersData);
   const token = useSelector((state) => state.authentication.token);
   const myBookmarks = useSelector((state) => state.authentication.bookmarks);
@@ -123,12 +125,29 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
                   )}
                   <p className="text-sm sm:text-sm">{likes?.likeCount}</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="material-icons-outlined text-xl">chat</span>
+                <button
+                  type="button"
+                  className="flex items-center gap-2 sm:hidden inline-block"
+                  onClick={() => {
+                    setShowComments((sc) => !sc);
+                  }}>
+                  <span className="material-icons-outlined text-xl">
+                    chat_bubble_outline
+                  </span>
                   <p className="text-sm sm:text-sm">
                     {comments ? comments.length : 0}
                   </p>
-                </div>
+                </button>
+                <Link
+                  to={`/post/${_id}`}
+                  className="hidden sm:flex flex items-center gap-2">
+                  <span className="material-icons-outlined text-xl">
+                    chat_bubble_outline
+                  </span>
+                  <p className="text-sm sm:text-sm">
+                    {comments ? comments.length : 0}
+                  </p>
+                </Link>
                 <div className="flex items-center gap-1">
                   <span className="material-icons-outlined text-xl">
                     ios_share
@@ -179,6 +198,9 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
           isEditPost={isEditPost}
           setIsEditPost={setIsEditPost}
         />
+      )}
+      {showComments && (
+        <MobileCommentsSection setShowComments={setShowComments} postId={_id} />
       )}
     </>
   );

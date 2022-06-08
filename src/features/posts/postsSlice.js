@@ -7,14 +7,21 @@ import {
   editPost,
   likePostService,
   dislikePostService,
+  getPostCommentsService,
+  addCommentService,
+  deleteCommentService,
+  editCommentService,
 } from 'services';
 
 const initialState = {
   postStatus: API_STATE.IDLE,
   likeStatus: API_STATE.IDLE,
+  commentStatus: API_STATE.IDLE,
+  commentError: '',
   postError: '',
   likeError: '',
   postData: [],
+  commentData: [],
 };
 
 const getPosts = createAsyncThunk(
@@ -87,6 +94,63 @@ const dislikePost = createAsyncThunk(
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const res = await dislikePostService(postId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const getPostComments = createAsyncThunk(
+  'posts/getComment',
+  async ({ postId }, { rejectWithValue }) => {
+    try {
+      const res = await getPostCommentsService(postId);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const addPostComment = createAsyncThunk(
+  'posts/addComment',
+  async ({ postId, commentData, token }, { rejectWithValue }) => {
+    try {
+      const res = await addCommentService(postId, commentData, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const deletePostComment = createAsyncThunk(
+  'posts/deleteComment',
+  async ({ postId, commentId, token }, { rejectWithValue }) => {
+    try {
+      const res = await deleteCommentService(postId, commentId, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const editPostComment = createAsyncThunk(
+  'posts/editComment',
+  async ({ postId, commentId, token, commentData }, { rejectWithValue }) => {
+    try {
+      const res = await editCommentService(
+        postId,
+        commentId,
+        token,
+        commentData,
+      );
       return res.data;
     } catch (err) {
       console.error(err);
@@ -172,6 +236,54 @@ const postSlice = createSlice({
       state.postData = [];
       state.likeError = action.error.message;
     });
+    builder.addCase(getPostComments.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(getPostComments.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.commentData = action.payload.comments;
+    });
+    builder.addCase(getPostComments.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.commentData = [];
+      state.commentError = action.error.message;
+    });
+    builder.addCase(addPostComment.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(addPostComment.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(addPostComment.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.commentError = action.error.message;
+    });
+    builder.addCase(deletePostComment.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(deletePostComment.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(deletePostComment.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.commentError = action.error.message;
+    });
+    builder.addCase(editPostComment.pending, (state) => {
+      state.commentStatus = API_STATE.LOADING;
+    });
+    builder.addCase(editPostComment.fulfilled, (state, action) => {
+      state.commentStatus = API_STATE.SUCCESS;
+      state.postData = action.payload.posts;
+    });
+    builder.addCase(editPostComment.rejected, (state, action) => {
+      state.commentStatus = API_STATE.FAILED;
+      state.postData = [];
+      state.commentError = action.error.message;
+    });
   },
 });
 
@@ -182,5 +294,9 @@ export {
   editMyPost,
   likePost,
   dislikePost,
+  getPostComments,
+  addPostComment,
+  deletePostComment,
+  editPostComment,
 };
 export const postReducer = postSlice.reducer;
