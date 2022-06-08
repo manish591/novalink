@@ -16,7 +16,6 @@ import {
   SinglePostModal,
 } from 'features';
 import { RedirectedRoute, ProtectedRoute } from 'components';
-import Mockman from 'mockman-js';
 import { useDispatch } from 'react-redux';
 
 const App = () => {
@@ -30,8 +29,6 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
-        {/* Mockman route */}
-        <Route path="/mockman" element={<Mockman />} />
         <Route
           path="/"
           element={
