@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Sidebar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
-    <div className="hidden sm:block fixed h-[100vh] w-[80px] bg-gray-50 lg:w-[250px]">
+    <div className="hidden sm:block fixed h-[100vh] w-[80px] bg-gray-50 lg:w-[200px]">
       <div className="flex lg:block h-full items-center justify-center">
         <div className="grid gap-10 lg:gap-4 w-full">
           <div className="lg:px-6 lg:py-4 hidden lg:block">
