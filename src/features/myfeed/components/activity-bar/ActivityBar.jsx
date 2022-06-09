@@ -18,14 +18,16 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
           <div className="flex items-center gap-2">
             <div className="w-12 h-12 rounded-full">
               <img
-                src="https://i.pravatar.cc/150?img=10"
+                src={currentUser.avatarUrl}
                 alt="avatar"
                 className="min-w-full rounded-full"
               />
             </div>
             <div>
-              <p>Manish Devrani</p>
-              <p className="text-gray-400 leading-[1.1]">manish122</p>
+              <p>{currentUser.firstName}</p>
+              <p className="text-gray-400 leading-[1.1]">
+                {currentUser.username}
+              </p>
             </div>
           </div>
           <div className="mt-10">
