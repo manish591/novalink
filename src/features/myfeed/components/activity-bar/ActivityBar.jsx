@@ -1,12 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
 
 const ActivityBar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.users.usersData).filter(
     (item) => item.username !== currentUser.username,
   );
+
   return (
     <div className="hidden bg-[#FFFFFF] sticky lg:block fixed h-[100vh] top-0 w-[350px] lg:py-2">
       <div className="py-2 px-4 grid gap-8 h-full ">
@@ -52,11 +56,37 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
                         </p>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="text-[white] py-1 w-20 text-sm bg-[black] rounded-md">
-                      Follow
-                    </button>
+                    {currentUser.following.some(
+                      (user) => user._id === item._id,
+                    ) ? (
+                      <button
+                        type="button"
+                        className="py-1 w-20 text-sm border border-[black] rounded-md"
+                        onClick={() => {
+                          dispatch(
+                            unFollowThisUser({
+                              followUserId: item._id,
+                              token,
+                            }),
+                          );
+                        }}>
+                        Following
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-[white] py-1 w-20 text-sm bg-[black] rounded-md"
+                        onClick={() => {
+                          dispatch(
+                            followThisUser({
+                              followUserId: item._id,
+                              token,
+                            }),
+                          );
+                        }}>
+                        Follow
+                      </button>
+                    )}
                   </div>
                 );
               })}
