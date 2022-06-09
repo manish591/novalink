@@ -32,6 +32,13 @@ const Login = () => {
     );
   };
 
+  const handleGuestLogin = () => {
+    setLoginData({ username: 'manish18', password: 'manishdevrani123456' });
+    dispatch(
+      loginUser({ username: 'manish18', password: 'manishdevrani123456' }),
+    );
+  };
+
   const handleValidateUser = (e) => {
     const { name, validationMessage } = e.target;
     const isValid = e.target.validity.valid;
@@ -132,7 +139,8 @@ const Login = () => {
           <section className="text-center flex items-center justify-center gap-2">
             <button
               type="button"
-              className="bg-gray-100 text-black text-white py-3 px-3 my-1 rounded">
+              className="bg-gray-100 text-black text-white py-3 px-3 my-1 rounded"
+              onClick={handleGuestLogin}>
               Login As Guest
             </button>
           </section>
