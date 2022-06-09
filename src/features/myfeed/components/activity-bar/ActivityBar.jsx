@@ -8,7 +8,7 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
     (item) => item.username !== currentUser.username,
   );
   return (
-    <div className="hidden sticky lg:block br-2 fixed h-[100vh] top-0 w-[300px] lg:py-2">
+    <div className="hidden bg-[#FFFFFF] sticky lg:block fixed h-[100vh] top-0 w-[350px] lg:py-2">
       <div className="py-2 px-4 grid gap-8 h-full ">
         <section>
           <div className="flex items-center gap-2">
@@ -27,11 +27,9 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
           <div className="mt-10">
             <section className="flex items-center justify-between">
               <p>Suggestions For You</p>
-              <button type="button" className="text-[hotpink]">
-                See All
-              </button>
+              <button type="button">See All</button>
             </section>
-            <section className="grid gap-6 mt-5">
+            <section className="grid gap-4 mt-5">
               {allUsers.map((item) => {
                 return (
                   <div
@@ -56,7 +54,7 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
                     </div>
                     <button
                       type="button"
-                      className="text-[hotpink] py-1 w-20 text-sm bg-[hotpink] text-[white] rounded-md">
+                      className="text-[white] py-1 w-20 text-sm bg-[black] rounded-md">
                       Follow
                     </button>
                   </div>
@@ -108,7 +106,7 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
               onClick={() => {
                 setIsOpenPostModal((prev) => !prev);
               }}
-              className="border w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-[white] items-end rounded-md shadow-md">
+              className="w-full py-3 bg-gradient-to-r from-green-400 to-blue-500 text-[black] items-end rounded-md shadow-md">
               Create Post
             </button>
           </section>

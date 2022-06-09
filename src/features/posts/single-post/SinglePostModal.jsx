@@ -7,11 +7,11 @@ import { PostOptions } from './sub/PostOption';
 const SinglePostModal = () => {
   const { postId } = useParams();
   return (
-    <div className="lg:grid lg:grid-cols-[250px_minmax(0,1fr)_300px]">
+    <div className="lg:grid lg:grid-cols-[80px_minmax(0,1fr)_350px]">
       <div className="hidden lg:block">
         <Sidebar />
       </div>
-      <div className="bg-[white] lg:col-start-2">
+      <div className="bg-[white] lg:col-start-2 border-r border-[#EFEFEF]">
         <section className="sm:hidden shadow py-3 sm:py-4 sticky top-0 bg-[white]">
           <div className="w-11/12 sm:w-[95%] m-auto flex items-center">
             <button type="button" className="flex items-center justify-center">
@@ -23,7 +23,7 @@ const SinglePostModal = () => {
         <section className="hidden sm:block sticky top-0 z-[20]">
           <Navbar />
         </section>
-        <section className="w-11/12 lg:w-[98%] m-auto mt-4 mb-8 sm:mb-0 grid grid-cols-1 sm:grid-cols-[60%_minmax(0,1fr)] sm:border lg:mb-8">
+        <section className="w-11/12 md:w-[80%] m-auto mt-4 mb-8 sm:mb-0 grid grid-cols-1 sm:grid-cols-[60%_minmax(0,1fr)] sm:border lg:mb-8">
           <div className="sm:grid sm:grid-rows-[auto_minmax(0,1fr)_auto] sm:gap-4">
             <section className="flex justify-between items-center sm:py-3 sm:px-2 lg:px-4 sm:border-b">
               <div className="flex items-center justify-center gap-2 sm:gap-3">

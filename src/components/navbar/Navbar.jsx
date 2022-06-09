@@ -4,23 +4,15 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 py-2 lg:py-3 text-[#2F394D] bg-white z-[10]">
-      <section className="flex justify-between items-center w-11/12 m-auto">
-        <div className="lg:hidden">
+    <nav className="sticky top-0 py-2 lg:py-4 bg-[#FFFFFF] border-b border-[#EFEFEF] z-[10] shadow-sm">
+      <section className="flex justify-between items-center w-[94%] m-auto">
+        <div>
           <Link to="/feed" className="text-2xl sm:text-3xl font-['Pacifico']">
             novalink
           </Link>
         </div>
-        <div className="flex gap-3 lg:gap-5 items-center lg:w-full">
+        <div className="flex gap-3 lg:gap-5 items-center ml-auto">
           <SearchBar />
-          <section className="flex items-center justify-center ml-auto">
-            <span className="material-symbols-rounded text-2xl">
-              notifications
-            </span>
-          </section>
-          <section className="flex items-center justify-center translate-y-0.5">
-            <span className="material-symbols-rounded text-xl">chat</span>
-          </section>
         </div>
       </section>
     </nav>

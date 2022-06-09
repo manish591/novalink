@@ -3,7 +3,7 @@ import React from 'react';
 const SearchBar = () => {
   return (
     <form className="hidden sm:block">
-      <section className="bg-gray-100 py-2.5 px-2 rounded-lg">
+      <section className="border border-[#EFEFEF] bg-[#EFEFEF] py-2.5 px-2 rounded-lg">
         <label htmlFor="search" className="sr-only">
           Search
         </label>

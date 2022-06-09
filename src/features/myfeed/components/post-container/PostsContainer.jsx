@@ -9,10 +9,10 @@ const PostContainer = ({ setIsOpenPostModal }) => {
   const userPostsStatus = useSelector((state) => state.post.postStatus);
 
   return (
-    <div className="w-11/12 m-auto py-4">
+    <div className="w-[95%] m-auto py-4 mt-4">
       {userPostsStatus === API_STATE.LOADING && <Loader />}
       {userPostsStatus === API_STATE.SUCCESS && (
-        <div className="mb-20 gap-8 3xl:grid-cols-2 3xl:gap-12 columns-1 sm:columns-2 lg:gap-10 3xl:columns-4">
+        <div className="mb-20 gap-7 3xl:grid-cols-2 3xl:gap-12 columns-1 sm:columns-2 lg:columns-3 3xl:columns-4">
           {userFeedPosts.map((item) => {
             return (
               <UserPost

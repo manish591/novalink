@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const BottomBar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   return (
-    <div className="fixed w-full bg-gray-100 bottom-0 right-0 border-t z-[10] sm:hidden">
+    <div className="fixed w-full bg-[#FFFFFF] bottom-0 right-0 border-t border-[#EFEFEF] z-[10] sm:hidden">
       <div className="w-11/12 m-auto py-1 px-2">
         <ul className="flex items-center justify-between">
           <li className="p-1">

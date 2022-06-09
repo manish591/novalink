@@ -36,8 +36,8 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
 
   return (
     <>
-      <div className="grid gap-2 break-inside-avoid mb-10">
-        <section className="flex justify-between items-center">
+      <div className="grid gap-2 break-inside-avoid mb-10 bg-[#FFFFFF] border border-[#EFEFEF] py-4 rounded-[35px] shadow-">
+        <section className="flex justify-between items-center px-4">
           <div className="flex items-center justify-center gap-2 sm:gap-3">
             <Link
               to={`/profile/${username}`}
@@ -65,39 +65,16 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
             <span className="material-icons-outlined">more_horiz</span>
           </button>
         </section>
-        <section className="text-sm sm:text-base">
-          <p>
-            {content && showMoreContent
-              ? content.slice(0)
-              : content.slice(0, 100)}
-            &nbsp;
-            {!showMoreContent ? (
-              <button
-                type="button"
-                className="text-[blue] text-xs"
-                onClick={() => setShowMoreContent(true)}>
-                See more
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="text-[blue] text-xs"
-                onClick={() => setShowMoreContent(false)}>
-                See less
-              </button>
-            )}
-          </p>
-        </section>
-        <section className="relative rounded-xl drop-shadow-xl">
-          <div className="rounded-xl">
+        <section className="relative rounded-xl mt-1">
+          <div className="rounded-xl px-2">
             <img
               src={mediaURL ?? ''}
               alt="post"
-              className="min-w-full rounded-xl object-cover lg:aspect-video"
+              className="min-w-full rounded-2xl object-cover lg:aspect-video"
             />
           </div>
-          <div className="absolute w-full bg-white bottom-0 left-0 rounded-tl-[2rem] rounded-b-xl">
-            <div className="flex items-center justify-between w-11/12 m-auto py-2.5 sm:p-3 text-gray-600">
+          <div className="w-full px-4">
+            <div className="flex items-center justify-between py-2.5">
               <section className="flex items-center justify-between gap-4 sm:gap-4">
                 <div className="flex items-center gap-1">
                   {likes.likedBy.some(
@@ -180,6 +157,29 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
               </section>
             </div>
           </div>
+          <section className="text-sm sm:text-base px-4">
+            <p>
+              {content && showMoreContent
+                ? content.slice(0)
+                : content.slice(0, 100)}
+              &nbsp;
+              {!showMoreContent ? (
+                <button
+                  type="button"
+                  className="text-[blue] text-xs"
+                  onClick={() => setShowMoreContent(true)}>
+                  See more
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="text-[blue] text-xs"
+                  onClick={() => setShowMoreContent(false)}>
+                  See less
+                </button>
+              )}
+            </p>
+          </section>
         </section>
         {openPostActions ? (
           <PostActions

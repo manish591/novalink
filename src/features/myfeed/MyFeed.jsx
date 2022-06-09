@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Navbar,
-  Stories,
   BottomBar,
   PostContainer,
   Sidebar,
@@ -12,11 +11,10 @@ import { CreatePostModal } from 'features';
 const MyFeed = () => {
   const [isOpenPostModal, setIsOpenPostModal] = useState(false);
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[200px_1fr_300px] lg:m-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[80px_1fr_350px] lg:m-auto">
       <Sidebar setIsOpenPostModal={setIsOpenPostModal} />
-      <div className="sm:col-start-2 border-r">
+      <div className="sm:col-start-2 border-r border-[#EFEFEF]">
         <Navbar />
-        <Stories />
         <BottomBar setIsOpenPostModal={setIsOpenPostModal} />
         <PostContainer setIsOpenPostModal={setIsOpenPostModal} />
       </div>

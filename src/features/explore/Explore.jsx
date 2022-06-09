@@ -9,7 +9,7 @@ const Explore = () => {
     (item) => item.username !== currentUser.username,
   );
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[250px_1fr_300px] lg:m-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[80px_1fr_350px] lg:m-auto">
       <Sidebar />
       <div className="sm:col-start-2 border-r">
         <div className="hidden sm:block sticky top-0">
