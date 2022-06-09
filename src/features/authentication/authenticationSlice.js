@@ -78,6 +78,9 @@ const authenticationSlice = createSlice({
       state.isUserLoggedIn = false;
       state.token = '';
       state.currentUser = {};
+      localStorage.setItem('token', '');
+      localStorage.setItem('user', '');
+      localStorage.setItem('login-status', false);
     },
   },
   extraReducers: (builder) => {
