@@ -8,6 +8,10 @@ const Login = () => {
     username: '',
     password: '',
   });
+  const [loginErrorData, setLoginErrorData] = useState({
+    usernameError: '',
+    passwordError: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const isUserLoggedIn = useSelector(
@@ -26,6 +30,19 @@ const Login = () => {
     dispatch(
       loginUser({ username: loginData.username, password: loginData.password }),
     );
+  };
+
+  const handleValidateUser = (e) => {
+    const { name, validationMessage } = e.target;
+    const isValid = e.target.validity.valid;
+    if (isValid) {
+      setLoginErrorData({ ...loginErrorData, [`${name}Error`]: '' });
+    } else {
+      setLoginErrorData({
+        ...loginErrorData,
+        [`${name}Error`]: validationMessage,
+      });
+    }
   };
 
   return (
@@ -47,8 +64,12 @@ const Login = () => {
               onChange={(e) => {
                 setLoginData({ ...loginData, username: e.target.value });
               }}
+              onBlur={handleValidateUser}
               required
             />
+            <p className="text-sm text-[red] mt-1">
+              {loginErrorData.usernameError}
+            </p>
           </section>
           <section>
             <label htmlFor="password" className="sr-only">
@@ -59,12 +80,14 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 id="password"
+                minLength="8"
                 placeholder="Password"
                 className="border w-full py-2 lg:py-3 px-1 rounded"
                 value={loginData.password}
                 onChange={(e) => {
                   setLoginData({ ...loginData, password: e.target.value });
                 }}
+                onBlur={handleValidateUser}
                 required
               />
               <button
@@ -84,6 +107,9 @@ const Login = () => {
                 )}
               </button>
             </div>
+            <p className="text-sm text-[red] mt-1">
+              {loginErrorData.passwordError}
+            </p>
           </section>
           <section>
             <button
@@ -93,17 +119,22 @@ const Login = () => {
             </button>
           </section>
           <section className="text-center">
-            <p className="text-sm text-[#1877f2]">Forgot Password?</p>
+            <p className="text-sm text-[#1877f2]">
+              Don&apos;t have an Account?&nbsp;{' '}
+              <Link to="/signup" className="text-sm text-black">
+                Signup
+              </Link>
+            </p>
           </section>
           <section className="text-center">
             <p>or</p>
           </section>
-          <section className="text-center">
-            <Link
-              to="/signup"
-              className="bg-[#2F394D] py-1 lg:py-1.5 px-3 text-sm rounded text-white">
-              Create New Account
-            </Link>
+          <section className="text-center flex items-center justify-center gap-2">
+            <button
+              type="button"
+              className="bg-gray-100 text-black text-white py-3 px-3 my-1 rounded">
+              Login As Guest
+            </button>
           </section>
         </div>
       </form>
