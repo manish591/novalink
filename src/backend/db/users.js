@@ -8,10 +8,10 @@ import { formatDate } from '../utils/authUtils';
 export const users = [
   {
     _id: '83d92b58-5c52-453f-b865-04638127e76f',
-    firstName: 'Adarsh',
-    lastName: 'Balika',
-    username: 'adarshbalika',
-    password: 'adarshBalika123',
+    firstName: 'Sakshi',
+    lastName: 'Sharma',
+    username: 'shakshi123',
+    password: 'shakshi456212sha',
     bio: 'Be yourself!',
     bookmarks: [],
     avatarUrl: 'https://i.pravatar.cc/150?img=23',
@@ -87,7 +87,7 @@ export const users = [
     lastName: 'Raulela',
     username: 'prachiraulela04',
     password: 'prachirautela123456',
-    bio: 'Life is what happens when you’re busy making other plans.',
+    bio: "Life is what happens when you're busy making other plans.",
     bookmarks: [],
     avatarUrl: 'https://i.pravatar.cc/150?img=36',
     website: 'https://manish-dev.netlify.app/',
