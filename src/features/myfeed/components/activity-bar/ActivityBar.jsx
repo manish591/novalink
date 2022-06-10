@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
+import { Link } from 'react-router-dom';
 
 const ActivityBar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
@@ -41,7 +42,9 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
                   <div
                     key={item._id}
                     className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                    <Link
+                      to={`/profile/${item.username}`}
+                      className="flex items-center gap-2 cursor-pointer">
                       <div className="w-10 h-10 rounded-full">
                         <img
                           src={item.avatarUrl}
@@ -57,7 +60,7 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
                           {item.username}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                     {currentUser.following.some(
                       (user) => user._id === item._id,
                     ) ? (
