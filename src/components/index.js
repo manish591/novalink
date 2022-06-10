@@ -10,3 +10,4 @@ export { RedirectedRoute } from '../common/routes/RedirectedRoute';
 export { ProtectedRoute } from '../common/routes/ProtectedRoute';
 export { Loader } from './loader/Loader';
 export { PostActions } from './user-post/components/PostActions';
+export { NotFound } from './not-found/NotFound';
