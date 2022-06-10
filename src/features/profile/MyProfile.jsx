@@ -50,7 +50,7 @@ const MyProfile = () => {
                   className="min-w-full rounded-full outline outline-white outline-[3px]"
                 />
               </div>
-              <div className="absolute left-0 w-full top-0 py-2 flex items-center justify-between px-2 lg:hidden">
+              <div className="absolute left-0 w-full top-0 py-2 flex items-center justify-between px-2">
                 <div className="flex items-center gap-4">
                   <button
                     type="button"
@@ -67,14 +67,14 @@ const MyProfile = () => {
                 {currentUser?.username === profileData.username ? (
                   <button
                     type="button"
-                    className="flex items-center justify-center"
+                    className="flex items-center justify-center lg:hidden"
                     onClick={() => setOpenModal((om) => !om)}>
                     <span className="material-icons-outlined">menu</span>
                   </button>
                 ) : (
                   <button
                     type="button"
-                    className="flex items-center justify-center">
+                    className="flex items-center justify-center lg:hidden">
                     <span className="material-icons-outlined">more_vert</span>
                   </button>
                 )}
