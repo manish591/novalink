@@ -129,7 +129,7 @@ const SinglePostModal = () => {
           <section className="relative rounded-xl shadow-md mt-2 sm:mt-0 sm:col-start-1 sm:col-end-2 sm:row-start-1">
             <div className="rounded-xl sm:rounded-none h-full">
               <img
-                src="https://images.unsplash.com/photo-1648737966274-79aa6f89c440?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+                src={currentUserPost.mediaURL}
                 alt="post"
                 className="min-w-full rounded-xl h-full sm:rounded-none object-cover lg:aspect-video"
               />
