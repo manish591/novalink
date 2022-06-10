@@ -14,7 +14,7 @@ const Bookmark = () => {
     <div className="grid grid-cols-1 sm:grid-cols-[80px_1fr] lg:grid-cols-[80px_1fr_350px] gap-4">
       <Sidebar />
       <section className="sm:col-start-2">
-        <div className="w-11/12 m-auto flex items-center justify-between py-2 sm:py-4 bg-[white] sticky top-0">
+        <div className="w-11/12 m-auto flex items-center justify-between py-2 sm:py-4 sticky top-0">
           <div className="flex items-center gap-4">
             <span className="material-icons-outlined">west</span>
             <h1 className="font-semibold text-xl">Saved</h1>

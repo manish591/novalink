@@ -47,12 +47,15 @@ const CreatePostModal = ({
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]"
-      role="button"
-      tabIndex={0}
-      onClick={() => setIsOpenPostModal((prev) => !prev)}
-      onKeyUp={() => setIsOpenPostModal((prev) => !prev)}>
+    <div className="fixed inset-0 z-[30]">
+      <div
+        className="fixed inset-0 bg-[rgba(25,25,25,50%)]"
+        role="button"
+        tabIndex={0}
+        onClick={() => setIsOpenPostModal((prev) => !prev)}
+        onKeyUp={() => setIsOpenPostModal((prev) => !prev)}>
+        &nbsp;
+      </div>
       <div
         className={`fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto] ${
           isEditPost && 'sm:h-[550px]'
@@ -94,8 +97,7 @@ const CreatePostModal = ({
               <button
                 type="button"
                 className="flex items-center justify-center"
-                onClick={(e) => {
-                  e.stopPropagation();
+                onClick={() => {
                   setIsOpenPostModal((prev) => !prev);
                 }}>
                 <span className="material-icons-outlined">west</span>
@@ -153,7 +155,7 @@ const CreatePostModal = ({
                     <textarea
                       name="caption"
                       id="caption"
-                      className="resize-y py-2 px-2 border-gray-200 outline-none text-base"
+                      className="resize-y py-2 px-2 border-gray-200 w-full outline-none text-base"
                       placeholder="What is in your mind manish?"
                       value={myPostData.content}
                       onChange={(e) =>
