@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# Novalink social media
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+Novalink is a social media website for food lovers. Join the amazing community and find and share your dishes with the world.
 
-In the project directory, you can run:
+Check out this amazing website today
 
-### `yarn start`
+## Features Available
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Landing Page
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  - You can see a CTA button get started that will open a login page from which user can login.
+  - For new users create a new account by clicking on singup button.
+  - You can also guest login(one click login).
 
-### `yarn test`
+- User feed
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - All the posts of the account that users follow will appear here
+  - User can see a sidebar from which he/she can navigate to the other pages
+  - There will be a activity bar in which user can see account to follow suggestions.
+  - In the activity bar you can see a CTA saying Create post.
 
-### `yarn build`
+- Bookmark Page
+  - User can add any post to the bookmark by clicking bookmark button in the post.
+- User Profile
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - User name, user bio, user follwing count, user followers count will appear here
+  - User can follow other user by navigating to their profile and clicking follow button
+  - Edit user profile
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Like post
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - User can like post
 
-### `yarn eject`
+- Comment post
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  - User can comment on any post
+  - User can delete his own comment on other users post
+  - User can edit comments as well
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Explore feed
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  - User can see all the users posts that user don't follow here
+  - You can navigate to post page by clicking on them
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Follow Unfollow user
 
-## Learn More
+  - User can follow other users
+  - Unfollow user
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Create post
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - Create post only images are allowed
+  - Add caption
 
-### Code Splitting
+- Authentication
+  - signup
+  - Login
+  - Logout
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Features Coming soon
 
-### Analyzing the Bundle Size
+- Share post and Archive post
+- Chat feature
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Getting Started
 
-### Making a Progressive Web App
+- Clone the repository on your local machine with the command below in your terminal, and cd into the novee-app folder
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+      git clone https://github.com/manish591/novalink.git
 
-### Advanced Configuration
+      cd Novalink
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Install dependencies using npm or yarn
 
-### Deployment
+      npm install
+      or
+      yarn add
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Create a `.env` file at the root level of the directory, and create a secret key shown below
 
-### `yarn build` fails to minify
+      REACT_APP_JWT_SECRET=<YOUR_SECRET_KEY>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Start your dev server
+
+      npm start
+
+## Connect With Me
+
+- [Twitter](https://twitter.com/manishdevrani77)
+- [Github](https://github.com/manish591)
