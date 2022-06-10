@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BottomBar, Loader } from 'components';
-import { posts } from 'common/data';
 import { API_STATE } from 'common';
 import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
 import { ProfileOptions } from './components/profile-options/ProfileOptions';
-import { getUserData } from './ProfileSlice';
+import { getUserData, getUsersPostData } from './ProfileSlice';
 import { UserNotFound } from './components/user-not-found/UsetNotFound';
 import { EditProfile } from './components/edit-profile/EditProfile';
 
@@ -20,10 +19,12 @@ const MyProfile = () => {
   const profileData = useSelector((state) => state.profile.profileData);
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const token = useSelector((state) => state.authentication.token);
+  const usersPosts = useSelector((state) => state.profile.usersPost);
 
   useEffect(() => {
     if (username) {
       dispatch(getUserData(username));
+      dispatch(getUsersPostData(username));
     }
   }, [username, currentUser]);
 
@@ -170,15 +171,24 @@ const MyProfile = () => {
               <section>
                 <h1 className="font-thin text-xl">Your Posts</h1>
                 <div className="grid grid-cols-3 gap-1 mt-4 sm:gap-8">
-                  {posts.map((item) => {
+                  {usersPosts.map((item) => {
                     return (
-                      <article key={item.id}>
+                      <div
+                        key={item._id}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => {
+                          navigate(`/post/${item._id}`);
+                        }}
+                        onKeyUp={() => {
+                          navigate(`/post/${item._id}`);
+                        }}>
                         <img
-                          src={item.img}
+                          src={item.mediaURL}
                           alt="profile"
                           className="min-w-full object-cover aspect-square"
                         />
-                      </article>
+                      </div>
                     );
                   })}
                 </div>
