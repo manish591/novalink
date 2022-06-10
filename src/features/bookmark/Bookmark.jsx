@@ -24,7 +24,9 @@ const Bookmark = () => {
           {myBookmarks.length > 0 ? (
             <div className="grid grid-cols-3 lg:grid-cols-4 m-auto gap-1 mt-4 sm:gap-8">
               {myBookmarks.map((item) => {
-                return <BookmarkCard key={item._id} post={item} />;
+                return (
+                  <BookmarkCard key={item._id} post={item} postId={item._id} />
+                );
               })}
             </div>
           ) : (

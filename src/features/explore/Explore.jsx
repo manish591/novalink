@@ -1,10 +1,12 @@
 import React from 'react';
 import { ActivityBar, BottomBar, Navbar, Sidebar } from 'components';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Explore = () => {
   const allPosts = useSelector((state) => state.post.postData);
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const navigate = useNavigate();
   const filterOutMyPosts = allPosts.filter(
     (item) => item.username !== currentUser.username,
   );
@@ -36,13 +38,23 @@ const Explore = () => {
           <div className="columns-2 gap-2 lg:columns-3">
             {filterOutMyPosts.map((item) => {
               return (
-                <article key={item._id} className="mb-2 break-inside-avoid">
+                <div
+                  key={item._id}
+                  className="mb-2 break-inside-avoid"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    navigate(`/post/${item._id}`);
+                  }}
+                  onKeyUp={() => {
+                    navigate(`/post/${item._id}`);
+                  }}>
                   <img
                     src={item.mediaURL}
                     alt="profile"
                     className="min-w-full object-cover aspect-square rounded-md"
                   />
-                </article>
+                </div>
               );
             })}
           </div>
