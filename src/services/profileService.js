@@ -14,4 +14,8 @@ const editUserProfile = (userData, token) => {
   );
 };
 
-export { getUser, editUserProfile };
+const getUserPosts = (username) => {
+  return axios.get(`/api/posts/user/${username}`);
+};
+
+export { getUser, editUserProfile, getUserPosts };

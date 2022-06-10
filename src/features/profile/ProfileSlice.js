@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getUser, editUserProfile } from 'services';
+import { getUser, editUserProfile, getUserPosts } from 'services';
 import { API_STATE } from 'common';
 
 const initialState = {
   profileStatus: API_STATE.IDLE,
   profileData: null,
+  usersPost: [],
   profileError: '',
 };
 
@@ -26,6 +27,19 @@ const editMyProfile = createAsyncThunk(
   async ({ userData, token }, { rejectWithValue }) => {
     try {
       const res = await editUserProfile(userData, token);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+      return rejectWithValue(err.response.data);
+    }
+  },
+);
+
+const getUsersPostData = createAsyncThunk(
+  'profile/getPosts',
+  async (username, { rejectWithValue }) => {
+    try {
+      const res = await getUserPosts(username);
       return res.data;
     } catch (err) {
       console.error(err);
@@ -65,8 +79,21 @@ const profileSlice = createSlice({
       state.profileData = null;
       state.profileError = action.error.message;
     });
+    builder.addCase(getUsersPostData.pending, (state) => {
+      state.profileStatus = API_STATE.LOADING;
+    });
+    builder.addCase(getUsersPostData.fulfilled, (state, action) => {
+      state.profileStatus = API_STATE.SUCCESS;
+      state.usersPost = action.payload.posts;
+      state.profileError = '';
+    });
+    builder.addCase(getUsersPostData.rejected, (state, action) => {
+      state.profileStatus = API_STATE.FAILED;
+      state.usersPost = [];
+      state.profileError = action.error.message;
+    });
   },
 });
 
-export { getUserData, editMyProfile };
+export { getUserData, editMyProfile, getUsersPostData };
 export const profileReducer = profileSlice.reducer;

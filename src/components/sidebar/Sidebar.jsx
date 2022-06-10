@@ -34,22 +34,6 @@ const Sidebar = ({ setIsOpenPostModal }) => {
               Search
             </p>
           </Link>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
-            <span className="material-icons-outlined text-3xl lg:text-2xl">
-              favorite_border
-            </span>
-            <p className="hidden  font-medium text-gray-800 text-base">
-              Activity
-            </p>
-          </section>
-          <section className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">
-            <span className="material-icons-outlined text-3xl lg:text-2xl">
-              chat
-            </span>
-            <p className="hidden  font-medium text-gray-800 text-base">
-              Messages
-            </p>
-          </section>
           <Link
             to={`/profile/${currentUser?.username}`}
             className="flex items-center gap-3 lg:px-6 lg:py-2 hover:bg-gray-200 w-full justify-center lg:justify-start cursor-pointer">

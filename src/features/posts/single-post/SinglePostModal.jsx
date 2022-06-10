@@ -1,11 +1,27 @@
+import React, { useState } from 'react';
 import { ActivityBar, Navbar, Sidebar } from 'components';
-import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPostComment, editPostComment } from 'features';
 import { Comments } from './sub/Comments';
 import { PostOptions } from './sub/PostOption';
 
 const SinglePostModal = () => {
+  const [commentText, setCommentText] = useState('');
+  const [isEditComment, setIsEditComment] = useState(false);
+  const [commentId, setCommentId] = useState('');
   const { postId } = useParams();
+  const allPosts = useSelector((state) => state.post.postData);
+  const currentUserPost = allPosts.find((item) => item._id === postId);
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
+
+  const handleAddMyComment = (e) => {
+    e.preventDefault();
+    dispatch(addPostComment({ postId, commentData: commentText, token }));
+    setCommentText('');
+  };
+
   return (
     <div className="lg:grid lg:grid-cols-[80px_minmax(0,1fr)_350px]">
       <div className="hidden lg:block">
@@ -37,7 +53,7 @@ const SinglePostModal = () => {
                 <div>
                   <div>
                     <h3 className="font-semibold text-sm sm:text-base">
-                      manishdevrani44
+                      {currentUserPost?.username}
                     </h3>
                   </div>
                   <p className="text-xs sm:text-sm">Allenton, New Mexico</p>
@@ -54,13 +70,17 @@ const SinglePostModal = () => {
               </p>
             </section>
             <section className="hidden sm:block sm:px-2 lg:px-4 max-h-[520px] overflow-hidden overflow-y-auto mb-10">
-              <Comments postId={postId} />
-            </section>
-            <section className="hidden sm:block relative">
-              <PostOptions />
+              <Comments
+                postId={postId}
+                setIsEditComment={setIsEditComment}
+                setCommentText={setCommentText}
+                setCommentId={setCommentId}
+              />
             </section>
             <section className="hidden sm:block">
-              <form className="m-auto py-2 px-3 lg:px-4">
+              <form
+                className="m-auto py-2 px-3 lg:px-4"
+                onSubmit={handleAddMyComment}>
                 <section className="border-2 border-[#999999] rounded-full bg-[white] flex items-center gap-2 py-2 px-2">
                   <section className="flex-1">
                     <label htmlFor="comment" className="sr-only">
@@ -71,12 +91,36 @@ const SinglePostModal = () => {
                       id="comment"
                       className="w-full outline-none"
                       placeholder="Write a comment..."
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                      required
                     />
                   </section>
                   <section>
-                    <button type="button" className="text-xs text-[hotpink]">
-                      Post
-                    </button>
+                    {isEditComment ? (
+                      <button
+                        type="button"
+                        className="text-xs text-[hotpink]"
+                        onClick={() => {
+                          dispatch(
+                            editPostComment({
+                              postId,
+                              commentId,
+                              token,
+                              commentData: commentText,
+                            }),
+                          );
+                          setCommentId('');
+                          setCommentText('');
+                          setIsEditComment(false);
+                        }}>
+                        Update
+                      </button>
+                    ) : (
+                      <button type="submit" className="text-xs text-[hotpink]">
+                        Post
+                      </button>
+                    )}
                   </section>
                 </section>
               </form>

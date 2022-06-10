@@ -1,12 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
+import { Link } from 'react-router-dom';
 
 const ActivityBar = ({ setIsOpenPostModal }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const token = useSelector((state) => state.authentication.token);
+  const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.users.usersData).filter(
     (item) => item.username !== currentUser.username,
   );
+
   return (
     <div className="hidden bg-[#FFFFFF] sticky lg:block fixed h-[100vh] top-0 w-[350px] lg:py-2">
       <div className="py-2 px-4 grid gap-8 h-full ">
@@ -14,14 +19,16 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
           <div className="flex items-center gap-2">
             <div className="w-12 h-12 rounded-full">
               <img
-                src="https://i.pravatar.cc/150?img=10"
+                src={currentUser.avatarUrl}
                 alt="avatar"
                 className="min-w-full rounded-full"
               />
             </div>
             <div>
-              <p>Manish Devrani</p>
-              <p className="text-gray-400 leading-[1.1]">manish122</p>
+              <p>{currentUser.firstName}</p>
+              <p className="text-gray-400 leading-[1.1]">
+                {currentUser.username}
+              </p>
             </div>
           </div>
           <div className="mt-10">
@@ -35,7 +42,9 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
                   <div
                     key={item._id}
                     className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                    <Link
+                      to={`/profile/${item.username}`}
+                      className="flex items-center gap-2 cursor-pointer">
                       <div className="w-10 h-10 rounded-full">
                         <img
                           src={item.avatarUrl}
@@ -51,12 +60,38 @@ const ActivityBar = ({ setIsOpenPostModal }) => {
                           {item.username}
                         </p>
                       </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="text-[white] py-1 w-20 text-sm bg-[black] rounded-md">
-                      Follow
-                    </button>
+                    </Link>
+                    {currentUser.following.some(
+                      (user) => user._id === item._id,
+                    ) ? (
+                      <button
+                        type="button"
+                        className="py-1 w-20 text-sm border border-[black] rounded-md"
+                        onClick={() => {
+                          dispatch(
+                            unFollowThisUser({
+                              followUserId: item._id,
+                              token,
+                            }),
+                          );
+                        }}>
+                        Following
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="text-[white] py-1 w-20 text-sm bg-[black] rounded-md"
+                        onClick={() => {
+                          dispatch(
+                            followThisUser({
+                              followUserId: item._id,
+                              token,
+                            }),
+                          );
+                        }}>
+                        Follow
+                      </button>
+                    )}
                   </div>
                 );
               })}

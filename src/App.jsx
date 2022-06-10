@@ -15,7 +15,7 @@ import {
   Explore,
   SinglePostModal,
 } from 'features';
-import { RedirectedRoute, ProtectedRoute } from 'components';
+import { RedirectedRoute, ProtectedRoute, NotFound } from 'components';
 import { useDispatch } from 'react-redux';
 
 const App = () => {
@@ -103,6 +103,7 @@ const App = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

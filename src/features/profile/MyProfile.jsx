@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BottomBar, Loader } from 'components';
-import { posts } from 'common/data';
 import { API_STATE } from 'common';
 import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
 import { ProfileOptions } from './components/profile-options/ProfileOptions';
-import { getUserData } from './ProfileSlice';
+import { getUserData, getUsersPostData } from './ProfileSlice';
 import { UserNotFound } from './components/user-not-found/UsetNotFound';
 import { EditProfile } from './components/edit-profile/EditProfile';
 
@@ -20,10 +19,12 @@ const MyProfile = () => {
   const profileData = useSelector((state) => state.profile.profileData);
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const token = useSelector((state) => state.authentication.token);
+  const usersPosts = useSelector((state) => state.profile.usersPost);
 
   useEffect(() => {
     if (username) {
       dispatch(getUserData(username));
+      dispatch(getUsersPostData(username));
     }
   }, [username, currentUser]);
 
@@ -49,7 +50,7 @@ const MyProfile = () => {
                   className="min-w-full rounded-full outline outline-white outline-[3px]"
                 />
               </div>
-              <div className="absolute left-0 w-full top-0 py-2 flex items-center justify-between px-2 lg:hidden">
+              <div className="absolute left-0 w-full top-0 py-2 flex items-center justify-between px-2">
                 <div className="flex items-center gap-4">
                   <button
                     type="button"
@@ -66,14 +67,14 @@ const MyProfile = () => {
                 {currentUser?.username === profileData.username ? (
                   <button
                     type="button"
-                    className="flex items-center justify-center"
+                    className="flex items-center justify-center lg:hidden"
                     onClick={() => setOpenModal((om) => !om)}>
                     <span className="material-icons-outlined">menu</span>
                   </button>
                 ) : (
                   <button
                     type="button"
-                    className="flex items-center justify-center">
+                    className="flex items-center justify-center lg:hidden">
                     <span className="material-icons-outlined">more_vert</span>
                   </button>
                 )}
@@ -170,15 +171,24 @@ const MyProfile = () => {
               <section>
                 <h1 className="font-thin text-xl">Your Posts</h1>
                 <div className="grid grid-cols-3 gap-1 mt-4 sm:gap-8">
-                  {posts.map((item) => {
+                  {usersPosts.map((item) => {
                     return (
-                      <article key={item.id}>
+                      <div
+                        key={item._id}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => {
+                          navigate(`/post/${item._id}`);
+                        }}
+                        onKeyUp={() => {
+                          navigate(`/post/${item._id}`);
+                        }}>
                         <img
-                          src={item.img}
+                          src={item.mediaURL}
                           alt="profile"
                           className="min-w-full object-cover aspect-square"
                         />
-                      </article>
+                      </div>
                     );
                   })}
                 </div>

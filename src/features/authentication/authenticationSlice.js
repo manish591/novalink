@@ -78,6 +78,9 @@ const authenticationSlice = createSlice({
       state.isUserLoggedIn = false;
       state.token = '';
       state.currentUser = {};
+      localStorage.setItem('token', '');
+      localStorage.setItem('user', '');
+      localStorage.setItem('login-status', false);
     },
   },
   extraReducers: (builder) => {
@@ -88,7 +91,7 @@ const authenticationSlice = createSlice({
       state.authStatus = 'SUCCESS';
       state.isUserLoggedIn = true;
       state.token = action.payload.encodedToken;
-      state.currentUser = action.payload.foundUser;
+      state.currentUser = { ...action.payload.foundUser, password: '' };
       state.authError = '';
       localStorage.setItem('token', JSON.stringify(state.token));
       localStorage.setItem('user', JSON.stringify(state.currentUser));
@@ -109,7 +112,7 @@ const authenticationSlice = createSlice({
       state.authStatus = 'SUCCESS';
       state.isUserLoggedIn = true;
       state.token = action.payload.encodedToken;
-      state.currentUser = action.payload.createdUser;
+      state.currentUser = { ...action.payload.createdUser, password: '' };
       state.authError = '';
       localStorage.setItem('token', JSON.stringify(state.token));
       localStorage.setItem('user', JSON.stringify(state.currentUser));

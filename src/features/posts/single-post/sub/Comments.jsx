@@ -51,9 +51,9 @@ const Comments = ({
               return (
                 <section key={item._id}>
                   <div className="grid grid-cols-[auto_minmax(0,_1fr)] gap-3">
-                    <div className="w-8 h-8 sm:w-8 sm:h-8 rounded-full inline-block z-[-1]">
+                    <div className="w-8 h-8 sm:w-8 sm:h-8 rounded-full inline-block z-[-1] sm:z-[1]">
                       <img
-                        src="https://i.pravatar.cc/150?img=2"
+                        src="https://i.pravatar.cc/150?img=4"
                         alt="avatar"
                         className="max-w-full rounded-full"
                       />

@@ -10,6 +10,12 @@ const Signup = () => {
     username: '',
     password: '',
   });
+  const [signupErrorData, setSignupErrorData] = useState({
+    emailError: '',
+    nameError: '',
+    usernameError: '',
+    passwordError: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const isUserLoggedIn = useSelector(
@@ -20,6 +26,19 @@ const Signup = () => {
   const handleUserSingup = (e) => {
     e.preventDefault();
     dispatch(signupUser(signupData));
+  };
+
+  const handleValidateUser = (e) => {
+    const { name, validationMessage } = e.target;
+    const isValid = e.target.validity.valid;
+    if (isValid) {
+      setSignupErrorData({ ...signupErrorData, [`${name}Error`]: '' });
+    } else {
+      setSignupErrorData({
+        ...signupErrorData,
+        [`${name}Error`]: validationMessage,
+      });
+    }
   };
 
   useEffect(() => {
@@ -47,8 +66,12 @@ const Signup = () => {
               onChange={(e) => {
                 setSignupData({ ...signupData, email: e.target.value });
               }}
+              onBlur={handleValidateUser}
               required
             />
+            <p className="text-sm text-[red] mt-1">
+              {signupErrorData.emailError}
+            </p>
           </section>
           <section>
             <label htmlFor="name" className="sr-only">
@@ -65,8 +88,12 @@ const Signup = () => {
               onChange={(e) => {
                 setSignupData({ ...signupData, name: e.target.value });
               }}
+              onBlur={handleValidateUser}
               required
             />
+            <p className="text-sm text-[red] mt-1">
+              {signupErrorData.nameError}
+            </p>
           </section>
           <section>
             <label htmlFor="username" className="sr-only">
@@ -83,8 +110,12 @@ const Signup = () => {
               onChange={(e) => {
                 setSignupData({ ...signupData, username: e.target.value });
               }}
+              onBlur={handleValidateUser}
               required
             />
+            <p className="text-sm text-[red] mt-1">
+              {signupErrorData.usernameError}
+            </p>
           </section>
           <section>
             <label htmlFor="password" className="sr-only">
@@ -94,6 +125,7 @@ const Signup = () => {
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
+                minLength="8"
                 id="password"
                 placeholder="Password"
                 className="border w-full py-2 lg:py-3 px-1 rounded"
@@ -101,6 +133,7 @@ const Signup = () => {
                 onChange={(e) => {
                   setSignupData({ ...signupData, password: e.target.value });
                 }}
+                onBlur={handleValidateUser}
                 required
               />
               <button
@@ -120,6 +153,9 @@ const Signup = () => {
                 )}
               </button>
             </div>
+            <p className="text-sm text-[red] mt-1">
+              {signupErrorData.passwordError}
+            </p>
           </section>
           <section>
             <button
