@@ -8,10 +8,15 @@ import { ProfileOptions } from './components/profile-options/ProfileOptions';
 import { getUserData, getUsersPostData } from './ProfileSlice';
 import { UserNotFound } from './components/user-not-found/UsetNotFound';
 import { EditProfile } from './components/edit-profile/EditProfile';
+import { UserList } from './components/user-list/UserList';
 
 const MyProfile = () => {
   const [openModal, setOpenModal] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
+  const [showUserList, setShowUserList] = useState({
+    type: '',
+    isOpen: false,
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { username } = useParams();
@@ -82,31 +87,39 @@ const MyProfile = () => {
             </section>
             <div className="m-auto mt-6 sm:mt-14 mb-20 w-11/12 max-w-[1000px] grid gap-6 grid-cols-1">
               <section className="grid gap-1 grid-cols-1 text-center overflow-hidden">
-                <h1 className="font-semibold text-xl">
-                  {profileData.firstName} {profileData.lastName}
-                </h1>
+                <h1 className="font-semibold text-xl">{profileData.name}</h1>
                 <p className="text-gray-400 text-sm">@{profileData.username}</p>
                 <p className="bg-gray-100 text-sm m-auto px-1 mt-2 w-max truncate">
                   {profileData.bio}
                 </p>
               </section>
-              <section className="flex items-center justify-around sm:justify-center sm:gap-14">
+              <section className="flex items-center justify-center sm:justify-center gap-8 sm:gap-14">
                 <div className="flex flex-col items-center">
-                  <p className="font-bold ">100</p>
+                  <p className="font-bold ">{usersPosts.length}</p>
                   <p className="text-sm">Posts</p>
                 </div>
-                <div className="flex flex-col items-center">
-                  <p className="font-bold ">230</p>
-                  <p className="text-sm">Photos</p>
-                </div>
-                <div className="flex flex-col items-center">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowUserList((prev) => {
+                      return { ...prev, type: 'followers', isOpen: true };
+                    })
+                  }
+                  className="flex flex-col items-center">
                   <p className="font-bold ">{profileData.followers.length}</p>
                   <p className="text-sm">Followes</p>
-                </div>
-                <div className="flex flex-col items-center">
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowUserList((prev) => {
+                      return { ...prev, type: 'following', isOpen: true };
+                    })
+                  }
+                  className="flex flex-col items-center">
                   <p className="font-bold ">{profileData.following.length}</p>
                   <p className="text-sm">Following</p>
-                </div>
+                </button>
               </section>
               <section className="flex gap-4">
                 {currentUser?.username === profileData.username ? (
@@ -198,6 +211,12 @@ const MyProfile = () => {
         </div>
       )}
       {editProfile && <EditProfile setEditProfile={setEditProfile} />}
+      {showUserList.isOpen && (
+        <UserList
+          showUserList={showUserList}
+          setShowUserList={setShowUserList}
+        />
+      )}
       <ProfileOptions openModal={openModal} setOpenModal={setOpenModal} />
       <BottomBar />
     </div>

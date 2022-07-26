@@ -65,11 +65,7 @@ const usersSlice = createSlice({
       state.usersStatus = API_STATE.FAILED;
       state.usersError = action.error.message;
     });
-    builder.addCase(followThisUser.pending, (state) => {
-      state.followStatus = API_STATE.LOADING;
-    });
     builder.addCase(followThisUser.fulfilled, (state, action) => {
-      state.followStatus = API_STATE.SUCCESS;
       state.usersData = [...state.usersData].map((item) => {
         return item._id === action.payload.followUser._id
           ? action.payload.followUser
@@ -77,14 +73,9 @@ const usersSlice = createSlice({
       });
     });
     builder.addCase(followThisUser.rejected, (state, action) => {
-      state.followStatus = API_STATE.FAILED;
       state.followError = action.error.message;
     });
-    builder.addCase(unFollowThisUser.pending, (state) => {
-      state.followStatus = API_STATE.LOADING;
-    });
     builder.addCase(unFollowThisUser.fulfilled, (state, action) => {
-      state.followStatus = API_STATE.SUCCESS;
       state.usersData = [...state.usersData].map((item) => {
         return item._id === action.payload.followUser._id
           ? action.payload.followUser
@@ -92,8 +83,6 @@ const usersSlice = createSlice({
       });
     });
     builder.addCase(unFollowThisUser.rejected, (state, action) => {
-      state.followStatus = API_STATE.FAILED;
-      state.usersData = [];
       state.followError = action.error.message;
     });
   },
