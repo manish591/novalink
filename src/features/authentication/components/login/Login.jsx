@@ -40,14 +40,21 @@ const Login = () => {
   };
 
   const handleValidateUser = (e) => {
-    const { name, validationMessage } = e.target;
+    const { name, value } = e.target;
     const isValid = e.target.validity.valid;
+    if (name === 'username' && value === '') {
+      e.target.setCustomValidity('Please enter your username!');
+    } else if (name === 'password' && value === '') {
+      e.target.setCustomValidity('Please enter your password!');
+    } else {
+      e.target.setCustomValidity('');
+    }
     if (isValid) {
       setLoginErrorData({ ...loginErrorData, [`${name}Error`]: '' });
     } else {
       setLoginErrorData({
         ...loginErrorData,
-        [`${name}Error`]: validationMessage,
+        [`${name}Error`]: e.target.validationMessage,
       });
     }
   };
@@ -87,7 +94,6 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 id="password"
-                minLength="8"
                 placeholder="Password"
                 className="border w-full py-2 lg:py-3 px-1 rounded"
                 value={loginData.password}
