@@ -63,7 +63,6 @@ const usersSlice = createSlice({
     });
     builder.addCase(getAllUsersData.rejected, (state, action) => {
       state.usersStatus = API_STATE.FAILED;
-      state.usersData = [];
       state.usersError = action.error.message;
     });
     builder.addCase(followThisUser.pending, (state) => {
@@ -79,7 +78,6 @@ const usersSlice = createSlice({
     });
     builder.addCase(followThisUser.rejected, (state, action) => {
       state.followStatus = API_STATE.FAILED;
-      state.usersData = [];
       state.followError = action.error.message;
     });
     builder.addCase(unFollowThisUser.pending, (state) => {
