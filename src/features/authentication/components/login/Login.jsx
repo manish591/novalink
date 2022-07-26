@@ -121,14 +121,14 @@ const Login = () => {
           <section>
             <button
               type="submit"
-              className="w-full bg-[#1877f2] text-white py-2 lg:py-3 my-1 rounded">
+              className="w-full bg-[#1877f2] text-white py-2 lg:py-3 my-1 rounded opacity-95 hover:opacity-100">
               Login
             </button>
           </section>
           <section className="text-center">
-            <p className="text-sm text-[#1877f2]">
+            <p className="text-sm">
               Don&apos;t have an Account?&nbsp;{' '}
-              <Link to="/signup" className="text-sm text-black">
+              <Link to="/signup" className="text-sm text-[#1877f2]">
                 Signup
               </Link>
             </p>
@@ -139,7 +139,7 @@ const Login = () => {
           <section className="text-center flex items-center justify-center gap-2">
             <button
               type="button"
-              className="bg-gray-100 text-black text-white py-3 px-3 my-1 rounded"
+              className="bg-gray-100 text-black text-white py-3 px-3 my-1 rounded hover:bg-gray-200 transition duration-300"
               onClick={handleGuestLogin}>
               Login As Guest
             </button>
