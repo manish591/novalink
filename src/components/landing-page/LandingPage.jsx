@@ -16,10 +16,14 @@ const LandingPage = () => {
             </ul>
             <ul className="items-center m-auto hidden sm:flex gap-4">
               <li>
-                <p className="font-bold">Home</p>
+                <Link to="/" className="font-bold">
+                  Home
+                </Link>
               </li>
               <li>
-                <p className="font-bold">Github</p>
+                <a href="https://github.com/manish591" className="font-bold">
+                  Github
+                </a>
               </li>
             </ul>
             <ul className="ml-auto sm:ml-0">
