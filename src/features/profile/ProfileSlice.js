@@ -89,7 +89,6 @@ const profileSlice = createSlice({
     });
     builder.addCase(getUsersPostData.rejected, (state, action) => {
       state.profileStatus = API_STATE.FAILED;
-      state.usersPost = [];
       state.profileError = action.error.message;
     });
   },

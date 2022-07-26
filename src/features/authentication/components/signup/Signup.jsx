@@ -29,14 +29,31 @@ const Signup = () => {
   };
 
   const handleValidateUser = (e) => {
-    const { name, validationMessage } = e.target;
+    const { name, value } = e.target;
     const isValid = e.target.validity.valid;
+    const pattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$/;
+    if (name === 'username' && value === '') {
+      e.target.setCustomValidity('Please enter your username!');
+    } else if (name === 'password' && value === '') {
+      e.target.setCustomValidity('Please enter your password!');
+    } else if (name === 'email' && value === '') {
+      e.target.setCustomValidity('Please enter your email!');
+    } else if (name === 'name' && value === '') {
+      e.target.setCustomValidity('Please enter your full name!');
+    } else if (name === 'password' && !value.match(pattern)) {
+      e.target.setCustomValidity(
+        'Your password must be at least 8 characters long and should not exceed more than 20 characters, contain at least one number, 1 speacial character and have a mixture of uppercase and lowercase letters.',
+      );
+    } else {
+      e.target.setCustomValidity('');
+    }
     if (isValid) {
       setSignupErrorData({ ...signupErrorData, [`${name}Error`]: '' });
     } else {
       setSignupErrorData({
         ...signupErrorData,
-        [`${name}Error`]: validationMessage,
+        [`${name}Error`]: e.target.validationMessage,
       });
     }
   };
@@ -129,6 +146,7 @@ const Signup = () => {
                 id="password"
                 placeholder="Password"
                 className="border w-full py-2 lg:py-3 px-1 rounded"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$"
                 value={signupData.password}
                 onChange={(e) => {
                   setSignupData({ ...signupData, password: e.target.value });
