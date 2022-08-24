@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteMyPost } from 'features';
+import { useNavigate } from 'react-router-dom';
 
 const PostActions = ({ id, setOpenPostActions, username, setIsEditPost }) => {
   const currentUser = useSelector((state) => state.authentication.currentUser);
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="fixed inset-0 bg-[rgba(25,25,25,50%)] z-[30]">
@@ -34,13 +36,11 @@ const PostActions = ({ id, setOpenPostActions, username, setIsEditPost }) => {
         ) : null}
         <button
           type="button"
+          onClick={() => {
+            navigate(`/post/${id}`);
+          }}
           className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100 first:rounded-t-xl">
           Go To Post
-        </button>
-        <button
-          type="button"
-          className="py-2.5 px-20 lg:px-32 lg:py-3.5 border-b hover:bg-gray-100">
-          Copy Link
         </button>
         <button
           type="button"
