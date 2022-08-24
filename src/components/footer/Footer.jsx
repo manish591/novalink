@@ -24,13 +24,28 @@ const Footer = () => {
         <p className="mt-5">Copyright 2022. All Rights Reserved</p>
         <ul className="mt-5 flex justify-center gap-4 sm:justify-end">
           <li className="footer__items">
-            <a href="https://github.com/manish591">Github</a>
+            <a
+              href="https://github.com/manish591"
+              target="_black"
+              rel="noreferrer">
+              Github
+            </a>
           </li>
           <li className="footer__items">
-            <a href="https://twitter.com/manishdevrani77">Twitter</a>
+            <a
+              href="https://twitter.com/manishdevrani77"
+              target="_black"
+              rel="noreferrer">
+              Twitter
+            </a>
           </li>
           <li className="footer__items">
-            <a href="https://www.linkedin.com/in/manishdevrani77/">LinkedIn</a>
+            <a
+              href="https://www.linkedin.com/in/manishdevrani77/"
+              target="_black"
+              rel="noreferrer">
+              LinkedIn
+            </a>
           </li>
         </ul>
       </div>
