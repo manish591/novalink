@@ -52,7 +52,10 @@ const CreatePostModal = ({
         className="fixed inset-0 bg-[rgba(25,25,25,50%)]"
         role="button"
         tabIndex={0}
-        onClick={() => setIsOpenPostModal((prev) => !prev)}
+        onClick={() => {
+          setIsOpenPostModal(false);
+          setIsEditPost((p) => !p);
+        }}
         onKeyUp={() => setIsOpenPostModal((prev) => !prev)}>
         &nbsp;
       </div>
