@@ -22,7 +22,11 @@ const LandingPage = () => {
                 </Link>
               </li>
               <li>
-                <a href="https://github.com/manish591" className="font-bold">
+                <a
+                  href="https://github.com/manish591"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-bold">
                   Github
                 </a>
               </li>
