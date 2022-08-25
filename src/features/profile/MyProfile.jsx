@@ -13,8 +13,11 @@ import { UserList } from './components/user-list/UserList';
 const MyProfile = () => {
   const [openModal, setOpenModal] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
+  const [userFollowerFollowingData, setUserFollowerFollowingData] = useState(
+    [],
+  );
   const [showUserList, setShowUserList] = useState({
-    type: '',
+    type: 'followers',
     isOpen: false,
   });
   const navigate = useNavigate();
@@ -30,6 +33,9 @@ const MyProfile = () => {
     if (username) {
       dispatch(getUserData(username));
       dispatch(getUsersPostData(username));
+      if (profileData) {
+        setUserFollowerFollowingData(profileData[showUserList.type]);
+      }
     }
   }, [username, currentUser]);
 
@@ -215,6 +221,7 @@ const MyProfile = () => {
         <UserList
           showUserList={showUserList}
           setShowUserList={setShowUserList}
+          userData={userFollowerFollowingData}
         />
       )}
       <ProfileOptions openModal={openModal} setOpenModal={setOpenModal} />

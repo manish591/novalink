@@ -11,9 +11,11 @@ import {
 import { Link } from 'react-router-dom';
 import { PostActions } from './components/PostActions';
 import { MobileCommentsSection } from './components/MobileCommentsSection';
+import { LikedBy } from './components/LikedBy';
+import { Caption } from './components/Caption';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
-  const { _id, mediaURL, username, likes, comments, content } = post;
+  const { _id, mediaURL, username, likes, comments, content, createdAt } = post;
   const [showMoreContent, setShowMoreContent] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [openPostActions, setOpenPostActions] = useState(false);
@@ -74,7 +76,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
             />
           </div>
           <div className="w-full px-4">
-            <div className="flex items-center justify-between py-2.5">
+            <div className="flex items-center justify-between pt-2.5">
               <section className="flex items-center justify-between gap-4 sm:gap-4">
                 <div className="flex items-center gap-1">
                   {likes.likedBy.some(
@@ -157,29 +159,13 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
               </section>
             </div>
           </div>
-          <section className="text-sm sm:text-base px-4">
-            <p>
-              {content && showMoreContent
-                ? content.slice(0)
-                : content.slice(0, 100)}
-              &nbsp;
-              {!showMoreContent ? (
-                <button
-                  type="button"
-                  className="text-[blue] text-xs"
-                  onClick={() => setShowMoreContent(true)}>
-                  See more
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="text-[blue] text-xs"
-                  onClick={() => setShowMoreContent(false)}>
-                  See less
-                </button>
-              )}
-            </p>
-          </section>
+          <LikedBy likes={likes} />
+          <Caption
+            content={content}
+            showMoreContent={showMoreContent}
+            setShowMoreContent={setShowMoreContent}
+            createdAt={createdAt}
+          />
         </section>
         {openPostActions ? (
           <PostActions
@@ -209,6 +195,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
 UserPost.propTypes = {
   post: PropTypes.object.isRequired,
   setIsOpenPostModal: PropTypes.func.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export { UserPost };
