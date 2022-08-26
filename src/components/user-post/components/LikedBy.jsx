@@ -10,7 +10,7 @@ const LikedBy = ({ likes }) => {
   });
   const { likeCount, likedBy } = likes;
   return (
-    <section className="w-full px-4 py-2">
+    <section className="w-full py-2">
       {likeCount < 1 ? (
         <p className="text-base">
           Be the first one to <strong>Like this</strong>
