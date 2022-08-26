@@ -241,7 +241,9 @@ const postSlice = createSlice({
     });
     builder.addCase(getPostComments.fulfilled, (state, action) => {
       state.commentStatus = API_STATE.SUCCESS;
-      state.commentData = action.payload.comments;
+      state.commentData = action.payload.comments
+        ? action.payload.comments
+        : [];
     });
     builder.addCase(getPostComments.rejected, (state, action) => {
       state.commentStatus = API_STATE.FAILED;
