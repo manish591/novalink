@@ -30,6 +30,7 @@ const Settings = () => {
                 className="border py-1 px-3 mt-4"
                 onClick={() => {
                   dispatch(logoutUser());
+                  navigate('/');
                 }}>
                 Logout
               </button>

@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  CreatePostModal,
-  addToBookmark,
-  removeFromBookmark,
-  likePost,
-  dislikePost,
-} from 'features';
+import { useSelector } from 'react-redux';
+import { CreatePostModal } from 'features';
 import { Link } from 'react-router-dom';
 import { PostActions } from './components/PostActions';
 import { MobileCommentsSection } from './components/MobileCommentsSection';
+import { LikedBy } from './components/LikedBy';
+import { UserActions } from './components/UserActions';
+import { Caption } from './components/Caption';
 
 const UserPost = ({ post, setIsOpenPostModal }) => {
-  const { _id, mediaURL, username, likes, comments, content } = post;
+  const { _id, mediaURL, username, likes, comments, content, createdAt } = post;
   const [showMoreContent, setShowMoreContent] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [openPostActions, setOpenPostActions] = useState(false);
   const [isEditPost, setIsEditPost] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const allUsersData = useSelector((state) => state.users.usersData);
-  const token = useSelector((state) => state.authentication.token);
-  const myBookmarks = useSelector((state) => state.authentication.bookmarks);
-  const currentUser = useSelector((state) => state.authentication.currentUser);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (username) {
@@ -70,116 +63,28 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
             <img
               src={mediaURL ?? ''}
               alt="post"
-              className="min-w-full rounded-2xl object-cover lg:aspect-video"
+              className="min-w-full rounded-2xl object-cover"
             />
           </div>
-          <div className="w-full px-4">
-            <div className="flex items-center justify-between py-2.5">
-              <section className="flex items-center justify-between gap-4 sm:gap-4">
-                <div className="flex items-center gap-1">
-                  {likes.likedBy.some(
-                    (item) => item.username === currentUser.username,
-                  ) ? (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        dispatch(dislikePost({ postId: _id, token }));
-                      }}>
-                      <span className="material-icons-outlined text-xl">
-                        favorite
-                      </span>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        dispatch(likePost({ postId: _id, token }));
-                      }}>
-                      <span className="material-icons-outlined text-xl">
-                        favorite_border
-                      </span>
-                    </button>
-                  )}
-                  <p className="text-sm sm:text-sm">{likes?.likeCount}</p>
-                </div>
-                <button
-                  type="button"
-                  className="flex items-center gap-2 sm:hidden inline-block"
-                  onClick={() => {
-                    setShowComments((sc) => !sc);
-                  }}>
-                  <span className="material-icons-outlined text-xl">
-                    chat_bubble_outline
-                  </span>
-                  <p className="text-sm sm:text-sm">
-                    {comments ? comments.length : 0}
-                  </p>
-                </button>
-                <Link
-                  to={`/post/${_id}`}
-                  className="hidden sm:flex flex items-center gap-2">
-                  <span className="material-icons-outlined text-xl">
-                    chat_bubble_outline
-                  </span>
-                  <p className="text-sm sm:text-sm">
-                    {comments ? comments.length : 0}
-                  </p>
-                </Link>
-                <div className="flex items-center gap-1">
-                  <span className="material-icons-outlined text-xl">
-                    ios_share
-                  </span>
-                  <p className="text-sm sm:text-sm">7K</p>
-                </div>
-              </section>
-              <section>
-                {myBookmarks.some((item) => item === _id) ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      dispatch(removeFromBookmark({ postId: _id, token }));
-                    }}>
-                    <span className="material-icons-outlined text-xl">
-                      bookmark
-                    </span>
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      dispatch(addToBookmark({ postId: _id, token }));
-                    }}>
-                    <span className="material-icons-outlined text-xl">
-                      bookmark_border
-                    </span>
-                  </button>
-                )}
-              </section>
-            </div>
+          <div className="px-4">
+            <UserActions
+              comments={comments}
+              likes={likes}
+              setShowComments={setShowComments}
+              _id={_id}
+            />
           </div>
-          <section className="text-sm sm:text-base px-4">
-            <p>
-              {content && showMoreContent
-                ? content.slice(0)
-                : content.slice(0, 100)}
-              &nbsp;
-              {!showMoreContent ? (
-                <button
-                  type="button"
-                  className="text-[blue] text-xs"
-                  onClick={() => setShowMoreContent(true)}>
-                  See more
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="text-[blue] text-xs"
-                  onClick={() => setShowMoreContent(false)}>
-                  See less
-                </button>
-              )}
-            </p>
-          </section>
+          <div className="px-4">
+            <LikedBy likes={likes} />
+          </div>
+          <div className="px-4">
+            <Caption
+              content={content}
+              showMoreContent={showMoreContent}
+              setShowMoreContent={setShowMoreContent}
+              createdAt={createdAt}
+            />
+          </div>
         </section>
         {openPostActions ? (
           <PostActions
@@ -209,6 +114,7 @@ const UserPost = ({ post, setIsOpenPostModal }) => {
 UserPost.propTypes = {
   post: PropTypes.object.isRequired,
   setIsOpenPostModal: PropTypes.func.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export { UserPost };

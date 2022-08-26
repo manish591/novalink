@@ -2,13 +2,13 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { followThisUser, unFollowThisUser } from 'features/users/usersSlice';
+import { Link } from 'react-router-dom';
 
-const UserList = ({ showUserList, setShowUserList }) => {
+const UserList = ({ showUserList, setShowUserList, userData }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
-  const profileData = useSelector((state) => state.profile.profileData);
-  const users = profileData[showUserList.type];
   const currentUser = useSelector((state) => state.authentication.currentUser);
+  const profileData = useSelector((state) => state.profile.profileData);
 
   return (
     <section className="fixed inset-0 z-[30]">
@@ -23,10 +23,8 @@ const UserList = ({ showUserList, setShowUserList }) => {
         &nbsp;
       </button>
       <div className="fixed inset-0 h-max m-auto w-[80%] max-w-[400px] bg-[white] rounded-lg">
-        <h3 className="font-bold border-b p-4 pb-2">
-          Your {showUserList.type}
-        </h3>
-        {users.length < 1 && (
+        <h3 className="font-bold border-b p-4 pb-2">{showUserList.type}</h3>
+        {userData.length < 1 && (
           <div className="h-[150px] p-4 flex items-center justify-center">
             <div className="text-center">
               <span className="material-icons-outlined text-4xl">
@@ -43,7 +41,7 @@ const UserList = ({ showUserList, setShowUserList }) => {
           </div>
         )}
         <ul className="mt-4 p-4 flex flex-col gap-2 py-2">
-          {users.map((item) => {
+          {userData.map((item) => {
             return (
               <li
                 key={item._id}
@@ -54,10 +52,10 @@ const UserList = ({ showUserList, setShowUserList }) => {
                     alt="person"
                     className="w-[45px] h-[45px] object-cover rounded-full"
                   />
-                  <div>
+                  <Link to={`/profile/${item.username}`}>
                     <p className="font-bold text-sm">{item.name}</p>
                     <p className="text-sm">@{item.username}</p>
-                  </div>
+                  </Link>
                 </div>
                 {currentUser._id !== item._id && (
                   <div className="ml-auto">
@@ -106,6 +104,7 @@ const UserList = ({ showUserList, setShowUserList }) => {
 UserList.propTypes = {
   showUserList: propTypes.object.isRequired,
   setShowUserList: propTypes.func.isRequired,
+  userData: propTypes.array.isRequired,
 };
 
 export { UserList };

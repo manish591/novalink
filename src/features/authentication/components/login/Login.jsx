@@ -25,11 +25,18 @@ const Login = () => {
     }
   }, [isUserLoggedIn]);
 
-  const handleLoginUser = (e) => {
+  const handleLoginUser = async (e) => {
     e.preventDefault();
-    dispatch(
-      loginUser({ username: loginData.username, password: loginData.password }),
-    );
+    try {
+      await dispatch(
+        loginUser({
+          username: loginData.username,
+          password: loginData.password,
+        }),
+      ).unwrap();
+    } catch (err) {
+      setLoginErrorData({ ...loginErrorData, passwordError: err.errors });
+    }
   };
 
   const handleGuestLogin = () => {

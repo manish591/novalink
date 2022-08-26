@@ -11,3 +11,4 @@ export { ProtectedRoute } from '../common/routes/ProtectedRoute';
 export { Loader } from './loader/Loader';
 export { PostActions } from './user-post/components/PostActions';
 export { NotFound } from './not-found/NotFound';
+export { Footer } from './footer/Footer';

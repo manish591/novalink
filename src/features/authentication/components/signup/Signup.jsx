@@ -23,9 +23,13 @@ const Signup = () => {
   );
   const navigate = useNavigate();
 
-  const handleUserSingup = (e) => {
+  const handleUserSingup = async (e) => {
     e.preventDefault();
-    dispatch(signupUser(signupData));
+    try {
+      await dispatch(signupUser(signupData)).unwrap();
+    } catch (err) {
+      setSignupErrorData({ ...signupErrorData, usernameError: err.errors });
+    }
   };
 
   const handleValidateUser = (e) => {
