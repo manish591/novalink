@@ -9,7 +9,7 @@ const Caption = ({
   createdAt,
 }) => {
   return (
-    <section className="text-sm sm:text-base px-4">
+    <section className="text-sm sm:text-base">
       <p>
         {content && showMoreContent ? content.slice(0) : content.slice(0, 100)}
         {!showMoreContent && '...'}&nbsp;
