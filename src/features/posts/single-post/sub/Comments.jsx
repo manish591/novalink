@@ -88,6 +88,8 @@ const Comments = ({
                                   token,
                                 }),
                               );
+                              setIsEditComment(false);
+                              setCommentText('');
                             }}>
                             Delete
                           </button>

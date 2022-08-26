@@ -59,10 +59,7 @@ const CreatePostModal = ({
         onKeyUp={() => setIsOpenPostModal((prev) => !prev)}>
         &nbsp;
       </div>
-      <div
-        className={`fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto] ${
-          isEditPost && 'sm:h-[550px]'
-        }`}>
+      <div className="fixed inset-0 sm:w-[95%] lg:w-[800px] sm:m-auto sm:h-max bg-white z-20 grid grid-rows-[auto_minmax(0,_1fr)_auto] sm:h-[550px]">
         {!imageFileName && !isEditPost ? (
           <div className="hidden sm:block absolute inset-0 bg-[white]">
             <div className="flex flex-col items-center justify-center h-[100%] gap-4">
@@ -134,7 +131,7 @@ const CreatePostModal = ({
             )}
           </section>
         </div>
-        <section className="mt-4 sm:mt-0 overflow-y-auto">
+        <section className="mt-4 sm:mt-0 overflow-y-auto min-h-[400px]">
           <div className="w-11/12 m-auto sm:w-[100%]">
             <section className="grid gap-4 grid-cols-1 sm:grid-cols-[60%,minmax(0,1fr)]">
               <section className="sm:col-start-2 sm:py-2 sm:pr-2">
@@ -183,7 +180,7 @@ const CreatePostModal = ({
                     <img
                       src={myPostData.mediaURL}
                       alt=""
-                      className="max-w-full aspect-square sm:aspect-none object-cover"
+                      className="max-w-full aspect-[1/1.2] sm:aspect-none object-cover"
                     />
                   </div>
                 )}

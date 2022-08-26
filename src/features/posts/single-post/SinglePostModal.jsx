@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { ActivityBar, Navbar, Sidebar } from 'components';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { addPostComment, editPostComment } from 'features';
+import { useSelector } from 'react-redux';
+import { UserActions } from 'components/user-post/components/UserActions';
+import { MobileCommentsSection } from 'components/user-post/components/MobileCommentsSection';
+import { LikedBy } from 'components/user-post/components/LikedBy';
+import { Caption } from 'components/user-post/components/Caption';
 import { Comments } from './sub/Comments';
-import { PostOptions } from './sub/PostOption';
+import { AddCommentsForm } from './sub/AddCommentForm';
 
 const SinglePostModal = () => {
   const [commentText, setCommentText] = useState('');
   const [isEditComment, setIsEditComment] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [showMoreContent, setShowMoreContent] = useState(false);
   const [commentId, setCommentId] = useState('');
   const { postId } = useParams();
   const allPosts = useSelector((state) => state.post.postData);
   const currentUserPost = allPosts.find((item) => item._id === postId);
-  const token = useSelector((state) => state.authentication.token);
-  const dispatch = useDispatch();
-
-  const handleAddMyComment = (e) => {
-    e.preventDefault();
-    dispatch(addPostComment({ postId, commentData: commentText, token }));
-    setCommentText('');
-  };
 
   return (
     <div className="lg:grid lg:grid-cols-[80px_minmax(0,1fr)_350px]">
@@ -39,9 +36,9 @@ const SinglePostModal = () => {
         <section className="hidden sm:block sticky top-0 z-[20]">
           <Navbar />
         </section>
-        <section className="w-11/12 md:w-[80%] m-auto mt-4 mb-8 sm:mb-0 grid grid-cols-1 sm:grid-cols-[60%_minmax(0,1fr)] sm:border lg:mb-8">
-          <div className="sm:grid sm:grid-rows-[auto_minmax(0,1fr)_auto] sm:gap-4">
-            <section className="flex justify-between items-center sm:py-3 sm:px-2 lg:px-4 sm:border-b">
+        <section className="sm:w-11/12 m-auto mt-4 mb-8 sm:mb-0 grid grid-cols-1 sm:grid-cols-[60%_minmax(0,1fr)] sm:border lg:mb-8 relative">
+          <div className="sm:grid sm:grid-rows-[auto_minmax(0,1fr)_auto]">
+            <section className="flex justify-between items-center sm:py-3 px-2 lg:px-4 sm:border-b">
               <div className="flex items-center justify-center gap-2 sm:gap-3">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full inline-block">
                   <img
@@ -63,13 +60,7 @@ const SinglePostModal = () => {
                 <span className="material-icons-outlined">more_horiz</span>
               </button>
             </section>
-            <section className="sm:hidden text-sm sm:text-base mt-2">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Deserunt aperiam provident dolor.
-              </p>
-            </section>
-            <section className="hidden sm:block sm:px-2 lg:px-4 max-h-[520px] overflow-hidden overflow-y-auto mb-10">
+            <section className="hidden sm:block sm:px-2 lg:px-4 py-2 max-h-[400px] overflow-hidden overflow-y-auto">
               <Comments
                 postId={postId}
                 setIsEditComment={setIsEditComment}
@@ -77,70 +68,53 @@ const SinglePostModal = () => {
                 setCommentId={setCommentId}
               />
             </section>
-            <section className="hidden sm:block">
-              <form
-                className="m-auto py-2 px-3 lg:px-4"
-                onSubmit={handleAddMyComment}>
-                <section className="border-2 border-[#999999] rounded-full bg-[white] flex items-center gap-2 py-2 px-2">
-                  <section className="flex-1">
-                    <label htmlFor="comment" className="sr-only">
-                      Comment
-                    </label>
-                    <input
-                      type="text"
-                      id="comment"
-                      className="w-full outline-none"
-                      placeholder="Write a comment..."
-                      value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
-                      required
-                    />
-                  </section>
-                  <section>
-                    {isEditComment ? (
-                      <button
-                        type="button"
-                        className="text-xs text-[hotpink]"
-                        onClick={() => {
-                          dispatch(
-                            editPostComment({
-                              postId,
-                              commentId,
-                              token,
-                              commentData: commentText,
-                            }),
-                          );
-                          setCommentId('');
-                          setCommentText('');
-                          setIsEditComment(false);
-                        }}>
-                        Update
-                      </button>
-                    ) : (
-                      <button type="submit" className="text-xs text-[hotpink]">
-                        Post
-                      </button>
-                    )}
-                  </section>
-                </section>
-              </form>
+            <section className="absolute top-[100%] left-0 w-full sm:static sm:border-t sm:pt-2">
+              <div className="pb-2 px-2 lg:px-5 w-full">
+                <UserActions
+                  comments={currentUserPost?.comments}
+                  likes={currentUserPost?.likes}
+                  setShowComments={setShowComments}
+                  _id={postId}
+                />
+              </div>
+              <AddCommentsForm
+                commentText={commentText}
+                isEditComment={isEditComment}
+                commentId={commentId}
+                postId={postId}
+                setIsEditComment={setIsEditComment}
+                setCommentText={setCommentText}
+                setCommentId={setCommentId}
+              />
+              <div className="sm:hidden px-2">
+                <LikedBy likes={currentUserPost?.likes} />
+                <Caption
+                  content={currentUserPost?.content}
+                  showMoreContent={showMoreContent}
+                  setShowMoreContent={setShowMoreContent}
+                  createdAt={currentUserPost?.createdAt}
+                />
+              </div>
             </section>
           </div>
-          <section className="relative rounded-xl shadow-md mt-2 sm:mt-0 sm:col-start-1 sm:col-end-2 sm:row-start-1">
-            <div className="rounded-xl sm:rounded-none h-full">
+          <section className="relative rounded-xl shadow-md mt-4 sm:mt-0 sm:col-start-1 sm:col-end-2 sm:row-start-1">
+            <div className="sm:rounded-none h-full">
               <img
                 src={currentUserPost.mediaURL}
                 alt="post"
-                className="min-w-full rounded-xl h-full sm:rounded-none object-cover lg:aspect-video"
+                className="min-w-full h-full sm:rounded-none object-cover lg:aspect-video"
               />
-            </div>
-            <div className="sm:hidden">
-              <PostOptions />
             </div>
           </section>
         </section>
       </div>
       <ActivityBar />
+      {showComments && (
+        <MobileCommentsSection
+          setShowComments={setShowComments}
+          postId={postId}
+        />
+      )}
     </div>
   );
 };
