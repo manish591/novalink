@@ -2,25 +2,27 @@ import React, { useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const SearchResults = ({ usersFound, setShowSerchResultsModal }) => {
+const SearchResults = ({ usersFound, setQuery }) => {
   const compRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const isClickedOutside = (e) => {
       if (compRef && !compRef.current.contains(e.target)) {
-        setShowSerchResultsModal((prev) => !prev);
+        setQuery('');
       }
     };
 
     document.addEventListener('mouseup', isClickedOutside);
 
-    return () => document.removeEventListener('mouseout', isClickedOutside);
+    return () => {
+      document.removeEventListener('mouseup', isClickedOutside);
+    };
   }, [compRef]);
 
   return (
     <div
-      className="absolute top-[110%] w-11/12 left-[5%] bg-white drop-shadow-xl py-2"
+      className="absolute top-[110%] w-full left-[0] bg-white drop-shadow-xl py-2"
       ref={compRef}>
       <h1 className="px-2">Serach results</h1>
       {usersFound.length < 1 && (
@@ -44,9 +46,9 @@ const SearchResults = ({ usersFound, setShowSerchResultsModal }) => {
                   alt="person"
                   className="w-[45px] h-[45px] object-cover rounded-full"
                 />
-                <div>
-                  <p className="font-bold text-sm">{user.name}</p>
-                  <p className="text-sm text-left">@{user.username}</p>
+                <div className="text-left">
+                  <p className="font-bold text-sm">@{user.username}</p>
+                  <p className="text-sm text-left">{user.name}</p>
                 </div>
               </div>
             </button>
@@ -59,7 +61,7 @@ const SearchResults = ({ usersFound, setShowSerchResultsModal }) => {
 
 SearchResults.propTypes = {
   usersFound: propTypes.array.isRequired,
-  setShowSerchResultsModal: propTypes.func.isRequired,
+  setQuery: propTypes.func.isRequired,
 };
 
 export { SearchResults };
