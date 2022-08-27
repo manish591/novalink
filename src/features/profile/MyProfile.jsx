@@ -17,7 +17,7 @@ const MyProfile = () => {
     [],
   );
   const [showUserList, setShowUserList] = useState({
-    type: 'followers',
+    type: '',
     isOpen: false,
   });
   const navigate = useNavigate();
@@ -33,11 +33,16 @@ const MyProfile = () => {
     if (username) {
       dispatch(getUserData(username));
       dispatch(getUsersPostData(username));
-      if (profileData) {
-        setUserFollowerFollowingData(profileData[showUserList.type]);
-      }
     }
-  }, [username, currentUser]);
+  }, [username]);
+
+  useEffect(() => {
+    if (profileData) {
+      const dataKey = showUserList.type;
+      const data = profileData[dataKey] || [];
+      setUserFollowerFollowingData([...data]);
+    }
+  }, [profileData, showUserList]);
 
   return (
     <div>
