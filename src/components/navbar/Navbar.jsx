@@ -11,7 +11,7 @@ const Navbar = () => {
             novalink
           </Link>
         </div>
-        <div className="flex gap-3 lg:gap-5 items-center ml-auto">
+        <div className="flex gap-3 lg:gap-5 items-center ml-auto hidden sm:block">
           <SearchBar />
         </div>
       </section>

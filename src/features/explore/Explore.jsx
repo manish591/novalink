@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityBar, BottomBar, Navbar, Sidebar } from 'components';
+import { ActivityBar, BottomBar, Navbar, Sidebar, SearchBar } from 'components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,22 +17,8 @@ const Explore = () => {
         <div className="hidden sm:block sticky top-0">
           <Navbar />
         </div>
-        <section className="py-2 border sm:hidden">
-          <form className="w-11/12 m-auto">
-            <section className="flex gap-1 border rounded-md">
-              <label
-                htmlFor="search"
-                className="flex items-center justify-center">
-                <span className="material-icons-outlined">search</span>
-              </label>
-              <input
-                type="text"
-                id="search"
-                className="w-full py-2 outline-none px-2 rounded-md"
-                placeholder="Search Here..."
-              />
-            </section>
-          </form>
+        <section className="px-4 py-2 border sm:hidden">
+          <SearchBar />
         </section>
         <section className="mt-4 mb-16 w-11/12 m-auto">
           <div className="columns-2 gap-2 lg:columns-3">

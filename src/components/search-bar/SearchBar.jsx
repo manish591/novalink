@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SearchResults } from './SearchResults';
+import { useDebounce } from './hooks/useDebounce';
+
+const getUserList = (arr, query) => {
+  if (!query) return [];
+  return arr.filter((user) =>
+    user.username.toLowerCase().includes(query.toLowerCase()),
+  );
+};
 
 const SearchBar = () => {
   const [query, setQuery] = useState('');
-  const [showSearchResultsModal, setShowSerchResultsModal] = useState(false);
+  const [predictions, setPredictions] = useState([]);
   const users = useSelector((state) => state.users.usersData);
-  const usersFound = users.filter(
-    (user) => query !== '' && user.username.includes(query),
-  );
+
+  const debouncedFunction = useDebounce((q) => {
+    const userData = getUserList(users, q);
+    setPredictions(userData);
+  }, 300);
 
   const handleSearchUsers = (e) => {
-    e.preventDefault();
-    if (query !== '') {
-      setShowSerchResultsModal((prev) => !prev);
-    }
+    setQuery(e.target.value);
+    debouncedFunction(e.target.value);
   };
 
   return (
     <div className="relative">
-      <form className="hidden sm:block" onSubmit={handleSearchUsers}>
+      <form className="block">
         <section className="border border-[#EFEFEF] bg-[#EFEFEF] py-2.5 px-2 rounded-lg">
           <div className="flex items-center gap-2">
             <span className="material-icons-outlined">search</span>
@@ -27,17 +35,14 @@ const SearchBar = () => {
               type="text"
               className="bg-transparent outline-none lg:w-[300px]"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={handleSearchUsers}
             />
           </div>
         </section>
       </form>
-      {showSearchResultsModal && (
-        <SearchResults
-          usersFound={usersFound}
-          setShowSerchResultsModal={setShowSerchResultsModal}
-        />
-      )}
+      {predictions.length ? (
+        <SearchResults usersFound={predictions} setQuery={setQuery} />
+      ) : null}
     </div>
   );
 };
